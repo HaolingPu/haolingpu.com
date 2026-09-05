@@ -1,0 +1,122 @@
+---
+import BackToPrev from "@components/BackToPrev.astro";
+import FormattedDate from "@components/FormattedDate.astro";
+import Container from "@components/ui/Container.astro";
+import Link from "@components/ui/Link.astro";
+import Prose from "@components/ui/Prose.astro";
+import BaseLayout from "@layouts/BaseLayout.astro";
+import type { MarkdownHeading } from "astro";
+
+/**
+ * Long-form page: title, date, reading time, desktop table of contents,
+ * prev/next. Used by writing posts and project write-ups.
+ */
+type Neighbor = { href: string; title: string };
+type Props = {
+  title: string;
+  description: string;
+  date?: Date;
+  readingTime?: string;
+  headings?: MarkdownHeading[];
+  backHref?: string;
+  backLabel?: string;
+  prev?: Neighbor;
+  next?: Neighbor;
+  image?: string;
+};
+
+const {
+  title,
+  description,
+  date,
+  readingTime,
+  headings = [],
+  backHref,
+  backLabel = "Back",
+  prev,
+  next,
+  image,
+} = Astro.props;
+
+const toc = headings.filter((h) => h.depth === 2 || h.depth === 3);
+---
+
+<BaseLayout title={title} description={description} image={image}>
+  <Container size="wide">
+    <div class="xl:grid xl:grid-cols-[1fr_minmax(0,68ch)_1fr] xl:gap-10">
+      <div class="xl:col-start-2">
+        {
+          backHref && (
+            <div class="animate">
+              <BackToPrev href={backHref}>{backLabel}</BackToPrev>
+            </div>
+          )
+        }
+        <header class="my-10 space-y-3">
+          {
+            (date || readingTime) && (
+              <div class="animate flex items-center gap-2 font-mono text-xs text-fg-subtle">
+                {date && <FormattedDate date={date} />}
+                {date && readingTime && <span aria-hidden="true">·</span>}
+                {readingTime && <span>{readingTime}</span>}
+              </div>
+            )
+          }
+          <h1 class="animate text-display">{title}</h1>
+          <p class="animate text-lg text-fg-muted">{description}</p>
+        </header>
+
+        <Prose class="animate">
+          <slot />
+        </Prose>
+
+        {
+          (prev || next) && (
+            <nav
+              aria-label="Adjacent pages"
+              class="animate mt-16 grid gap-3 border-t border-border pt-8 sm:grid-cols-2"
+            >
+              <div>
+                {prev && (
+                  <a href={prev.href} class="group block rounded-lg border border-border bg-surface p-4 transition-colors hover:border-border-strong">
+                    <div class="font-mono text-xs text-fg-subtle">← previous</div>
+                    <div class="mt-1 font-medium text-fg">{prev.title}</div>
+                  </a>
+                )}
+              </div>
+              <div class="sm:text-right">
+                {next && (
+                  <a href={next.href} class="group block rounded-lg border border-border bg-surface p-4 transition-colors hover:border-border-strong">
+                    <div class="font-mono text-xs text-fg-subtle">next →</div>
+                    <div class="mt-1 font-medium text-fg">{next.title}</div>
+                  </a>
+                )}
+              </div>
+            </nav>
+          )
+        }
+      </div>
+
+      {
+        toc.length > 0 && (
+          <aside class="hidden xl:col-start-3 xl:block">
+            <nav aria-label="Table of contents" class="sticky top-28 max-w-[220px]">
+              <div class="mb-3 font-mono text-xs uppercase tracking-[0.12em] text-fg-subtle">
+                On this page
+              </div>
+              <ul class="space-y-2 text-sm">
+                {toc.map((h) => (
+                  <li class:list={[h.depth === 3 && "pl-3"]}>
+                    <Link href={`#${h.slug}`} underline={false} class="text-fg-muted hover:text-fg">
+                      {h.text}
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            </nav>
+          </aside>
+        )
+      }
+    </div>
+  </Container>
+</BaseLayout>

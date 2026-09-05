@@ -4,7 +4,7 @@ import BackToPrev from "@components/BackToPrev.astro";
 import FormattedDate from "@components/FormattedDate.astro";
 import Container from "@components/ui/Container.astro";
 import Link from "@components/ui/Link.astro";
-import PageLayout from "@layouts/PageLayout.astro";
+import BaseLayout from "@layouts/BaseLayout.astro";
 import { readingTime } from "@lib/utils";
 
 export async function getStaticPaths() {
@@ -22,7 +22,7 @@ const project = Astro.props;
 const { Content } = await render(project);
 ---
 
-<PageLayout title={project.data.title} description={project.data.description}>
+<BaseLayout title={project.data.title} description={project.data.description}>
   <Container>
     <div class="animate">
       <BackToPrev href="/projects">
@@ -64,4 +64,4 @@ const { Content } = await render(project);
       <Content />
     </article>
   </Container>
-</PageLayout>
+</BaseLayout>

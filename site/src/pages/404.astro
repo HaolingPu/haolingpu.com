@@ -1,0 +1,26 @@
+---
+import Button from "@components/ui/Button.astro";
+import Container from "@components/ui/Container.astro";
+import BaseLayout from "@layouts/BaseLayout.astro";
+---
+
+<BaseLayout title="404" description="Page not found.">
+  <Container>
+    <div class="space-y-6">
+      <div class="animate font-mono text-xs uppercase tracking-[0.12em] text-fg-subtle">
+        HTTP 404
+      </div>
+      <h1 class="animate text-hero">Segmentation fault.</h1>
+      <pre class="animate overflow-x-auto rounded-md border border-border bg-surface p-4 font-mono text-sm text-fg-muted"><code>$ cat {Astro.url.pathname}
+cat: {Astro.url.pathname}: No such file or directory
+(core dumped)</code></pre>
+      <p class="animate">
+        The page moved, never existed, or I broke it. Either way the stack trace ends here.
+      </p>
+      <div class="animate flex gap-3">
+        <Button href="/" variant="primary">Back home</Button>
+        <Button href="/projects">See projects</Button>
+      </div>
+    </div>
+  </Container>
+</BaseLayout>

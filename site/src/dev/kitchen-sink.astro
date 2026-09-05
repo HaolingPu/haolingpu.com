@@ -6,7 +6,7 @@ import Link from "@components/ui/Link.astro";
 import Prose from "@components/ui/Prose.astro";
 import Section from "@components/ui/Section.astro";
 import Tag from "@components/ui/Tag.astro";
-import PageLayout from "@layouts/PageLayout.astro";
+import BaseLayout from "@layouts/BaseLayout.astro";
 
 const swatches = [
   "bg",
@@ -23,7 +23,7 @@ const swatches = [
 ];
 ---
 
-<PageLayout title="Kitchen sink" description="Dev-only component gallery.">
+<BaseLayout title="Kitchen sink" description="Dev-only component gallery.">
   <Container size="wide">
     <h1 class="text-display">Kitchen sink</h1>
 
@@ -88,4 +88,4 @@ const swatches = [
       </Prose>
     </Section>
   </Container>
-</PageLayout>
+</BaseLayout>

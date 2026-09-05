@@ -1,6 +1,6 @@
 ---
 import Container from "@components/ui/Container.astro";
-import PageLayout from "@layouts/PageLayout.astro";
+import BaseLayout from "@layouts/BaseLayout.astro";
 
 const steps = [
   ["text-hero", "Hero — fluid clamp"],
@@ -15,7 +15,7 @@ const steps = [
 ];
 ---
 
-<PageLayout title="Typography" description="Dev-only type scale.">
+<BaseLayout title="Typography" description="Dev-only type scale.">
   <Container size="wide">
     <h1 class="mb-10 text-display">Type scale</h1>
     <div class="space-y-8">
@@ -30,4 +30,4 @@ const steps = [
       }
     </div>
   </Container>
-</PageLayout>
+</BaseLayout>

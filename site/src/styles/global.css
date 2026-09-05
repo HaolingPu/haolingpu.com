@@ -148,20 +148,23 @@ samp {
   @apply font-mono;
 }
 
-header {
-  @apply fixed top-0 left-0 right-0 z-50 py-5;
-  @apply bg-bg/80 backdrop-blur-md;
-  @apply border-b border-transparent transition-colors duration-300;
+/* Site chrome is scoped by class: pages may use <header>/<footer> freely. */
+.site-header {
+  @apply fixed top-0 left-0 right-0 z-50 py-4;
+  @apply border-b border-transparent bg-bg/80 transition-colors duration-300;
 }
-html.scrolled header {
-  @apply border-border;
+html.scrolled .site-header {
+  @apply border-border backdrop-blur-md;
+}
+html.menu-open {
+  overflow: hidden;
 }
 
 main {
   @apply flex-1 py-32;
 }
 
-footer {
+.site-footer {
   @apply py-8 text-sm;
 }
 
@@ -240,10 +243,3 @@ article {
   }
 }
 /* biome-ignore-end lint/complexity/noImportantStyles: end */
-
-html #back-to-top {
-  @apply opacity-0 pointer-events-none;
-}
-html.scrolled #back-to-top {
-  @apply opacity-100 pointer-events-auto;
-}

@@ -18,3 +18,9 @@ export type Socials = {
   NAME: string;
   HREF: string;
 }[];
+
+export type NavItem = {
+  LABEL: string;
+  HREF: string;
+  ENABLED: boolean;
+};

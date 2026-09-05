@@ -4,8 +4,8 @@ import { glob } from "astro/loaders";
 // Schemas are provisional. Task E1 in ROADMAP.md redefines them
 // (work / projects / research / writing) with the final fields.
 
-const blog = defineCollection({
-  loader: glob({ base: "./src/content/blog", pattern: "**/*.{md,mdx}" }),
+const writing = defineCollection({
+  loader: glob({ base: "./src/content/writing", pattern: "**/*.{md,mdx}" }),
   schema: z.object({
     title: z.string(),
     description: z.string(),
@@ -36,4 +36,4 @@ const projects = defineCollection({
   }),
 });
 
-export const collections = { blog, work, projects };
+export const collections = { writing, work, projects };

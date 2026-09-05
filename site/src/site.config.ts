@@ -1,4 +1,4 @@
-import type { Metadata, Site, Socials } from "@types";
+import type { Metadata, NavItem, Site, Socials } from "@types";
 
 /**
  * Single source of truth for identity, copy and links.
@@ -22,7 +22,7 @@ export const HOME: Metadata = {
     "Haoling Pu — ML systems engineer. CMU AI MS '27, Google intern, CUDA kernels, LLM agents, simultaneous speech translation.",
 };
 
-export const BLOG: Metadata = {
+export const WRITING: Metadata = {
   TITLE: "Writing",
   DESCRIPTION: "Notes on ML systems, kernels, agents and research.",
 };
@@ -41,3 +41,17 @@ export const SOCIALS: Socials = [
   { NAME: "github", HREF: "https://github.com/HaolingPu" },
   { NAME: "linkedin", HREF: "https://www.linkedin.com/in/haoling-pu/" },
 ];
+
+/**
+ * Header navigation. `enabled: false` hides an item until its page exists
+ * (research/about arrive in Phase E; writing stays hidden until the first post — D14).
+ */
+export const NAV: NavItem[] = [
+  { LABEL: "work", HREF: "/work", ENABLED: true },
+  { LABEL: "projects", HREF: "/projects", ENABLED: true },
+  { LABEL: "research", HREF: "/research", ENABLED: false },
+  { LABEL: "writing", HREF: "/writing", ENABLED: false },
+  { LABEL: "about", HREF: "/about", ENABLED: false },
+];
+
+export const REPO_URL = "https://github.com/HaolingPu/haolingpu.com";

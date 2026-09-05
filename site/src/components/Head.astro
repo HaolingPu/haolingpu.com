@@ -121,12 +121,23 @@ const { title, description, image = "/og.png" } = Astro.props;
       button.addEventListener("click", toggleTheme);
     });
 
-    document.getElementById("back-to-top")?.addEventListener("click", (event) => {
-      event.preventDefault();
-      window.scrollTo({ top: 0, behavior: "smooth" });
+    const menu = document.getElementById("mobile-menu");
+    const menuButton = document.querySelector("[data-menu-toggle]");
+    const setMenu = (open) => {
+      if (!menu || !menuButton) return;
+      menu.hidden = !open;
+      menuButton.setAttribute("aria-expanded", String(open));
+      menuButton.setAttribute("aria-label", open ? "Close menu" : "Open menu");
+      menuButton.querySelector(".menu-icon-open")?.classList.toggle("hidden", open);
+      menuButton.querySelector(".menu-icon-close")?.classList.toggle("hidden", !open);
+      document.documentElement.classList.toggle("menu-open", open);
+    };
+    menuButton?.addEventListener("click", () => setMenu(menu?.hidden ?? true));
+    menu?.querySelectorAll("a").forEach((a) => a.addEventListener("click", () => setMenu(false)));
+    document.addEventListener("keydown", (e) => {
+      if (e.key === "Escape") setMenu(false);
     });
-
-    document.getElementById("back-to-prev")?.addEventListener("click", () => window.history.back());
+    document.addEventListener("astro:before-swap", () => setMenu(false), { once: true });
 
     document.addEventListener("scroll", onScroll, { passive: true });
   }

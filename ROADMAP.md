@@ -98,17 +98,17 @@ Legend: `[ ]` todo · `[x]` done · **DoD** = definition of done. Tasks within a
 - [x] **C8** Motion rules: define `--ease-out-quart`, durations 150/250/400ms, and a global `prefers-reduced-motion` kill-switch. DoD: toggling reduced motion in DevTools disables all transitions.
 - [x] **C9** Favicon set + `site.webmanifest` + theme-color meta; design a 1-glyph monogram (`hp` or `>_`) as SVG. DoD: favicon shows in tab, in dark and light.
 
-### Phase D — Shell: navigation, footer, layouts  ·  7 tasks
-- [ ] **D1** Header: monogram left, mono nav (`work · projects · research · writing · about`) right, theme toggle, `⌘K` hint. Sticky with backdrop blur only after scrolling 1 screen. DoD: works at 320px width (collapses to a menu).
-- [ ] **D2** Mobile nav: full-screen overlay, big mono links, closes on route change. DoD: tested on iPhone viewport via browser preview.
-- [ ] **D3** Footer: "Built with Astro · Source on GitHub · Last deployed <date from build>" + socials + email. DoD: build date auto-updates.
-- [ ] **D4** `BaseLayout.astro`: head meta, skip-to-content link, header/footer slots, View Transitions enabled. DoD: page-to-page navigation cross-fades without full reload.
-- [ ] **D5** `ProseLayout.astro` for MDX pages: title, date, reading time, TOC on desktop, prev/next. DoD: renders a dummy MDX file correctly.
-- [ ] **D6** 404 page with a one-line nerd joke and a link home. DoD: `/nonexistent` shows it on Vercel.
-- [ ] **D7** Active-link state (accent underline) using `Astro.url.pathname`. DoD: correct on nested routes like `/writing/foo`.
+### Phase D — Shell: navigation, footer, layouts  ·  7 tasks  — *done 2026-09-05*
+- [x] **D1** Header: monogram left, mono nav right, theme toggle. Nav items come from `NAV` in `site.config.ts` with an `ENABLED` flag (research/writing/about hidden until their pages exist). Blur + border appear after scrolling. `⌘K` hint deferred to G1 so it never shows a dead button. DoD: works at 320px width (collapses to a menu).
+- [x] **D2** Mobile nav: full-screen overlay, big mono links, closes on route change. DoD: tested on iPhone viewport via browser preview.
+- [x] **D3** Footer: "Built with Astro · Source on GitHub · Last deployed <date from build>" + socials + email. DoD: build date auto-updates.
+- [x] **D4** `BaseLayout.astro`: head meta, skip-to-content link, header/footer slots, View Transitions enabled. DoD: page-to-page navigation cross-fades without full reload.
+- [x] **D5** `ProseLayout.astro` for MDX pages: title, date, reading time, TOC on desktop, prev/next. DoD: renders a dummy MDX file correctly. *(Verified with a temporary post, then deleted. Dates are formatted in UTC so frontmatter dates never shift a day.)*
+- [x] **D6** 404 page with a one-line nerd joke and a link home. DoD: `/nonexistent` shows it on Vercel.
+- [x] **D7** Active-link state (accent underline) using `Astro.url.pathname`. DoD: correct on nested routes like `/writing/foo`.
 
 ### Phase E — Content collections & pages  ·  16 tasks
-- [ ] **E1** Define Zod schemas in `src/content.config.ts` for `work` (company, role, start, end, location, logo, highlights[], tech[]), `projects` (title, summary, date, repo, demo, cover, featured, tags[]), `research` (title, venue, status, authors[], abstract, links), `writing` (title, date, summary, tags[], draft). DoD: `astro check` passes with one sample entry each.
+- [ ] **E1** Define Zod schemas in `src/content.config.ts` (the `blog` collection and `/blog` routes were already renamed to `writing` in Phase D) for `work` (company, role, start, end, location, logo, highlights[], tech[]), `projects` (title, summary, date, repo, demo, cover, featured, tags[]), `research` (title, venue, status, authors[], abstract, links), `writing` (title, date, summary, tags[], draft). DoD: `astro check` passes with one sample entry each.
 - [ ] **E2** Write `work/` entries: Google (abstract, per D16), CMU Li Lab (high-level), WeRide, UMSN, AVIAGE — 2–4 highlight bullets each, numbers first where allowed. DoD: 5 files, every bullet ≤ 25 words, D16 respected.
 - [ ] **E3** Write `projects/` entries for the Q5 shortlist (4–6 featured + rest un-featured). DoD: each has summary, tags, repo or "private" flag, and a cover image or placeholder.
 - [ ] **E4** Write `research/` entry for the SimulST work (high-level idea only, per D16) and the NVIDIA MLSys competition. DoD: abstract ≤ 120 words each, no unpublished method details or numbers.

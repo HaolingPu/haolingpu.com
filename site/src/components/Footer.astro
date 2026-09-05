@@ -1,57 +1,46 @@
 ---
-import BackToTop from "@components/BackToTop.astro";
 import Container from "@components/ui/Container.astro";
-import { SITE } from "@site.config";
+import Link from "@components/ui/Link.astro";
+import { REPO_URL, SITE, SOCIALS } from "@site.config";
+
+/* Evaluated at build time on Vercel, so this is the deploy date. */
+const built = new Date().toLocaleDateString("en-US", {
+  month: "short",
+  day: "numeric",
+  year: "numeric",
+});
 ---
 
-<footer class="animate">
-  <Container>
-    <div class="relative">
-      <div class="absolute right-0 -top-20">
-        <BackToTop />
+<footer class="site-footer animate border-t border-border">
+  <Container size="wide">
+    <div class="flex flex-col gap-6 sm:flex-row sm:items-end sm:justify-between">
+      <div class="space-y-2">
+        <div class="text-fg">{SITE.NAME}</div>
+        <ul class="flex flex-wrap gap-x-4 gap-y-1 text-sm">
+          {
+            SOCIALS.map((s) => (
+              <li>
+                <Link href={s.HREF} external underline={false} class="text-fg-muted">
+                  {s.NAME}
+                </Link>
+              </li>
+            ))
+          }
+          <li>
+            <Link href={`mailto:${SITE.EMAIL}`} underline={false} class="text-fg-muted">
+              email
+            </Link>
+          </li>
+        </ul>
       </div>
-    </div>
-    <div class="flex justify-between items-center">
-      <div>
-        &copy; {new Date().getFullYear()} {`|`} {SITE.NAME}
+      <div class="font-mono text-xs text-fg-subtle sm:text-right">
+        <div>
+          built with <Link href="https://astro.build" external underline={false}>astro</Link>
+          {" · "}
+          <Link href={REPO_URL} external underline={false}>source</Link>
+        </div>
+        <div class="mt-1">last deployed {built}</div>
       </div>
-      <button
-        type="button"
-        data-theme-toggle
-        aria-label="Toggle dark / light theme"
-        title="Toggle theme"
-        class="group flex size-8 items-center justify-center rounded-md border border-border text-fg-muted transition-colors duration-200 ease-out-quart hover:border-border-strong hover:text-fg"
-      >
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          width="16"
-          height="16"
-          viewBox="0 0 24 24"
-          fill="none"
-          stroke="currentColor"
-          stroke-width="1.75"
-          stroke-linecap="round"
-          stroke-linejoin="round"
-          class="hidden dark:block"
-        >
-          <circle cx="12" cy="12" r="4"></circle>
-          <path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"></path>
-        </svg>
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          width="16"
-          height="16"
-          viewBox="0 0 24 24"
-          fill="none"
-          stroke="currentColor"
-          stroke-width="1.75"
-          stroke-linecap="round"
-          stroke-linejoin="round"
-          class="block dark:hidden"
-        >
-          <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
-        </svg>
-      </button>
     </div>
   </Container>
 </footer>

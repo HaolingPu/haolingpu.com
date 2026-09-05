@@ -5,11 +5,13 @@ export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
 }
 
+/* Dates in frontmatter are parsed as UTC midnight; format in UTC so the day never shifts. */
 export function formatDate(date: Date) {
   return Intl.DateTimeFormat("en-US", {
     month: "short",
     day: "2-digit",
     year: "numeric",
+    timeZone: "UTC",
   }).format(date);
 }
 
@@ -21,16 +23,16 @@ export function readingTime(html: string) {
 }
 
 export function dateRange(startDate: Date, endDate?: Date | string): string {
-  const startMonth = startDate.toLocaleString("default", { month: "short" });
-  const startYear = startDate.getFullYear().toString();
+  const startMonth = startDate.toLocaleString("en-US", { month: "short", timeZone: "UTC" });
+  const startYear = startDate.getUTCFullYear().toString();
   let end = "";
 
   if (endDate) {
     if (typeof endDate === "string") {
       end = endDate;
     } else {
-      const endMonth = endDate.toLocaleString("default", { month: "short" });
-      end = `${endMonth}${endDate.getFullYear()}`;
+      const endMonth = endDate.toLocaleString("en-US", { month: "short", timeZone: "UTC" });
+      end = `${endMonth}${endDate.getUTCFullYear()}`;
     }
   }
 
