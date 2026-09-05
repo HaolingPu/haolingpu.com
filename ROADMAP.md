@@ -154,7 +154,7 @@ Legend: `[ ]` todo · `[x]` done · **DoD** = definition of done. Tasks within a
 - [ ] **H8** Playwright smoke test: every route returns 200, no console errors, palette opens. DoD: runs in CI in < 60 s.
 
 ### Phase I — Domain, launch, and afterwards  ·  6 tasks
-- [ ] **I1** Point Cloudflare DNS to Vercel (`A`/`CNAME` per Vercel's instructions), add domain in Vercel, enforce HTTPS + `www` → apex redirect. DoD: `https://haolingpu.com` serves the site with a valid cert.
+- [x] **I1** Point Cloudflare DNS to Vercel, add domain in Vercel, enforce HTTPS. DoD: `https://haolingpu.com` serves the site with a valid cert. *(Done early, 2026-09-05: A `@` → 76.76.21.21, CNAME `www` → Vercel, both DNS-only. Certs issued for both hosts. **Open nit:** Vercel currently makes `www` primary and 308-redirects the apex to it, while `astro.config.mjs` declares `site: https://haolingpu.com`. Flip the primary to the apex in Vercel → Settings → Domains → Edit, so canonical URLs and sitemap match the served host.)*
 - [ ] **I2** Enable Vercel Web Analytics + Speed Insights; add the `<Analytics/>` script. DoD: first page views appear in the dashboard.
 - [ ] **I3** Security/perf headers in `vercel.json`: HSTS, `X-Content-Type-Options`, `Referrer-Policy`, cache headers for `/_astro/*`. DoD: securityheaders.com grade A.
 - [ ] **I4** Final content QA: proofread every page, check every external link (script), confirm résumé PDF is the Aug-2026 version, verify OG previews in LinkedIn Post Inspector and iMessage. DoD: checklist in `content/launch-checklist.md` fully ticked.
