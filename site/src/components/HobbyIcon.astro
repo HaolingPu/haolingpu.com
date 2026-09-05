@@ -1,0 +1,52 @@
+---
+type Props = {
+  name: "basketball" | "dumbbell" | "mountain" | "music" | "eightball";
+  class?: string;
+};
+const { name, class: className } = Astro.props;
+---
+
+<svg
+  xmlns="http://www.w3.org/2000/svg"
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="1.6"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+  class={className}
+  aria-hidden="true"
+>
+  {name === "basketball" && (
+    <>
+      <circle cx="12" cy="12" r="9" />
+      <path d="M3.6 8.5c3 1.2 5.4 3.4 6.4 6.4M20.4 8.5c-3 1.2-5.4 3.4-6.4 6.4M12 3v18M3 12h18" />
+    </>
+  )}
+  {name === "dumbbell" && (
+    <>
+      <path d="M6 7v10M18 7v10M3 9v6M21 9v6M6 12h12" />
+      <path d="M8.5 6v12M15.5 6v12" />
+    </>
+  )}
+  {name === "mountain" && (
+    <>
+      <path d="M3 19 9.5 7l3.5 6 2-3 6 9Z" />
+      <path d="M9.5 7l1.5 2.6M12 13l-1.2 2" />
+    </>
+  )}
+  {name === "music" && (
+    <>
+      <path d="M9 18V6l11-2v12" />
+      <circle cx="6" cy="18" r="3" />
+      <circle cx="17" cy="16" r="3" />
+    </>
+  )}
+  {name === "eightball" && (
+    <>
+      <circle cx="12" cy="12" r="9" />
+      <circle cx="12" cy="10.5" r="3.2" />
+      <path d="M11 9.6c.4-.5 1.6-.5 2 0 .4.6-.5 1.1-1 1.4v.7M12 12.7v.1" />
+    </>
+  )}
+</svg>

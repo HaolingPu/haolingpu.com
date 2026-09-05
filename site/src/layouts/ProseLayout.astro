@@ -66,6 +66,11 @@ const toc = headings.filter((h) => h.depth === 2 || h.depth === 3);
           <p class="animate text-lg text-fg-muted">{description}</p>
         </header>
 
+        {Astro.slots.has("meta") && (
+          <div class="animate">
+            <slot name="meta" />
+          </div>
+        )}
         <Prose class="animate">
           <slot />
         </Prose>

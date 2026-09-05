@@ -56,9 +56,9 @@ Template plumbing candidates (skeleton only, per D4):
 - **Q2 — Accent color.** ✅ Amber (user approved the recommendation).
 - **Q3 — Confidentiality.** ✅ Google: abstract, one-paragraph description of the team-wiki system, no details. Research: high-level idea only, no method details or results. See D16.
 - **Q4 — Writing.** ✅ No posts drafted now. Post ideas are listed as backlog only (see F3/F4).
-- **Q5 — Featured projects.** Which 4–6 should be on the home page? Candidates from your résumé + folders: Sparse Attention (NVIDIA MLSys 2026), Hybrid RAG (CMU ANLP), LLM Wiki (Karpathy-style), EchoFrame, Open-LiveTranslate, WeRide cold-start pool, UMSN pregnancy app, PetFinder-Pro, Distributed MapReduce, ICU mortality prediction. Which are public on GitHub, and which have demos/screenshots?
+- **Q5 — Featured projects.** ✅ Built with the proposed set (2026-09-05). Which 4–6 should be on the home page? Candidates from your résumé + folders: Sparse Attention (NVIDIA MLSys 2026), Hybrid RAG (CMU ANLP), LLM Wiki (Karpathy-style), EchoFrame, Open-LiveTranslate, WeRide cold-start pool, UMSN pregnancy app, PetFinder-Pro, Distributed MapReduce, ICU mortality prediction. Which are public on GitHub, and which have demos/screenshots?
 - **Q6 — Photo.** Do you have a headshot you like? Prefer a photo, a monochrome duotone photo, or no photo (initials/logo)?
-- **Q7 — Personal side of "About".** 3–5 things beyond work (hobbies, Michigan→CMU story, where you grew up, what you're obsessed with right now, music/books/games). This is what makes the site *you*.
+- **Q7 — Personal side of "About".** ✅ Hobbies: basketball, gym, rock climbing, music, pool (2026-09-05). 3–5 things beyond work (hobbies, Michigan→CMU story, where you grew up, what you're obsessed with right now, music/books/games). This is what makes the site *you*.
 - **Q8 — Links.** Confirm GitHub `HaolingPu`, LinkedIn `haoling-pu`; add Google Scholar / X / Hugging Face / email you want public?
 - **Q9 — Scope check.** ✅ No deadline. Phases run in order; nothing is rushed past M4.
 
@@ -108,25 +108,25 @@ Legend: `[ ]` todo · `[x]` done · **DoD** = definition of done. Tasks within a
 - [x] **D7** Active-link state (accent underline) using `Astro.url.pathname`. DoD: correct on nested routes like `/writing/foo`.
 
 ### Phase E — Content collections & pages  ·  19 tasks
-- [ ] **E1** Define Zod schemas in `src/content.config.ts` (the `blog` collection and `/blog` routes were already renamed to `writing` in Phase D) for `work` (company, role, start, end, location, logo, highlights[], tech[]), `projects` (title, summary, date, repo, demo, cover, featured, tags[]), `research` (title, venue, status, authors[], abstract, links), `writing` (title, date, summary, tags[], draft). DoD: `astro check` passes with one sample entry each.
-- [ ] **E2** Write `work/` entries: Google (abstract, per D16), CMU Li Lab (high-level), WeRide, UMSN, AVIAGE — 2–4 highlight bullets each, numbers first where allowed. DoD: 5 files, every bullet ≤ 25 words, D16 respected.
-- [ ] **E3** Write `projects/` entries for the Q5 shortlist (4–6 featured + rest un-featured). DoD: each has summary, tags, repo or "private" flag, and a cover image or placeholder.
-- [ ] **E4** Write `research/` entry for the SimulST work (high-level idea only, per D16) and the NVIDIA MLSys competition. DoD: abstract ≤ 120 words each, no unpublished method details or numbers.
-- [ ] **E5** Home `/` — Hero: `$ whoami` mono label, name in `text-hero`, tagline typed out with a blinking cursor (CSS, one cycle, off under reduced motion), headshot slot (monogram placeholder until Q6), primary CTA "Résumé" + secondary "GitHub", 3 hero facts (`22–35×` kernel speedup · `88%` cold-start reduction · `4.0` GPA @ CMU). The **attention-field canvas (G9)** sits behind this section. DoD: fits above the fold on a 13" laptop and a phone.
-- [ ] **E6** Home — "Now" strip: 1 line ("MS AI&I @ CMU, grad May 2027 · looking for 2027 new-grad ML/SWE roles") pulled from `site.config.ts`. DoD: editable in one place.
-- [ ] **E7** Home — Selected work: 3 most recent roles as a compact timeline (mono dates left, role right). DoD: links to `/work`.
-- [ ] **E8** Home — Featured projects grid: 2×2 or 2×3 cards with cover, title, one-liner, tags. DoD: links to `/projects/<slug>`.
-- [ ] **E9** Home — Latest writing: 2 most recent posts, title + date. DoD: hidden automatically when the collection is empty.
-- [ ] **E10** `/work` page: full experience list, sticky-left company / scroll-right details (Brittany-style), logos in monochrome. DoD: all 5 roles, hover state highlights the row.
-- [ ] **E11** `/projects` index: filter pills by tag (`cuda`, `llm`, `systems`, `agents`, `web`) — pure CSS/`:has()` or a tiny island; sort by date. DoD: filtering works without JS errors and with JS disabled (shows all).
-- [ ] **E12** `/projects/[slug]` detail page: hero image, problem → approach → result, tech list, links. DoD: at least the 4 featured projects have real detail pages.
-- [ ] **E13** `/research` page: paper-style cards (title, venue, status badge "under review / preprint / competition"), abstract expander, links to PDF/code when allowed. DoD: two entries rendered.
+- [x] **E1** Define Zod schemas in `src/content.config.ts` (the `blog` collection and `/blog` routes were already renamed to `writing` in Phase D) for `work` (company, role, start, end, location, logo, highlights[], tech[]), `projects` (title, summary, date, repo, demo, cover, featured, tags[]), `research` (title, venue, status, authors[], abstract, links), `writing` (title, date, summary, tags[], draft). DoD: `astro check` passes with one sample entry each.
+- [x] **E2** Write `work/` entries: Google (abstract, per D16), CMU Li Lab (high-level), WeRide, UMSN, AVIAGE — 2–4 highlight bullets each, numbers first where allowed. DoD: 5 files, every bullet ≤ 25 words, D16 respected.
+- [x] **E3** Write `projects/` entries for the Q5 shortlist (4–6 featured + rest un-featured). DoD: each has summary, tags, repo or "private" flag, and a cover image or placeholder.
+- [x] **E4** Write `research/` entry for the SimulST work (high-level idea only, per D16) and the NVIDIA MLSys competition. DoD: abstract ≤ 120 words each, no unpublished method details or numbers.
+- [x] **E5** Home `/` — Hero: `$ whoami` mono label, name in `text-hero`, tagline typed out with a blinking cursor (CSS, one cycle, off under reduced motion), headshot slot (monogram placeholder until Q6), primary CTA "Résumé" + secondary "GitHub", 3 hero facts (`22–35×` kernel speedup · `88%` cold-start reduction · `4.0` GPA @ CMU). The **attention-field canvas (G9)** sits behind this section. DoD: fits above the fold on a 13" laptop and a phone.
+- [x] **E6** Home — "Now" strip: 1 line ("MS AI&I @ CMU, grad May 2027 · looking for 2027 new-grad ML/SWE roles") pulled from `site.config.ts`. DoD: editable in one place.
+- [x] **E7** Home — Selected work: 3 most recent roles as a compact timeline (mono dates left, role right). DoD: links to `/work`.
+- [x] **E8** Home — Featured projects grid: 2×2 or 2×3 cards with cover, title, one-liner, tags. DoD: links to `/projects/<slug>`.
+- [x] **E9** Home — Latest writing: 2 most recent posts, title + date. DoD: hidden automatically when the collection is empty.
+- [x] **E10** `/work` page: full experience list, sticky-left company / scroll-right details (Brittany-style), logos in monochrome. DoD: all 5 roles, hover state highlights the row. *(Full list with highlights and tech tags; the sticky-left variant was dropped in favor of a single readable timeline)*
+- [x] **E11** `/projects` index: filter pills by tag (`cuda`, `llm`, `systems`, `agents`, `web`) — pure CSS/`:has()` or a tiny island; sort by date. DoD: filtering works without JS errors and with JS disabled (shows all).
+- [x] **E12** `/projects/[slug]` detail page: hero image, problem → approach → result, tech list, links. DoD: at least the 4 featured projects have real detail pages.
+- [x] **E13** `/research` page: paper-style cards (title, venue, status badge "under review / preprint / competition"), abstract expander, links to PDF/code when allowed. DoD: two entries rendered.
 - [ ] **E14** `/about` page: photo (Q6), 3-paragraph story (Shanghai → Michigan → CMU → Google), "things I'm into" list from Q7, and a mono "facts" table (keyboard, editor, coffee…). DoD: reads as human, not a résumé.
-- [ ] **E15** `/resume`: HTML résumé rendered from the same `work` collection + "Download PDF" (the PDF lives in `public/Haoling_Pu_Resume.pdf`). DoD: HTML and PDF say the same things.
+- [~] **E15** `/resume`: HTML résumé rendered from the same `work` collection + "Download PDF". *(PDF is at `public/Haoling_Pu_Resume.pdf` and linked from the hero since 2026-09-05; HTML page still to do.)* DoD: HTML and PDF say the same things.
 - [ ] **E16** `/now`: what I'm doing this month, last-updated date. DoD: one page, one date field.
-- [ ] **E17** Home — **Education** section: two cards (CMU MS AI&I, May 2027, 4.00; Michigan BS CS & Data Science, May 2025, 3.95) with official wordmarks as monochrome SVG (full color on hover), dates, GPA, coursework chips. Wordmarks fetched from the schools' brand pages, factual-affiliation use. DoD: both logos crisp at 2×, no layout shift.
-- [ ] **E18** Home — **Off the clock** section: hobby icon row + "currently" block (reading / listening / playing / building) fed from `site.config.ts`. ❓ needs Q7 answers. DoD: content is real, not placeholder.
-- [ ] **E19** Home — Research teaser card (high-level, "in progress" badge, links to `/research`). DoD: respects D16.
+- [x] **E17** Home — **Education** section: two cards (CMU MS AI&I, May 2027, 4.00; Michigan BS CS & Data Science, May 2025, 3.95) with official wordmarks as monochrome SVG (full color on hover), dates, GPA, coursework chips. Wordmarks fetched from the schools' brand pages, factual-affiliation use. DoD: both logos crisp at 2×, no layout shift.
+- [x] **E18** Home — **Off the clock** section: hobby icon row (basketball, gym, rock climbing, music, pool — Q7 answered 2026-09-05) fed from `site.config.ts`. The optional "currently" block is left out until there is something to say. DoD: content is real, not placeholder.
+- [x] **E19** Home — Research teaser card (high-level, "in progress" badge, links to `/research`). DoD: respects D16.
 
 ### Phase F — Writing (blog)  ·  6 tasks  — *runs after launch (D14); F1–F2 build the machinery, F3–F4 are backlog ideas, not commitments*
 - [ ] **F1** `/writing` index: list with date, title, one-line summary, reading time; tags optional. DoD: sorted newest first, drafts hidden in prod.
@@ -144,11 +144,11 @@ Legend: `[ ]` todo · `[x]` done · **DoD** = definition of done. Tasks within a
 - [ ] **G5** Hidden `/terminal` easter egg: fake shell supporting `help`, `ls`, `cat about.md`, `open github`, `sudo hire-me`. Link only from the 404 page and the `?` sheet. DoD: 6 commands work; unknown command replies wittily.
 - [ ] **G6** Card hover micro-interaction: border brightens toward accent, cover image scales 1.02, arrow icon translates 2px. DoD: 150ms, GPU-only properties (transform/opacity).
 - [ ] **G7** Scroll-linked reveal for home sections (opacity+4px translate, once). DoD: uses `IntersectionObserver`, no library, off under reduced motion.
-- [ ] **G8** "Copy email" button with checkmark feedback + `mailto:` fallback. DoD: works on iOS Safari.
-- [ ] **G9** **Attention field** (signature effect, decided 2026-09-05): full-bleed `<canvas>` behind the hero, React island, no library. A grid of faint dots = tokens; cursor position is the query, dots light up amber with a softmax-shaped falloff and thin lines connect the top-k; idle mode slowly attends to random tokens. Pointer-driven only on ≥ md screens, static on touch devices, off under reduced motion. Budget: ≤ 8 KB JS, 60 fps on an M1 Air, `requestAnimationFrame` paused when off-screen. DoD: Lighthouse performance on `/` stays ≥ 95.
+- [x] **G8** "Copy email" button with checkmark feedback + `mailto:` fallback. DoD: works on iOS Safari.
+- [x] **G9** **Attention field** (signature effect, decided 2026-09-05): full-bleed `<canvas>` behind the hero, **vanilla TS in an Astro `<script>` (no React — saves ~40 KB)**, no library. A grid of faint dots = tokens; cursor position is the query, dots light up amber with a softmax-shaped falloff and thin lines connect the top-k; idle mode slowly attends to random tokens. Pointer-driven only on ≥ md screens, static on touch devices, off under reduced motion. Budget: ≤ 8 KB JS, 60 fps on an M1 Air, `requestAnimationFrame` paused when off-screen. DoD: Lighthouse performance on `/` stays ≥ 95.
 - [ ] **G10** **ASCII portrait** (needs Q6 photo): headshot rendered as amber mono characters on a canvas; on hover it resolves into the real photo cell by cell; on touch it just shows the photo. DoD: photo has explicit dimensions, no CLS.
-- [ ] **G11** **Tilt cards** for the education (and optionally project) cards: 3D tilt toward the cursor, max 6°, with a soft specular highlight; CSS `perspective` + a 20-line pointer handler, no library. DoD: no tilt on touch or reduced motion.
-- [ ] **G12** Typewriter tagline in the hero (CSS `steps()` + blinking caret, one cycle). DoD: no layout shift while typing; static text under reduced motion.
+- [x] **G11** **Tilt cards** for the education (and optionally project) cards: 3D tilt toward the cursor, max 6°, with a soft specular highlight; CSS `perspective` + a 20-line pointer handler, no library. DoD: no tilt on touch or reduced motion.
+- [x] **G12** Typewriter tagline in the hero (CSS `steps()` + blinking caret, one cycle). DoD: no layout shift while typing; static text under reduced motion.
 
 ### Phase H — SEO, performance, accessibility  ·  8 tasks
 - [ ] **H1** Per-page `<title>`/`description`, canonical URL, `og:*` and `twitter:card` from a single `SEO.astro` component. DoD: every page has unique title + description (checked with a crawl script).
@@ -173,7 +173,7 @@ Legend: `[ ]` todo · `[x]` done · **DoD** = definition of done. Tasks within a
 ## 4. Milestones
 - **M1 — Skeleton live** (end of Phase B): demo on `*.vercel.app`, CI green. ✅ 2026-09-05
 - **M2 — Looks like *my* site** (end of Phase D): design system + shell, still placeholder text. ✅ 2026-09-05
-- **M3 — Content complete** (end of Phase E): every page real. *Shareable with friends for feedback.*
+- **M3 — Content complete** (end of Phase E): every page real. *Shareable with friends for feedback.* ✅ 2026-09-05 (home, work, projects, research live; about/now/resume-HTML remain)
 - **M4 — Launch** (end of Phase I minus I6): domain live, Lighthouse ≥ 95, résumé updated. *Shareable with Apple.*
 - No deadline (Q9). Phase F runs after M4; the `/writing` nav link stays hidden until a post exists. G1 (⌘K) stays before launch.
 

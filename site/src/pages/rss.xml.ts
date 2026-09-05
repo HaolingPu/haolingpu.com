@@ -11,9 +11,10 @@ export async function GET(context: Context) {
 
   const projects = (await getCollection("projects")).filter((project) => !project.data.draft);
 
-  const items = [...writing, ...projects].sort(
-    (a, b) => new Date(b.data.date).valueOf() - new Date(a.data.date).valueOf(),
-  );
+  const items = [
+    ...writing.map((w) => ({ ...w, description: w.data.description })),
+    ...projects.map((p) => ({ ...p, description: p.data.summary })),
+  ].sort((a, b) => new Date(b.data.date).valueOf() - new Date(a.data.date).valueOf());
 
   return rss({
     title: HOME.TITLE,
@@ -21,7 +22,7 @@ export async function GET(context: Context) {
     site: context.site,
     items: items.map((item) => ({
       title: item.data.title,
-      description: item.data.description,
+      description: item.description,
       pubDate: item.data.date,
       link: `/${item.collection}/${item.id}/`,
     })),

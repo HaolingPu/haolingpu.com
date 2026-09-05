@@ -1,0 +1,185 @@
+---
+/**
+ * Signature effect (ROADMAP G9): a grid of "tokens" behind the hero.
+ * The pointer is the query; nearby tokens light up with a softmax-shaped
+ * falloff and thin lines connect the top-k. Idle, a wandering query attends
+ * on its own. Static on touch devices and under reduced motion.
+ * Vanilla TS, no framework, ~4 KB.
+ */
+---
+
+<canvas
+  data-attention-field
+  class="pointer-events-none absolute inset-0 -z-10 size-full [mask-image:linear-gradient(to_bottom,black_55%,transparent_100%)]"
+  aria-hidden="true"
+></canvas>
+
+<script>
+  type Dot = { x: number; y: number };
+
+  function setup(canvas: HTMLCanvasElement) {
+    const ctx = canvas.getContext("2d");
+    if (!ctx) return;
+
+    const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    const touch = window.matchMedia("(hover: none)").matches;
+    const SPACING = 24;
+    const SIGMA = 110;
+    const TOP_K = 7;
+
+    let dots: Dot[] = [];
+    let w = 0;
+    let h = 0;
+    let dpr = 1;
+    let query = { x: -9999, y: -9999 };
+    let target = { x: 0, y: 0 };
+    let pointerActive = false;
+    let running = false;
+    let raf = 0;
+    let lastRetarget = 0;
+
+    const css = getComputedStyle(document.documentElement);
+    const accent = () => css.getPropertyValue("--accent").trim() || "oklch(0.8 0.16 75)";
+    const fg = () => css.getPropertyValue("--fg").trim() || "#fff";
+    const BASE_ALPHA = 0.14;
+
+    function resize() {
+      const rect = canvas.getBoundingClientRect();
+      dpr = Math.min(window.devicePixelRatio || 1, 2);
+      w = rect.width;
+      h = rect.height;
+      canvas.width = Math.round(w * dpr);
+      canvas.height = Math.round(h * dpr);
+      ctx!.setTransform(dpr, 0, 0, dpr, 0, 0);
+      dots = [];
+      for (let y = 0; y < h; y += SPACING) {
+        for (let x = 0; x < w; x += SPACING) dots.push({ x, y });
+      }
+      if (!running) drawStatic();
+    }
+
+    function drawStatic() {
+      ctx!.clearRect(0, 0, w, h);
+      ctx!.globalAlpha = BASE_ALPHA;
+      ctx!.fillStyle = fg();
+      for (const d of dots) {
+        ctx!.beginPath();
+        ctx!.arc(d.x, d.y, 1.1, 0, Math.PI * 2);
+        ctx!.fill();
+      }
+      ctx!.globalAlpha = 1;
+    }
+
+    function retarget(now: number) {
+      if (now - lastRetarget < 2200) return;
+      lastRetarget = now;
+      target = { x: w * (0.15 + Math.random() * 0.7), y: h * (0.15 + Math.random() * 0.7) };
+    }
+
+    function frame(now: number) {
+      if (!running) return;
+      if (!pointerActive) {
+        retarget(now);
+        query.x += (target.x - query.x) * 0.035;
+        query.y += (target.y - query.y) * 0.035;
+      }
+
+      ctx!.clearRect(0, 0, w, h);
+      const scored: { d: Dot; s: number }[] = [];
+      const inv = 1 / (2 * SIGMA * SIGMA);
+      let max = 0;
+      for (const d of dots) {
+        const dx = d.x - query.x;
+        const dy = d.y - query.y;
+        const s = Math.exp(-(dx * dx + dy * dy) * inv);
+        if (s > max) max = s;
+        scored.push({ d, s });
+      }
+
+      // Base grid
+      ctx!.globalAlpha = BASE_ALPHA;
+      ctx!.fillStyle = fg();
+      for (const { d, s } of scored) {
+        if (s > 0.02) continue;
+        ctx!.beginPath();
+        ctx!.arc(d.x, d.y, 1.1, 0, Math.PI * 2);
+        ctx!.fill();
+      }
+
+      // Attended tokens: brightness follows the (max-normalized) score
+      const color = accent();
+      for (const { d, s } of scored) {
+        if (s <= 0.02) continue;
+        const a = BASE_ALPHA + (s / max) * 0.8;
+        ctx!.globalAlpha = a;
+        ctx!.fillStyle = color;
+        ctx!.beginPath();
+        ctx!.arc(d.x, d.y, 1.1 + a * 1.6, 0, Math.PI * 2);
+        ctx!.fill();
+      }
+
+      // Top-k links from the query
+      scored.sort((a, b) => b.s - a.s);
+      ctx!.strokeStyle = color;
+      ctx!.lineWidth = 1;
+      for (let i = 0; i < Math.min(TOP_K, scored.length); i++) {
+        const { d, s } = scored[i];
+        ctx!.globalAlpha = (s / max) * 0.35;
+        ctx!.beginPath();
+        ctx!.moveTo(query.x, query.y);
+        ctx!.lineTo(d.x, d.y);
+        ctx!.stroke();
+      }
+      ctx!.globalAlpha = 1;
+
+      raf = requestAnimationFrame(frame);
+    }
+
+    function start() {
+      if (running || reduced || touch) return;
+      running = true;
+      raf = requestAnimationFrame(frame);
+    }
+    function stop() {
+      running = false;
+      cancelAnimationFrame(raf);
+      drawStatic();
+    }
+
+    const host = canvas.parentElement ?? canvas;
+    host.addEventListener("pointermove", (e) => {
+      const r = canvas.getBoundingClientRect();
+      query = { x: e.clientX - r.left, y: e.clientY - r.top };
+      pointerActive = true;
+    });
+    host.addEventListener("pointerleave", () => {
+      pointerActive = false;
+      target = { x: query.x, y: query.y };
+      lastRetarget = performance.now();
+    });
+
+    new ResizeObserver(resize).observe(canvas);
+    resize();
+    query = { x: w * 0.6, y: h * 0.4 };
+    target = { ...query };
+
+    const io = new IntersectionObserver(([entry]) => (entry.isIntersecting ? start() : stop()));
+    io.observe(canvas);
+    document.addEventListener("visibilitychange", () => (document.hidden ? stop() : start()));
+    // Re-read tokens when the theme flips
+    new MutationObserver(() => !running && drawStatic()).observe(document.documentElement, {
+      attributes: true,
+      attributeFilter: ["class"],
+    });
+  }
+
+  function init() {
+    document.querySelectorAll<HTMLCanvasElement>("canvas[data-attention-field]").forEach((c) => {
+      if (c.dataset.ready) return;
+      c.dataset.ready = "1";
+      setup(c);
+    });
+  }
+  init();
+  document.addEventListener("astro:after-swap", init);
+</script>

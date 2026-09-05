@@ -124,6 +124,10 @@ body::before {
   mask-image: linear-gradient(to bottom, black 0%, transparent 70vh);
   -webkit-mask-image: linear-gradient(to bottom, black 0%, transparent 70vh);
 }
+/* The home hero draws its own (interactive) grid on a canvas. */
+body.has-hero::before {
+  display: none;
+}
 
 :focus-visible {
   outline: 2px solid var(--accent);
@@ -238,3 +242,76 @@ main {
   }
 }
 /* biome-ignore-end lint/complexity/noImportantStyles: end */
+
+/* ------------------------------------------------------------------
+   6. Home-page effects (G10–G12)
+   ------------------------------------------------------------------ */
+/* Typewriter: the ghost reserves layout, the typed text paints over it. */
+[data-typewriter] {
+  position: relative;
+  display: inline-block;
+}
+[data-typewriter] [data-ghost] {
+  visibility: hidden;
+}
+[data-typewriter] [data-out] {
+  position: absolute;
+  inset: 0;
+  white-space: pre-wrap;
+}
+[data-typewriter] [data-out]::after {
+  content: "";
+  display: inline-block;
+  width: 0.55em;
+  height: 1em;
+  margin-left: 0.08em;
+  vertical-align: -0.12em;
+  background: var(--accent);
+  animation: caret 1s steps(1) infinite;
+}
+[data-typewriter].is-done [data-out]::after {
+  animation: caret 1s steps(1) 4;
+  animation-fill-mode: forwards;
+}
+@keyframes caret {
+  50% {
+    opacity: 0;
+  }
+}
+
+/* Tilt cards */
+.tilt {
+  transform: perspective(900px) rotateX(var(--rx, 0deg)) rotateY(var(--ry, 0deg));
+  transition:
+    transform 180ms var(--ease-out-quart),
+    border-color 200ms var(--ease-out-quart);
+  transform-style: preserve-3d;
+  will-change: transform;
+}
+.tilt-glare {
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  pointer-events: none;
+  opacity: 0;
+  background: radial-gradient(
+    420px circle at var(--mx, 50%) var(--my, 50%),
+    oklch(1 0 0 / 0.08),
+    transparent 60%
+  );
+  transition: opacity 200ms var(--ease-out-quart);
+}
+.tilt:hover .tilt-glare {
+  opacity: 1;
+}
+
+/* Copy button feedback */
+[data-copy] .when-copied {
+  display: none;
+}
+[data-copy].is-copied .when-copied {
+  display: inline-flex;
+}
+[data-copy].is-copied .when-idle {
+  display: none;
+}

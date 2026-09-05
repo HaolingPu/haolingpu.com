@@ -1,4 +1,4 @@
-import type { Metadata, NavItem, Site, Socials } from "@types";
+import type { Education, Hobby, Metadata, NavItem, Site, Socials, Stat } from "@types";
 
 /**
  * Single source of truth for identity, copy and links.
@@ -49,9 +49,63 @@ export const SOCIALS: Socials = [
 export const NAV: NavItem[] = [
   { LABEL: "work", HREF: "/work", ENABLED: true },
   { LABEL: "projects", HREF: "/projects", ENABLED: true },
-  { LABEL: "research", HREF: "/research", ENABLED: false },
+  { LABEL: "research", HREF: "/research", ENABLED: true },
   { LABEL: "writing", HREF: "/writing", ENABLED: false },
   { LABEL: "about", HREF: "/about", ENABLED: false },
 ];
 
 export const REPO_URL = "https://github.com/HaolingPu/haolingpu.com";
+
+export const RESEARCH: Metadata = {
+  TITLE: "Research",
+  DESCRIPTION: "Simultaneous speech translation research at CMU and GPU kernel work.",
+};
+
+/** Hero numbers. Keep to three; each must be defensible from the résumé. */
+export const STATS: Stat[] = [
+  { VALUE: "22–35×", LABEL: "sparse-attention kernel speedup vs. PyTorch" },
+  { VALUE: "88%", LABEL: "Knative cold-start latency removed" },
+  { VALUE: "4.00", LABEL: "GPA, MS in AI & Innovation @ CMU" },
+];
+
+export const EDUCATION: Education[] = [
+  {
+    SCHOOL: "Carnegie Mellon University",
+    LOGO: "cmu",
+    DEGREE: "MS in Artificial Intelligence and Innovation",
+    UNIT: "School of Computer Science",
+    START: "2025",
+    END: "May 2027",
+    GPA: "4.00 / 4.00",
+    LOCATION: "Pittsburgh, PA",
+    COURSES: ["AI Engineering", "Deep Learning", "Multimodal ML", "Advanced NLP", "Generative AI"],
+    URL: "https://www.cs.cmu.edu",
+  },
+  {
+    SCHOOL: "University of Michigan",
+    LOGO: "umich",
+    DEGREE: "BS in Computer Science & Data Science",
+    UNIT: "College of Engineering",
+    START: "2021",
+    END: "May 2025",
+    GPA: "3.95 / 4.00",
+    LOCATION: "Ann Arbor, MI",
+    COURSES: [
+      "Database Systems",
+      "Data Structures & Algorithms",
+      "Machine Learning",
+      "Web Systems",
+      "Computer Organization",
+    ],
+    URL: "https://umich.edu",
+  },
+];
+
+/** Off the clock. Icons are keys into HobbyIcon.astro. */
+export const HOBBIES: Hobby[] = [
+  { ICON: "basketball", LABEL: "Basketball" },
+  { ICON: "dumbbell", LABEL: "Gym" },
+  { ICON: "mountain", LABEL: "Rock climbing" },
+  { ICON: "music", LABEL: "Music" },
+  { ICON: "eightball", LABEL: "Pool" },
+];

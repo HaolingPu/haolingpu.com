@@ -1,140 +1,189 @@
 ---
-import { getCollection, render } from "astro:content";
-import ArrowCard from "@components/ArrowCard.astro";
+import { getCollection } from "astro:content";
+import AttentionField from "@components/AttentionField.astro";
+import Behaviors from "@components/Behaviors.astro";
+import EducationCard from "@components/EducationCard.astro";
+import HobbyIcon from "@components/HobbyIcon.astro";
+import ProjectCard from "@components/ProjectCard.astro";
+import Button from "@components/ui/Button.astro";
 import Container from "@components/ui/Container.astro";
 import Link from "@components/ui/Link.astro";
+import Section from "@components/ui/Section.astro";
+import Tag from "@components/ui/Tag.astro";
+import WorkRow from "@components/WorkRow.astro";
 import BaseLayout from "@layouts/BaseLayout.astro";
-import { dateRange } from "@lib/utils";
-import { HOME, SITE, SOCIALS } from "@site.config";
+import { EDUCATION, HOBBIES, HOME, SITE, SOCIALS, STATS } from "@site.config";
+
+const work = (await getCollection("work"))
+  .sort((a, b) => b.data.dateStart.valueOf() - a.data.dateStart.valueOf())
+  .slice(0, SITE.NUM_WORKS_ON_HOMEPAGE);
+
+const projects = (await getCollection("projects"))
+  .filter((p) => p.data.featured && !p.data.draft)
+  .sort((a, b) => a.data.order - b.data.order);
+
+const research = (await getCollection("research")).sort((a, b) => a.data.order - b.data.order)[0];
 
 const writing = (await getCollection("writing"))
-  .filter((post) => !post.data.draft)
+  .filter((p) => !p.data.draft)
   .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf())
   .slice(0, SITE.NUM_POSTS_ON_HOMEPAGE);
 
-const projects = (await getCollection("projects"))
-  .filter((project) => !project.data.draft)
-  .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf())
-  .slice(0, SITE.NUM_PROJECTS_ON_HOMEPAGE);
-
-const allwork = (await getCollection("work"))
-  .sort((a, b) => new Date(b.data.dateStart).valueOf() - new Date(a.data.dateStart).valueOf())
-  .slice(0, SITE.NUM_WORKS_ON_HOMEPAGE);
-
-const work = await Promise.all(
-  allwork.map(async (item) => {
-    const { Content } = await render(item);
-    return { ...item, Content };
-  }),
-);
+const github = SOCIALS.find((s) => s.NAME === "github")?.HREF ?? "#";
 ---
 
-<BaseLayout title={HOME.TITLE} description={HOME.DESCRIPTION}>
-  <Container>
-    <h4 class="animate font-semibold text-fg">
-      {SITE.NAME}
-    </h4>
-    <div class="space-y-16">
-      <section>
-        <article class="prose space-y-4">
-          <p class="animate">{SITE.TAGLINE}</p>
-          <p class="animate font-mono text-sm">{SITE.NOW}</p>
-          <p class="animate text-sm">
-            This site is under construction. Design system and content land in Phases C–E of the roadmap.
+<BaseLayout title="Home" description={HOME.DESCRIPTION} bodyClass="has-hero">
+  <!-- Hero -->
+  <section class="relative -mt-32 overflow-hidden pt-32">
+    <AttentionField />
+    <Container size="wide" class="relative py-10 sm:py-16">
+      <div class="grid items-center gap-10 md:grid-cols-[1fr_auto] md:gap-16">
+        <div class="max-w-[38rem]">
+          <div class="animate font-mono text-xs text-fg-subtle">
+            <span class="text-accent">$</span> whoami
+          </div>
+          <h1 class="animate mt-3 text-hero">{SITE.NAME}</h1>
+          <p class="animate mt-5 text-lg text-fg-muted sm:text-xl">
+            <span data-typewriter data-delay="700">
+              <span data-ghost>{SITE.TAGLINE}</span>
+              <span data-out aria-hidden="true"></span>
+            </span>
           </p>
-        </article>
-      </section>
-
-      <section class="animate space-y-6">
-        <div class="flex flex-wrap gap-y-2 items-center justify-between">
-          <h5 class="font-semibold text-fg">
-            Latest writing
-          </h5>
-          <Link href="/writing">
-            See all writing
-          </Link>
+          <p class="animate mt-4 font-mono text-[13px] text-fg-subtle">{SITE.NOW}</p>
+          <div class="animate mt-8 flex flex-wrap gap-3">
+            <Button href="/Haoling_Pu_Resume.pdf" variant="primary" external>Résumé</Button>
+            <Button href={github} external>GitHub</Button>
+          </div>
         </div>
-        <ul class="flex flex-col gap-4">
-          {writing.map(post => (
-            <li>
-              <ArrowCard entry={post} />
-            </li>
-          ))}
-        </ul>
-      </section>
 
-      <section class="animate space-y-6">
-        <div class="flex flex-wrap gap-y-2 items-center justify-between">
-          <h5 class="font-semibold text-fg">
-            Work Experience
-          </h5>
-          <Link href="/work">
-            See all work
-          </Link>
+        <!-- Photo slot: monogram until a headshot exists (ROADMAP Q6 / G10) -->
+        <div class="animate justify-self-center md:justify-self-end">
+          <div
+            class="tilt relative flex size-44 items-center justify-center rounded-2xl border border-border bg-surface sm:size-52"
+            data-tilt="8"
+          >
+            <div class="tilt-glare" aria-hidden="true"></div>
+            <span class="font-mono text-5xl font-bold tracking-tighter text-fg">hp</span>
+            <span class="absolute right-3 bottom-2 font-mono text-[10px] text-fg-subtle">v1.0</span>
+          </div>
         </div>
-        <ul class="flex flex-col space-y-4">
-          {work.map(entry => (
-            <li>
-              <div class="text-sm opacity-75">
-                {dateRange(entry.data.dateStart, entry.data.dateEnd)}
-              </div>
-              <div class="font-semibold text-fg">
-                {entry.data.company}
-              </div>
-              <div class="text-sm opacity-75">
-                {entry.data.role}
-              </div>
-              <article class="prose">
-                <entry.Content />
-              </article>
-            </li>
-          ))}
-        </ul>
-      </section>
+      </div>
 
-      <section class="animate space-y-6">
-        <div class="flex flex-wrap gap-y-2 items-center justify-between">
-          <h5 class="font-semibold text-fg">
-            Recent projects
-          </h5>
-          <Link href="/projects">
-            See all projects
-          </Link>
-        </div>
-        <ul class="flex flex-col gap-4">
-          {projects.map(project => (
-            <li>
-              <ArrowCard entry={project} />
-            </li>
-          ))}
-        </ul>
-      </section>
+      <dl class="animate mt-14 grid gap-6 border-t border-border pt-8 sm:grid-cols-3">
+        {
+          STATS.map((s) => (
+            <div>
+              <dd class="font-mono text-3xl text-fg">{s.VALUE}</dd>
+              <dt class="mt-1 text-sm text-fg-subtle">{s.LABEL}</dt>
+            </div>
+          ))
+        }
+      </dl>
+    </Container>
+  </section>
 
-      <section class="animate space-y-4">
-        <h5 class="font-semibold text-fg">
-          Let's Connect
-        </h5>
-        <article class="prose">
-          <p>
-            Reach out on GitHub or LinkedIn, or send me an email.
-          </p>
-        </article>
-        <ul class="flex flex-wrap gap-2">
-          {SOCIALS.map(SOCIAL => (
-            <li class="flex gap-x-2 text-nowrap">
-              <Link href={SOCIAL.HREF} external aria-label={`${SITE.NAME} on ${SOCIAL.NAME}`}>
-                {SOCIAL.NAME}
-              </Link>
-              {"/"}
+  <Container size="wide">
+    <!-- Education -->
+    <Section eyebrow="education" title="Where I learned it" class="animate">
+      <div class="grid gap-4 md:grid-cols-2">
+        {EDUCATION.map((edu) => <EducationCard edu={edu} />)}
+      </div>
+    </Section>
+
+    <!-- Work -->
+    <Section eyebrow="work" title="Where I've built" class="animate">
+      <Link slot="action" href="/work">All roles →</Link>
+      <div class="space-y-8">
+        {work.map((entry) => <WorkRow entry={entry} compact />)}
+      </div>
+    </Section>
+
+    <!-- Projects -->
+    <Section eyebrow="projects" title="Things I've shipped" class="animate">
+      <Link slot="action" href="/projects">All projects →</Link>
+      <div class="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+        {projects.map((p) => <ProjectCard project={p} />)}
+      </div>
+    </Section>
+
+    <!-- Research -->
+    {
+      research && (
+        <Section eyebrow="research" title="What I'm working on" class="animate">
+          <Link slot="action" href="/research">Research →</Link>
+          <a
+            href="/research"
+            class="group block rounded-lg border border-border bg-surface p-6 transition-[border-color] duration-200 hover:border-border-strong"
+          >
+            <div class="flex flex-wrap items-center gap-2">
+              <Tag accent>{research.data.status}</Tag>
+              <span class="font-mono text-xs text-fg-subtle">{research.data.venue}</span>
+            </div>
+            <div class="mt-3 text-lg font-medium text-fg">{research.data.title}</div>
+            <p class="mt-2 max-w-[60ch] text-sm">{research.data.summary}</p>
+          </a>
+        </Section>
+      )
+    }
+
+    <!-- Writing (only when there is any) -->
+    {
+      writing.length > 0 && (
+        <Section eyebrow="writing" title="Recent writing" class="animate">
+          <Link slot="action" href="/writing">All writing →</Link>
+          <ul class="space-y-3">
+            {writing.map((post) => (
+              <li>
+                <Link href={`/writing/${post.id}`} underline={false} class="text-fg">
+                  {post.data.title}
+                </Link>
+                <span class="ml-2 font-mono text-xs text-fg-subtle">{post.data.date.toISOString().slice(0, 10)}</span>
+              </li>
+            ))}
+          </ul>
+        </Section>
+      )
+    }
+
+    <!-- Off the clock -->
+    <Section eyebrow="off the clock" title="When I'm not shipping" class="animate">
+      <ul class="flex flex-wrap gap-3">
+        {
+          HOBBIES.map((h) => (
+            <li class="flex items-center gap-2.5 rounded-md border border-border bg-surface px-3.5 py-2 text-sm text-fg-muted transition-colors hover:border-border-strong hover:text-fg">
+              <HobbyIcon name={h.ICON} class="size-4 text-accent" />
+              {h.LABEL}
             </li>
-          ))}
-          <li class="line-clamp-1">
-            <Link href={`mailto:${SITE.EMAIL}`} aria-label={`Email ${SITE.NAME}`}>
-              {SITE.EMAIL}
-            </Link>
-          </li>
-        </ul>
-      </section>
-    </div>
+          ))
+        }
+      </ul>
+    </Section>
+
+    <!-- Contact -->
+    <Section eyebrow="contact" title="Say hi" class="animate">
+      <p class="max-w-[52ch]">
+        Best reached by email. I read everything, and I'm faster than my GitHub bio suggests.
+      </p>
+      <div class="mt-5 flex flex-wrap items-center gap-3">
+        <button
+          type="button"
+          data-copy={SITE.EMAIL}
+          class="inline-flex h-10 items-center gap-2 rounded-md border border-border bg-surface px-4 font-mono text-sm text-fg transition-colors hover:border-border-strong"
+          aria-label={`Copy email ${SITE.EMAIL}`}
+        >
+          <span class="when-idle inline-flex items-center gap-2">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="size-4 fill-none stroke-current stroke-[1.75]"><rect x="9" y="9" width="11" height="11" rx="2"/><path d="M5 15V5a2 2 0 0 1 2-2h10"/></svg>
+            {SITE.EMAIL}
+          </span>
+          <span class="when-copied inline-flex items-center gap-2 text-accent">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="size-4 fill-none stroke-current stroke-2"><path d="M5 12l5 5L20 7"/></svg>
+            copied
+          </span>
+        </button>
+        {SOCIALS.map((s) => <Button href={s.HREF} external>{s.NAME}</Button>)}
+      </div>
+    </Section>
   </Container>
+
+  <Behaviors />
 </BaseLayout>
