@@ -18,7 +18,7 @@
 | D6 | Nerd signals (used sparingly) | `⌘K` command palette for navigation; a `$ whoami`-style hero line with cursor; monospace labels/metadata; keyboard shortcuts (`g h` → home); a hidden `/terminal` easter-egg route; "Now" page; GitHub contribution graph | Each is one small task. They signal "builder" without making the site a toy. |
 | D7 | Information architecture | `/` Home · `/work` · `/projects` · `/research` · `/writing` · `/about` · `/now` · `/resume` (HTML + PDF) · `/uses` (optional) | Research gets its own page because your CMU LTI + NVIDIA + Google work is your differentiator vs. generic SWE portfolios. |
 | D8 | Content model | Typed **Astro content collections**: `work/`, `projects/`, `research/`, `writing/` (MDX) + one `site.config.ts` for identity/links | Add a project = add one `.md` file. Same LLM-wiki discipline you already use in Obsidian. |
-| D9 | Animations | CSS transitions + Astro **View Transitions** for page-to-page; **Motion** (`motion/react`) only inside React islands (hero, palette). Respect `prefers-reduced-motion`. | Tasteful, fast, no Three.js particles (Sphere-style) — they read as 2022. |
+| D9 | Animations | CSS transitions + Astro **View Transitions** for page-to-page; React islands only where an effect needs a render loop. Respect `prefers-reduced-motion`. **One signature effect** — the attention field (G9) — plus three quiet echoes of the same idea (typewriter G12, ASCII portrait G10, tilt cards G11). Nothing else moves. | Decided 2026-09-05 with the user ("super cool animation"). One coherent metaphor (tokens/attention/terminal) reads as designed; scattered effects read as a template demo. No Three.js. |
 | D10 | Analytics | **Vercel Web Analytics** (cookie-less, free) | Enough to see if Apple recruiters visited. Plausible/Umami if you later want self-hosting. |
 | D11 | SEO / social | Dynamic **OG images** per page via `satori`; JSON-LD `Person` schema; RSS; sitemap; `robots.txt` | Link previews on LinkedIn/Slack/iMessage are where recruiters first see the site. |
 | D12 | Repo | GitHub **`HaolingPu/haolingpu.com`** (public), `main` = production, feature branches + PRs, Conventional Commits | Public repo itself is a portfolio artifact. |
@@ -64,7 +64,7 @@ Template plumbing candidates (skeleton only, per D4):
 
 ---
 
-## 3. Task roadmap (75 tasks, 9 phases)
+## 3. Task roadmap (82 tasks, 9 phases)
 
 Legend: `[ ]` todo · `[x]` done · **DoD** = definition of done. Tasks within a phase are ordered; phases are sequential except where noted.
 
@@ -107,12 +107,12 @@ Legend: `[ ]` todo · `[x]` done · **DoD** = definition of done. Tasks within a
 - [x] **D6** 404 page with a one-line nerd joke and a link home. DoD: `/nonexistent` shows it on Vercel.
 - [x] **D7** Active-link state (accent underline) using `Astro.url.pathname`. DoD: correct on nested routes like `/writing/foo`.
 
-### Phase E — Content collections & pages  ·  16 tasks
+### Phase E — Content collections & pages  ·  19 tasks
 - [ ] **E1** Define Zod schemas in `src/content.config.ts` (the `blog` collection and `/blog` routes were already renamed to `writing` in Phase D) for `work` (company, role, start, end, location, logo, highlights[], tech[]), `projects` (title, summary, date, repo, demo, cover, featured, tags[]), `research` (title, venue, status, authors[], abstract, links), `writing` (title, date, summary, tags[], draft). DoD: `astro check` passes with one sample entry each.
 - [ ] **E2** Write `work/` entries: Google (abstract, per D16), CMU Li Lab (high-level), WeRide, UMSN, AVIAGE — 2–4 highlight bullets each, numbers first where allowed. DoD: 5 files, every bullet ≤ 25 words, D16 respected.
 - [ ] **E3** Write `projects/` entries for the Q5 shortlist (4–6 featured + rest un-featured). DoD: each has summary, tags, repo or "private" flag, and a cover image or placeholder.
 - [ ] **E4** Write `research/` entry for the SimulST work (high-level idea only, per D16) and the NVIDIA MLSys competition. DoD: abstract ≤ 120 words each, no unpublished method details or numbers.
-- [ ] **E5** Home `/` — Hero: `$ whoami` mono label, name in large sans, one-sentence positioning from A2, 3 hero facts (`22–35×` kernel speedup · `88%` cold-start reduction · `4.0` GPA @ CMU), primary CTA "Résumé" + secondary "GitHub". DoD: fits above the fold on a 13" laptop and a phone.
+- [ ] **E5** Home `/` — Hero: `$ whoami` mono label, name in `text-hero`, tagline typed out with a blinking cursor (CSS, one cycle, off under reduced motion), headshot slot (monogram placeholder until Q6), primary CTA "Résumé" + secondary "GitHub", 3 hero facts (`22–35×` kernel speedup · `88%` cold-start reduction · `4.0` GPA @ CMU). The **attention-field canvas (G9)** sits behind this section. DoD: fits above the fold on a 13" laptop and a phone.
 - [ ] **E6** Home — "Now" strip: 1 line ("MS AI&I @ CMU, grad May 2027 · looking for 2027 new-grad ML/SWE roles") pulled from `site.config.ts`. DoD: editable in one place.
 - [ ] **E7** Home — Selected work: 3 most recent roles as a compact timeline (mono dates left, role right). DoD: links to `/work`.
 - [ ] **E8** Home — Featured projects grid: 2×2 or 2×3 cards with cover, title, one-liner, tags. DoD: links to `/projects/<slug>`.
@@ -124,6 +124,9 @@ Legend: `[ ]` todo · `[x]` done · **DoD** = definition of done. Tasks within a
 - [ ] **E14** `/about` page: photo (Q6), 3-paragraph story (Shanghai → Michigan → CMU → Google), "things I'm into" list from Q7, and a mono "facts" table (keyboard, editor, coffee…). DoD: reads as human, not a résumé.
 - [ ] **E15** `/resume`: HTML résumé rendered from the same `work` collection + "Download PDF" (the PDF lives in `public/Haoling_Pu_Resume.pdf`). DoD: HTML and PDF say the same things.
 - [ ] **E16** `/now`: what I'm doing this month, last-updated date. DoD: one page, one date field.
+- [ ] **E17** Home — **Education** section: two cards (CMU MS AI&I, May 2027, 4.00; Michigan BS CS & Data Science, May 2025, 3.95) with official wordmarks as monochrome SVG (full color on hover), dates, GPA, coursework chips. Wordmarks fetched from the schools' brand pages, factual-affiliation use. DoD: both logos crisp at 2×, no layout shift.
+- [ ] **E18** Home — **Off the clock** section: hobby icon row + "currently" block (reading / listening / playing / building) fed from `site.config.ts`. ❓ needs Q7 answers. DoD: content is real, not placeholder.
+- [ ] **E19** Home — Research teaser card (high-level, "in progress" badge, links to `/research`). DoD: respects D16.
 
 ### Phase F — Writing (blog)  ·  6 tasks  — *runs after launch (D14); F1–F2 build the machinery, F3–F4 are backlog ideas, not commitments*
 - [ ] **F1** `/writing` index: list with date, title, one-line summary, reading time; tags optional. DoD: sorted newest first, drafts hidden in prod.
@@ -133,7 +136,7 @@ Legend: `[ ]` todo · `[x]` done · **DoD** = definition of done. Tasks within a
 - [ ] **F5** RSS feed (`/rss.xml`) + `<link rel="alternate">`; validate with an RSS checker. DoD: feed lists both posts.
 - [ ] **F6** Reading-time + "last updated" from git commit date via a small remark plugin. DoD: both show on posts.
 
-### Phase G — Nerd polish & interactions  ·  8 tasks
+### Phase G — Nerd polish & interactions  ·  12 tasks
 - [ ] **G1** `⌘K` command palette (React island, `cmdk` lib): navigate pages, jump to projects/posts, toggle theme, copy email. DoD: opens on `⌘K`/`Ctrl K`, fully keyboard-navigable, closes on Esc.
 - [ ] **G2** Keyboard shortcuts: `g h` home, `g w` work, `g p` projects, `t` theme, `?` shows a shortcuts sheet. DoD: sheet lists all bindings.
 - [ ] **G3** Hero typewriter/cursor effect on the `$ whoami` line — CSS-only, one cycle, off under reduced motion. DoD: no layout shift while typing.
@@ -142,6 +145,10 @@ Legend: `[ ]` todo · `[x]` done · **DoD** = definition of done. Tasks within a
 - [ ] **G6** Card hover micro-interaction: border brightens toward accent, cover image scales 1.02, arrow icon translates 2px. DoD: 150ms, GPU-only properties (transform/opacity).
 - [ ] **G7** Scroll-linked reveal for home sections (opacity+4px translate, once). DoD: uses `IntersectionObserver`, no library, off under reduced motion.
 - [ ] **G8** "Copy email" button with checkmark feedback + `mailto:` fallback. DoD: works on iOS Safari.
+- [ ] **G9** **Attention field** (signature effect, decided 2026-09-05): full-bleed `<canvas>` behind the hero, React island, no library. A grid of faint dots = tokens; cursor position is the query, dots light up amber with a softmax-shaped falloff and thin lines connect the top-k; idle mode slowly attends to random tokens. Pointer-driven only on ≥ md screens, static on touch devices, off under reduced motion. Budget: ≤ 8 KB JS, 60 fps on an M1 Air, `requestAnimationFrame` paused when off-screen. DoD: Lighthouse performance on `/` stays ≥ 95.
+- [ ] **G10** **ASCII portrait** (needs Q6 photo): headshot rendered as amber mono characters on a canvas; on hover it resolves into the real photo cell by cell; on touch it just shows the photo. DoD: photo has explicit dimensions, no CLS.
+- [ ] **G11** **Tilt cards** for the education (and optionally project) cards: 3D tilt toward the cursor, max 6°, with a soft specular highlight; CSS `perspective` + a 20-line pointer handler, no library. DoD: no tilt on touch or reduced motion.
+- [ ] **G12** Typewriter tagline in the hero (CSS `steps()` + blinking caret, one cycle). DoD: no layout shift while typing; static text under reduced motion.
 
 ### Phase H — SEO, performance, accessibility  ·  8 tasks
 - [ ] **H1** Per-page `<title>`/`description`, canonical URL, `og:*` and `twitter:card` from a single `SEO.astro` component. DoD: every page has unique title + description (checked with a crawl script).
