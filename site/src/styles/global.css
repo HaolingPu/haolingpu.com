@@ -210,11 +210,6 @@ main {
   @apply rounded-md border border-border;
 }
 
-/* Nano's `article` shorthand kept for the pages built in Phase B. */
-article {
-  @apply prose;
-}
-
 /* ------------------------------------------------------------------
    5. Motion
    ------------------------------------------------------------------ */
