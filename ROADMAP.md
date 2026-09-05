@@ -79,7 +79,7 @@ Legend: `[ ]` todo · `[x]` done · **DoD** = definition of done. Tasks within a
 ### Phase B — Scaffold & toolchain  ·  9 tasks
 - [x] **B1** Node + pnpm. DoD: `node -v` and `pnpm -v` print. *(Done 2026-09-05: Node 23.11 via Homebrew already present, pnpm 11.25 enabled via corepack. Node 23 is fine for Astro 5; no need to downgrade.)*
 - [x] **B2** Scaffold with `pnpm create astro@latest -- --template markhorn-dev/astro-nano` into `~/Desktop/personal-website/site`. DoD: `pnpm dev` serves the demo at `localhost:4321`.
-- [ ] **B3** First commit + push; connect repo to Vercel (import project, framework preset = Astro). DoD: a `*.vercel.app` URL serves the demo.
+- [x] **B3** First commit + push; connect repo to Vercel (framework preset = Astro, **Root Directory = `site`**, set under Settings → Build and Deployment). DoD: a `*.vercel.app` URL serves the site. *(Live at https://haolingpu-com.vercel.app since 2026-09-05; production = `main`.)*
 - [x] **B4** Upgrade deps to latest Astro (7.3) and Tailwind v4 (`@tailwindcss/vite`), remove Nano's `tailwind.config` in favor of CSS `@theme`; migrate content collections to the content-layer API (`glob` loader, `render()`, `entry.id`). DoD: build passes, no deprecation warnings.
 - [x] **B5** Add Biome for lint/format + `pnpm check` script (`astro check` + `biome check`). DoD: `pnpm check` passes on a clean tree.
 - [x] **B6** Add GitHub Actions workflow `ci.yml`: install → check → build on every push and PR. DoD: green check. *(First run green on 2026-09-05.)*
@@ -164,8 +164,8 @@ Legend: `[ ]` todo · `[x]` done · **DoD** = definition of done. Tasks within a
 ---
 
 ## 4. Milestones
-- **M1 — Skeleton live** (end of Phase B): demo on `*.vercel.app`, CI green.
-- **M2 — Looks like *my* site** (end of Phase D): design system + shell, still placeholder text.
+- **M1 — Skeleton live** (end of Phase B): demo on `*.vercel.app`, CI green. ✅ 2026-09-05
+- **M2 — Looks like *my* site** (end of Phase D): design system + shell, still placeholder text. ✅ 2026-09-05
 - **M3 — Content complete** (end of Phase E): every page real. *Shareable with friends for feedback.*
 - **M4 — Launch** (end of Phase I minus I6): domain live, Lighthouse ≥ 95, résumé updated. *Shareable with Apple.*
 - No deadline (Q9). Phase F runs after M4; the `/writing` nav link stays hidden until a post exists. G1 (⌘K) stays before launch.
