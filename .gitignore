@@ -1,0 +1,17 @@
+# dependencies / build
+node_modules/
+site/dist/
+site/.astro/
+
+# env
+.env
+.env.*
+!.env.example
+
+# OS / editor
+.DS_Store
+.idea/
+*.log
+
+# raw assets before optimization (large originals)
+assets-raw/
