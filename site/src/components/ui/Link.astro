@@ -1,0 +1,31 @@
+---
+import { cn } from "@lib/utils";
+
+/**
+ * Text link. Underline by default; hover brings in the accent.
+ * `external` opens in a new tab with safe rel.
+ */
+type Props = {
+  href: string;
+  external?: boolean;
+  underline?: boolean;
+  class?: string;
+  [key: string]: unknown;
+};
+
+const { href, external, underline = true, class: className, ...rest } = Astro.props;
+---
+
+<a
+  href={href}
+  target={external ? "_blank" : undefined}
+  rel={external ? "noopener noreferrer" : undefined}
+  class={cn(
+    "inline-block text-current transition-colors duration-200 ease-out-quart hover:text-fg",
+    underline && "underline underline-offset-4 decoration-border-strong hover:decoration-accent",
+    className,
+  )}
+  {...rest}
+>
+  <slot />
+</a>

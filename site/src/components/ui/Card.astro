@@ -1,0 +1,35 @@
+---
+import { cn } from "@lib/utils";
+
+/**
+ * Bordered surface. With `href` it becomes a block link with the
+ * hover treatment from ROADMAP G6 (border brightens, 1px lift).
+ */
+type Props = { href?: string; external?: boolean; class?: string; padded?: boolean };
+const { href, external, class: className, padded = true } = Astro.props;
+
+const classes = cn(
+  "group relative block rounded-lg border border-border bg-surface",
+  "transition-[border-color,transform,background-color] duration-200 ease-out-quart",
+  padded && "p-5",
+  href && "hover:-translate-y-px hover:border-border-strong",
+  className,
+);
+---
+
+{
+  href ? (
+    <a
+      href={href}
+      class={classes}
+      target={external ? "_blank" : undefined}
+      rel={external ? "noopener noreferrer" : undefined}
+    >
+      <slot />
+    </a>
+  ) : (
+    <div class={classes}>
+      <slot />
+    </div>
+  )
+}

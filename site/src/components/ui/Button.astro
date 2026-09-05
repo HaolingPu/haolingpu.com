@@ -1,0 +1,47 @@
+---
+import { cn } from "@lib/utils";
+
+/**
+ * Button or link-styled-as-button.
+ * primary = amber fill (one per view, max). ghost = 1px border.
+ */
+type Props = {
+  href?: string;
+  variant?: "primary" | "ghost";
+  size?: "sm" | "md";
+  external?: boolean;
+  class?: string;
+  [key: string]: unknown;
+};
+
+const { href, variant = "ghost", size = "md", external, class: className, ...rest } = Astro.props;
+
+const classes = cn(
+  "inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md font-medium",
+  "transition-[background-color,border-color,color,transform] duration-200 ease-out-quart",
+  "active:translate-y-px",
+  size === "sm" ? "h-8 px-3 text-sm" : "h-10 px-4 text-sm",
+  variant === "primary"
+    ? "bg-accent text-accent-fg hover:brightness-105"
+    : "border border-border bg-transparent text-fg hover:border-border-strong hover:bg-surface",
+  className,
+);
+---
+
+{
+  href ? (
+    <a
+      href={href}
+      class={classes}
+      target={external ? "_blank" : undefined}
+      rel={external ? "noopener noreferrer" : undefined}
+      {...rest}
+    >
+      <slot />
+    </a>
+  ) : (
+    <button class={classes} {...rest}>
+      <slot />
+    </button>
+  )
+}

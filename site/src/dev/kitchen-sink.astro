@@ -1,0 +1,91 @@
+---
+import Button from "@components/ui/Button.astro";
+import Card from "@components/ui/Card.astro";
+import Container from "@components/ui/Container.astro";
+import Link from "@components/ui/Link.astro";
+import Prose from "@components/ui/Prose.astro";
+import Section from "@components/ui/Section.astro";
+import Tag from "@components/ui/Tag.astro";
+import PageLayout from "@layouts/PageLayout.astro";
+
+const swatches = [
+  "bg",
+  "surface",
+  "surface-2",
+  "border",
+  "border-strong",
+  "fg",
+  "fg-muted",
+  "fg-subtle",
+  "accent",
+  "accent-fg",
+  "accent-muted",
+];
+---
+
+<PageLayout title="Kitchen sink" description="Dev-only component gallery.">
+  <Container size="wide">
+    <h1 class="text-display">Kitchen sink</h1>
+
+    <Section eyebrow="tokens" title="Colors">
+      <div class="grid grid-cols-2 gap-3 sm:grid-cols-4 lg:grid-cols-6">
+        {
+          swatches.map((name) => (
+            <div class="rounded-md border border-border bg-surface p-2">
+              <div class="mb-2 h-12 rounded-sm border border-border" style={`background: var(--${name})`} />
+              <div class="font-mono text-xs text-fg-muted">--{name}</div>
+            </div>
+          ))
+        }
+      </div>
+    </Section>
+
+    <Section eyebrow="ui" title="Buttons">
+      <div class="flex flex-wrap items-center gap-3">
+        <Button variant="primary">Résumé</Button>
+        <Button>GitHub</Button>
+        <Button size="sm" variant="primary">Small primary</Button>
+        <Button size="sm">Small ghost</Button>
+        <Button href="/" >As link</Button>
+      </div>
+    </Section>
+
+    <Section eyebrow="ui" title="Links & tags">
+      <p class="mb-4">
+        Inline <Link href="/">internal link</Link> and an{" "}
+        <Link href="https://github.com/HaolingPu" external>external link</Link> inside body text.
+      </p>
+      <div class="flex flex-wrap gap-2">
+        <Tag>cuda</Tag><Tag>llm</Tag><Tag>systems</Tag><Tag>agents</Tag>
+        <Tag accent>in progress</Tag><Tag accent>featured</Tag>
+      </div>
+    </Section>
+
+    <Section eyebrow="ui" title="Cards">
+      <span slot="action"><Link href="/">See all</Link></span>
+      <div class="grid gap-4 sm:grid-cols-2">
+        <Card href="/">
+          <div class="mb-1 font-medium text-fg">Linked card</div>
+          <p class="text-sm">Border brightens and lifts 1px on hover.</p>
+        </Card>
+        <Card>
+          <div class="mb-1 font-medium text-fg">Static card</div>
+          <p class="text-sm">No hover treatment.</p>
+        </Card>
+      </div>
+    </Section>
+
+    <Section eyebrow="content" title="Prose">
+      <Prose>
+        <h2>Heading two</h2>
+        <p>
+          Body copy with <strong>bold</strong>, <em>emphasis</em>, <code>inline code</code> and a
+          <a href="/">link</a>. Blackwell tensor cores pipeline loads while the previous tile computes.
+        </p>
+        <blockquote>A quote with the accent as its left border.</blockquote>
+        <ul><li>List item one</li><li>List item two</li></ul>
+        <pre><code>$ pnpm check && pnpm build</code></pre>
+      </Prose>
+    </Section>
+  </Container>
+</PageLayout>

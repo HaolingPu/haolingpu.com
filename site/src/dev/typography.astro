@@ -1,0 +1,33 @@
+---
+import Container from "@components/ui/Container.astro";
+import PageLayout from "@layouts/PageLayout.astro";
+
+const steps = [
+  ["text-hero", "Hero — fluid clamp"],
+  ["text-display", "Display — fluid clamp"],
+  ["text-3xl", "3xl"],
+  ["text-2xl", "2xl"],
+  ["text-xl", "xl"],
+  ["text-lg", "lg"],
+  ["text-base", "base"],
+  ["text-sm", "sm"],
+  ["text-xs", "xs"],
+];
+---
+
+<PageLayout title="Typography" description="Dev-only type scale.">
+  <Container size="wide">
+    <h1 class="mb-10 text-display">Type scale</h1>
+    <div class="space-y-8">
+      {
+        steps.map(([cls, label]) => (
+          <div class="border-b border-border pb-6">
+            <div class="mb-2 font-mono text-xs text-fg-subtle">{label} · .{cls}</div>
+            <div class:list={[cls, "text-fg"]}>The quick brown fox — 22–35× faster</div>
+            <div class:list={[cls, "font-mono text-fg-muted"]}>$ whoami → haoling_pu</div>
+          </div>
+        ))
+      }
+    </div>
+  </Container>
+</PageLayout>

@@ -22,9 +22,11 @@ const { title, description, image = "/og.png" } = Astro.props;
 <!-- Global Metadata -->
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width,initial-scale=1" />
-<link rel="icon" type="image/svg+xml" href="/favicon-dark.svg" media="(prefers-color-scheme: dark)">
-<link rel="icon" type="image/svg+xml" href="/favicon-light.svg" media="(prefers-color-scheme: light)">
-<link rel="icon" type="image/x-icon" href="/favicon-light.svg">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+<link rel="icon" href="/favicon.ico" sizes="32x32" />
+<link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+<link rel="manifest" href="/site.webmanifest" />
+<meta name="theme-color" content="#141416" />
 <meta name="generator" content={Astro.generator} />
 
 <!-- Font preloads -->
@@ -70,111 +72,67 @@ const { title, description, image = "/og.png" } = Astro.props;
 </script>
 
 <script is:inline>
-  function init() {
-    preloadTheme();
-    onScroll();
-    animate();
+  /* Theme: dark is the default. A visitor's explicit choice persists in localStorage. */
+  function currentTheme() {
+    try {
+      const stored = localStorage.getItem("theme");
+      if (stored === "light" || stored === "dark") return stored;
+    } catch (_) {}
+    return "dark";
+  }
 
-    const backToTop = document.getElementById("back-to-top");
-    backToTop?.addEventListener("click", (event) => scrollToTop(event));
+  function applyTheme(theme) {
+    const root = document.documentElement;
+    root.classList.toggle("dark", theme === "dark");
+    const meta = document.querySelector('meta[name="theme-color"]');
+    if (meta) meta.setAttribute("content", theme === "dark" ? "#141416" : "#fbfaf8");
+  }
 
-    const backToPrev = document.getElementById("back-to-prev");
-    backToPrev?.addEventListener("click", () => window.history.back());
-
-    const lightThemeButton = document.getElementById("light-theme-button");
-    lightThemeButton?.addEventListener("click", () => {
-      localStorage.setItem("theme", "light");
-      toggleTheme(false);
-    });
-
-    const darkThemeButton = document.getElementById("dark-theme-button");
-    darkThemeButton?.addEventListener("click", () => {
-      localStorage.setItem("theme", "dark");
-      toggleTheme(true);
-    });
-
-    const systemThemeButton = document.getElementById("system-theme-button");
-    systemThemeButton?.addEventListener("click", () => {
-      localStorage.setItem("theme", "system");
-      toggleTheme(window.matchMedia("(prefers-color-scheme: dark)").matches);
-    });
-
-    window.matchMedia("(prefers-color-scheme: dark)")
-      .addEventListener("change", event => {
-        if (localStorage.theme === "system" || !localStorage.theme) {
-          toggleTheme(event.matches);
-        }
-      }
-    );
-
-    document.addEventListener("scroll", onScroll);
+  function toggleTheme() {
+    const next = document.documentElement.classList.contains("dark") ? "light" : "dark";
+    /* Suppress transitions for one frame so the whole page flips at once. */
+    const css = document.createElement("style");
+    css.appendChild(document.createTextNode("* { transition: none !important; }"));
+    document.head.appendChild(css);
+    try {
+      localStorage.setItem("theme", next);
+    } catch (_) {}
+    applyTheme(next);
+    window.getComputedStyle(css).opacity;
+    document.head.removeChild(css);
   }
 
   function animate() {
-    const animateElements = document.querySelectorAll(".animate");
-
-    animateElements.forEach((element, index) => {
-      setTimeout(() => {
-        element.classList.add("show");
-      }, index * 150);
+    document.querySelectorAll(".animate").forEach((element, index) => {
+      setTimeout(() => element.classList.add("show"), index * 120);
     });
   }
 
   function onScroll() {
-    if (window.scrollY > 0) {
-      document.documentElement.classList.add("scrolled");
-    } else {
-      document.documentElement.classList.remove("scrolled");
-    }
+    document.documentElement.classList.toggle("scrolled", window.scrollY > 0);
   }
 
-  function scrollToTop(event) {
-    event.preventDefault();
-    window.scrollTo({
-      top: 0,
-      behavior: "smooth"
+  function init() {
+    applyTheme(currentTheme());
+    onScroll();
+    animate();
+
+    document.querySelectorAll("[data-theme-toggle]").forEach((button) => {
+      button.addEventListener("click", toggleTheme);
     });
+
+    document.getElementById("back-to-top")?.addEventListener("click", (event) => {
+      event.preventDefault();
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    });
+
+    document.getElementById("back-to-prev")?.addEventListener("click", () => window.history.back());
+
+    document.addEventListener("scroll", onScroll, { passive: true });
   }
 
-function toggleTheme(dark) {
-    const css = document.createElement("style");
-
-    css.appendChild(
-      document.createTextNode(
-        `* {
-             -webkit-transition: none !important;
-             -moz-transition: none !important;
-             -o-transition: none !important;
-             -ms-transition: none !important;
-             transition: none !important;
-          }
-        `,
-      )
-    );
-
-    document.head.appendChild(css);
-
-    if (dark) {
-      document.documentElement.classList.add("dark");
-    } else {
-      document.documentElement.classList.remove("dark");
-    }
-
-  window.getComputedStyle(css).opacity;
-    document.head.removeChild(css);
-  }
-
-  function preloadTheme() {
-    const userTheme = localStorage.theme;
-
-    if (userTheme === "light" || userTheme === "dark") {
-      toggleTheme(userTheme === "dark");
-    } else {
-      toggleTheme(window.matchMedia("(prefers-color-scheme: dark)").matches);
-    }
-  }
-
-  document.addEventListener("DOMContentLoaded", () => init());
-  document.addEventListener("astro:after-swap", () => init());
-  preloadTheme();
+  /* Runs while <head> is parsed, before first paint: no flash of the wrong theme. */
+  applyTheme(currentTheme());
+  document.addEventListener("DOMContentLoaded", init);
+  document.addEventListener("astro:after-swap", init);
 </script>

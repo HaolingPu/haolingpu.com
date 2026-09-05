@@ -1,0 +1,19 @@
+---
+import { cn } from "@lib/utils";
+
+/** Mono metadata pill: tech tags, statuses, dates. */
+type Props = { class?: string; accent?: boolean };
+const { class: className, accent = false } = Astro.props;
+---
+
+<span
+  class={cn(
+    "inline-flex items-center rounded-sm border px-1.5 py-0.5 font-mono text-[11px] leading-4 tracking-wide",
+    accent
+      ? "border-accent/40 bg-accent-muted text-accent"
+      : "border-border bg-surface text-fg-muted",
+    className,
+  )}
+>
+  <slot />
+</span>

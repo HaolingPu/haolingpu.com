@@ -1,6 +1,6 @@
 ---
 import { getCollection, render } from "astro:content";
-import Container from "@components/Container.astro";
+import Container from "@components/ui/Container.astro";
 import PageLayout from "@layouts/PageLayout.astro";
 import { dateRange } from "@lib/utils";
 import { WORK } from "@site.config";
@@ -20,7 +20,7 @@ const work = await Promise.all(
 <PageLayout title={WORK.TITLE} description={WORK.DESCRIPTION}>
   <Container>
     <div class="space-y-10">
-      <div class="animate font-semibold text-black dark:text-white">
+      <div class="animate font-semibold text-fg">
         Work
       </div>
       <ul class="flex flex-col space-y-4">
@@ -30,7 +30,7 @@ const work = await Promise.all(
               <div class="text-sm opacity-75">
                 {dateRange(entry.data.dateStart, entry.data.dateEnd)}
               </div>
-              <div class="font-semibold text-black dark:text-white">
+              <div class="font-semibold text-fg">
                 {entry.data.company}
               </div>
               <div class="text-sm opacity-75">

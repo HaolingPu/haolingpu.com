@@ -3,9 +3,25 @@ import sitemap from "@astrojs/sitemap";
 import tailwindcss from "@tailwindcss/vite";
 import { defineConfig } from "astro/config";
 
+/**
+ * Pages under src/dev/ (type scale, component gallery) are injected as
+ * routes in `astro dev` only. They never reach the production build.
+ */
+const devPages = () => ({
+  name: "dev-pages",
+  hooks: {
+    "astro:config:setup": ({ command, injectRoute }) => {
+      if (command !== "dev") return;
+      injectRoute({ pattern: "/dev/kitchen-sink", entrypoint: "./src/dev/kitchen-sink.astro" });
+      injectRoute({ pattern: "/dev/typography", entrypoint: "./src/dev/typography.astro" });
+    },
+  },
+});
+
 export default defineConfig({
   site: "https://haolingpu.com",
-  integrations: [mdx(), sitemap()],
+  devToolbar: { enabled: false }, // keeps headless screenshots clean
+  integrations: [mdx(), sitemap(), devPages()],
   vite: {
     plugins: [tailwindcss()],
   },

@@ -74,7 +74,7 @@ Legend: `[ ]` todo · `[x]` done · **DoD** = definition of done. Tasks within a
 - [x] **A3** Inventory content from the résumé into a spreadsheet-style `content/inventory.md`: every job, project, paper, with status (public / needs permission / private) and asset needs (screenshot, GIF, link). DoD: every résumé bullet mapped to a page.
 - [ ] **A4** Collect assets into `assets-raw/`: headshot, project screenshots, the NVIDIA competition result, any figures from the EMNLP draft cleared for public use, logos (CMU, UMich, Google, WeRide, NVIDIA). DoD: folder populated, each file named `<project>-<what>.<ext>`.
 - [x] **A5** Register the domain (D3) on Cloudflare Registrar; leave DNS empty for now. DoD: domain shows in Cloudflare dashboard. *(You do this — it needs your card. `haolingpu.com` confirmed available via whois on 2026-09-05. Optional: the site can launch on the free `haolingpu.vercel.app` first and the domain can be attached any time later — I1 is the only task that depends on it.)*
-- [ ] **A6** Create the empty GitHub repo `HaolingPu/haolingpu.com` (public, MIT license, no README yet). DoD: repo URL exists.
+- [x] **A6** Create the empty GitHub repo `HaolingPu/haolingpu.com` (public, MIT license, no README yet). DoD: repo URL exists.
 
 ### Phase B — Scaffold & toolchain  ·  9 tasks
 - [x] **B1** Node + pnpm. DoD: `node -v` and `pnpm -v` print. *(Done 2026-09-05: Node 23.11 via Homebrew already present, pnpm 11.25 enabled via corepack. Node 23 is fine for Astro 5; no need to downgrade.)*
@@ -82,21 +82,21 @@ Legend: `[ ]` todo · `[x]` done · **DoD** = definition of done. Tasks within a
 - [ ] **B3** First commit + push; connect repo to Vercel (import project, framework preset = Astro). DoD: a `*.vercel.app` URL serves the demo.
 - [x] **B4** Upgrade deps to latest Astro (7.3) and Tailwind v4 (`@tailwindcss/vite`), remove Nano's `tailwind.config` in favor of CSS `@theme`; migrate content collections to the content-layer API (`glob` loader, `render()`, `entry.id`). DoD: build passes, no deprecation warnings.
 - [x] **B5** Add Biome for lint/format + `pnpm check` script (`astro check` + `biome check`). DoD: `pnpm check` passes on a clean tree.
-- [~] **B6** Add GitHub Actions workflow `ci.yml`: install → check → build on every PR. DoD: green check on a test PR. *(Workflow written at `.github/workflows/ci.yml`; goes green once the repo exists on GitHub — A6.)*
+- [x] **B6** Add GitHub Actions workflow `ci.yml`: install → check → build on every push and PR. DoD: green check. *(First run green on 2026-09-05.)*
 - [x] **B7** Strip Nano's demo content (posts, projects, work) and branding; keep layouts. DoD: site builds with empty collections and no "Nano" strings (`grep -ri nano src` returns nothing).
 - [x] **B8** Create `src/site.config.ts` (name, tagline, email, socials, domain, default OG) and wire it into `<head>`. DoD: changing the tagline in config changes the home page.
 - [x] **B9** Write `README.md` (stack, how to run, how to add content) and `CLAUDE.md` (conventions for future Claude Code sessions: collections schema, design tokens, commit style). DoD: both files ≤ 150 lines.
 
-### Phase C — Design system  ·  9 tasks
-- [ ] **C1** Define color tokens in `src/styles/global.css` under `@theme`: background/surface/border/text-1/text-2/accent for dark AND light, using OKLCH. DoD: tokens documented in a comment block; light/dark both render.
-- [ ] **C2** Self-host Geist Sans + Geist Mono via `@fontsource-variable/geist` + `geist-mono`; set `font-display: swap`; preload the two woff2 files. DoD: no request to fonts.googleapis.com; Lighthouse shows no font-related CLS.
-- [ ] **C3** Type scale: 6 steps (`text-xs` … `text-4xl`) with fluid `clamp()` for the hero; mono used for labels, dates, code, nav. DoD: `src/pages/_typography.astro` dev-only page shows every step.
-- [ ] **C4** Spacing & layout primitives: `Container` (max-w 68ch for prose, 1100px for grids), `Section` (consistent vertical rhythm), `Prose` (MDX typography). DoD: three components exported from `src/components/ui/`.
-- [ ] **C5** Background treatment: subtle dot-grid or 2% noise SVG on the body, fades toward the top. DoD: visible at 100% zoom, invisible in screenshots at 50%.
-- [ ] **C6** Core components: `Link` (underline-on-hover with accent), `Button` (primary/ghost), `Tag`/`Pill` (mono, 1px border), `Card` (1px border, hover lift 1px + border-brighten). DoD: dev-only `_kitchen-sink.astro` page renders each.
-- [ ] **C7** Theme toggle (dark default, respects `prefers-color-scheme` on first visit, persists to `localStorage`, no flash via inline script in `<head>`). DoD: no FOUC when reloading in light mode.
-- [ ] **C8** Motion rules: define `--ease-out-quart`, durations 150/250/400ms, and a global `prefers-reduced-motion` kill-switch. DoD: toggling reduced motion in DevTools disables all transitions.
-- [ ] **C9** Favicon set + `site.webmanifest` + theme-color meta; design a 1-glyph monogram (`hp` or `>_`) as SVG. DoD: favicon shows in tab, in dark and light.
+### Phase C — Design system  ·  9 tasks  — *done 2026-09-05. Dev-only pages `/dev/typography` and `/dev/kitchen-sink` exist in `astro dev` only (injected by the `devPages` integration in `astro.config.mjs`). Headless screenshots: `node scripts/shoot.mjs <outDir>` (Playwright).*
+- [x] **C1** Define color tokens in `src/styles/global.css` under `@theme`: background/surface/border/text-1/text-2/accent for dark AND light, using OKLCH. DoD: tokens documented in a comment block; light/dark both render.
+- [x] **C2** Self-host Geist Sans + Geist Mono via `@fontsource-variable/geist` + `geist-mono`; set `font-display: swap`; preload the two woff2 files. DoD: no request to fonts.googleapis.com; Lighthouse shows no font-related CLS.
+- [x] **C3** Type scale: 6 steps (`text-xs` … `text-4xl`) with fluid `clamp()` for the hero; mono used for labels, dates, code, nav. DoD: `src/pages/_typography.astro` dev-only page shows every step.
+- [x] **C4** Spacing & layout primitives: `Container` (max-w 68ch for prose, 1100px for grids), `Section` (consistent vertical rhythm), `Prose` (MDX typography). DoD: three components exported from `src/components/ui/`.
+- [x] **C5** Background treatment: subtle dot-grid or 2% noise SVG on the body, fades toward the top. DoD: visible at 100% zoom, invisible in screenshots at 50%.
+- [x] **C6** Core components: `Link` (underline-on-hover with accent), `Button` (primary/ghost), `Tag`/`Pill` (mono, 1px border), `Card` (1px border, hover lift 1px + border-brighten). DoD: dev-only `_kitchen-sink.astro` page renders each.
+- [x] **C7** Theme toggle: **dark on first visit regardless of OS setting** (dark is the brand, per D5), two-state sun/moon toggle, persists to `localStorage`, no flash via inline script in `<head>`. DoD: no FOUC when reloading in light mode.
+- [x] **C8** Motion rules: define `--ease-out-quart`, durations 150/250/400ms, and a global `prefers-reduced-motion` kill-switch. DoD: toggling reduced motion in DevTools disables all transitions.
+- [x] **C9** Favicon set + `site.webmanifest` + theme-color meta; design a 1-glyph monogram (`hp` or `>_`) as SVG. DoD: favicon shows in tab, in dark and light.
 
 ### Phase D — Shell: navigation, footer, layouts  ·  7 tasks
 - [ ] **D1** Header: monogram left, mono nav (`work · projects · research · writing · about`) right, theme toggle, `⌘K` hint. Sticky with backdrop blur only after scrolling 1 screen. DoD: works at 320px width (collapses to a menu).
