@@ -24,7 +24,7 @@
 | D12 | Repo | GitHub **`HaolingPu/haolingpu.com`** (public), `main` = production, feature branches + PRs, Conventional Commits | Public repo itself is a portfolio artifact. |
 | D13 | Package manager / tooling | **pnpm**, Node 22 LTS, Biome (lint+format), Playwright for smoke tests, Lighthouse CI in GitHub Actions | Fast, opinionated, low config. |
 | D14 | Blog | Yes — a `/writing` section, but **no posts are drafted now**. Launch with the section hidden from nav until the first post exists; the two post ideas (CUDA sparse attention; future-consensus decoding, high-level only) are listed as backlog. | Decided 2026-09-05. An empty blog looks worse than none, so the section stays hidden until there is content. |
-| D15 | Language | English only (v1). Optional `/zh` later. | Keep v1 scope tight. |
+| D15 | Language | **English + Chinese home page** (`/zh/`, added 2026-09-05 at the user's request) with an EN/中文 switch in the header. Sub-pages (work/projects/research) stay English for now; content entries carry optional `*_zh` fields that fall back to English. | The user wants a Chinese introduction; the switch lives at the top of every page. |
 | D16 | Confidentiality | **Google work: abstract only** — "agentic team knowledge system / self-maintaining engineering wiki", no team name, no doc counts, no internal tooling names. **Research: high-level idea only** — problem + one-sentence approach, no method details, no numbers, no figures, until published. | Decided 2026-09-05. The résumé can say more than the website; the website is public forever. |
 
 ---
@@ -64,7 +64,7 @@ Template plumbing candidates (skeleton only, per D4):
 
 ---
 
-## 3. Task roadmap (83 tasks, 9 phases)
+## 3. Task roadmap (85 tasks, 9 phases)
 
 Legend: `[ ]` todo · `[x]` done · **DoD** = definition of done. Tasks within a phase are ordered; phases are sequential except where noted.
 
@@ -136,7 +136,7 @@ Legend: `[ ]` todo · `[x]` done · **DoD** = definition of done. Tasks within a
 - [ ] **F5** RSS feed (`/rss.xml`) + `<link rel="alternate">`; validate with an RSS checker. DoD: feed lists both posts.
 - [ ] **F6** Reading-time + "last updated" from git commit date via a small remark plugin. DoD: both show on posts.
 
-### Phase G — Nerd polish & interactions  ·  13 tasks
+### Phase G — Nerd polish & interactions  ·  15 tasks
 - [ ] **G1** `⌘K` command palette (React island, `cmdk` lib): navigate pages, jump to projects/posts, toggle theme, copy email. DoD: opens on `⌘K`/`Ctrl K`, fully keyboard-navigable, closes on Esc.
 - [ ] **G2** Keyboard shortcuts: `g h` home, `g w` work, `g p` projects, `t` theme, `?` shows a shortcuts sheet. DoD: sheet lists all bindings.
 - [ ] **G3** Hero typewriter/cursor effect on the `$ whoami` line — CSS-only, one cycle, off under reduced motion. DoD: no layout shift while typing.
@@ -150,6 +150,8 @@ Legend: `[ ]` todo · `[x]` done · **DoD** = definition of done. Tasks within a
 - [x] ~~**G11** **Tilt cards**~~ *(built, then removed in the paper-style pivot)*  for the education (and optionally project) cards: 3D tilt toward the cursor, max 6°, with a soft specular highlight; CSS `perspective` + a 20-line pointer handler, no library. DoD: no tilt on touch or reduced motion.
 - [x] ~~**G12** Typewriter tagline~~ *(built, then removed in the paper-style pivot)*  in the hero (CSS `steps()` + blinking caret, one cycle). DoD: no layout shift while typing; static text under reduced motion.
 - [x] **G13** **♡ page** (added 2026-09-05 at the user's request): a "♡" tab at the far right of the nav opens `/secret`, which asks "What does Haoling like?". Answers are checked client-side against SHA-256 hashes (plain answers are not in the repo). A correct answer sets a session flag and opens `/secret/heart`, a full-screen **2D-canvas** 3D particle scene (modeled on the viral 李峋 particle heart): ~7k particles sampled from Taubin's heart surface, rotated and perspective-projected by hand, additive glow sprites, lub-dub beat, star field, drag-to-rotate, and a tap that morphs the particles into the name 卢梦轩 (text sampled from a canvas). **Three.js was tried first and removed**: the user's Mac browser had WebGL2 disabled and saw a black page, so the effect must not depend on WebGL. 8 KB of script; direct visits without the flag bounce back to the question. Both pages are `noindex` and excluded from the sitemap. DoD: guard, wrong-answer, and success paths verified with Playwright.
+- [x] **G14** **Organization marks** (2026-09-05): a `Logo` tile (Google G, NVIDIA eye, Michigan block M from Wikimedia Commons; colored initials for CMU / WeRide / AVIAGE) beside every work, education, project and research row, driven by a `logo` field in frontmatter.
+- [x] **G15** **Chinese home page** `/zh/` (2026-09-05): translated bio, section labels, roles, highlights, project and research summaries, education, hobbies; EN/中文 switch in the header; CJK font stack. Open: Chinese name characters (❓ ask), sub-pages in Chinese.
 
 ### Phase H — SEO, performance, accessibility  ·  8 tasks
 - [ ] **H1** Per-page `<title>`/`description`, canonical URL, `og:*` and `twitter:card` from a single `SEO.astro` component. DoD: every page has unique title + description (checked with a crawl script).

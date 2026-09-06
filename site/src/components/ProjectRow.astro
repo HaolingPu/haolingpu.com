@@ -2,9 +2,14 @@
 import type { CollectionEntry } from "astro:content";
 import Logo from "@components/Logo.astro";
 
-type Props = { project: CollectionEntry<"projects"> };
-const { project } = Astro.props;
-const { title, summary, context, repo, private: isPrivate, logo } = project.data;
+import type { Lang } from "@site.config";
+
+type Props = { project: CollectionEntry<"projects">; lang?: Lang };
+const { project, lang = "en" } = Astro.props;
+const d = project.data;
+const title = lang === "zh" && d.title_zh ? d.title_zh : d.title;
+const summary = lang === "zh" && d.summary_zh ? d.summary_zh : d.summary;
+const { context, repo, private: isPrivate, logo } = d;
 ---
 
 <li class="py-3">
@@ -12,8 +17,8 @@ const { title, summary, context, repo, private: isPrivate, logo } = project.data
     {logo && <Logo name={logo} class="mr-0.5" />}
     <a href={`/projects/${project.id}`} class="link font-medium">{title}</a>
     {context && <span class="text-sm text-fg-subtle">· {context}</span>}
-    {repo && <a href={repo} target="_blank" rel="noopener noreferrer" class="link-quiet text-sm">code ↗</a>}
-    {isPrivate && !repo && <span class="text-sm text-fg-subtle">· code private</span>}
+    {repo && <a href={repo} target="_blank" rel="noopener noreferrer" class="link-quiet text-sm">{lang === "zh" ? "代码" : "code"} ↗</a>}
+    {isPrivate && !repo && <span class="text-sm text-fg-subtle">· {lang === "zh" ? "代码未公开" : "code private"}</span>}
   </div>
   <p class="mt-0.5 text-[15px] leading-relaxed text-fg-muted">{summary}</p>
 </li>

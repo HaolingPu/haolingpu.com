@@ -6,6 +6,8 @@ featured: true
 order: 5
 tags: [ios, ml]
 private: true
+title_zh: EchoFrame
+summary_zh: 一款 iOS 应用，用 AI 在三十秒内修复并上色老照片，结果同步到云端相册。
 ---
 
 ## Problem

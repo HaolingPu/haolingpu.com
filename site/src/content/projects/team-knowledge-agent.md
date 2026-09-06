@@ -8,6 +8,8 @@ order: 4
 tags: [agents, llm]
 context: Google internship
 private: true
+title_zh: 团队知识智能体
+summary_zh: 一个能构建并持续维护工程团队知识库的智能体，在 Google 已推广至跨团队使用。
 ---
 
 ## Problem

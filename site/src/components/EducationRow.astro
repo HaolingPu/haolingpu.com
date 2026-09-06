@@ -2,10 +2,15 @@
 import Logo from "@components/Logo.astro";
 import CmuWordmark from "@components/logos/CmuWordmark.astro";
 import UmichLogo from "@components/logos/UmichLogo.astro";
+import type { Lang } from "@site.config";
+
+import { UI } from "@site.config";
 import type { Education } from "@types";
 
-type Props = { edu: Education; compact?: boolean };
-const { edu, compact = false } = Astro.props;
+type Props = { edu: Education; compact?: boolean; lang?: Lang };
+const { edu, compact = false, lang = "en" } = Astro.props;
+const ui = UI[lang];
+const zh = lang === "zh";
 ---
 
 <li class="group grid gap-1 py-3 sm:grid-cols-[150px_1fr] sm:gap-6">
@@ -13,14 +18,14 @@ const { edu, compact = false } = Astro.props;
   <div>
     <div class="flex flex-wrap items-baseline gap-x-2">
       <Logo name={edu.LOGO} class="mr-0.5" />
-      <span class="font-medium">{edu.DEGREE}</span>
+      <span class="font-medium">{zh ? edu.DEGREE_ZH : edu.DEGREE}</span>
       <span class="text-fg-subtle">·</span>
-      <a href={edu.URL} target="_blank" rel="noopener noreferrer" class="link">{edu.SCHOOL}</a>
+      <a href={edu.URL} target="_blank" rel="noopener noreferrer" class="link">{zh ? edu.SCHOOL_ZH : edu.SCHOOL}</a>
     </div>
     <div class="mt-0.5 text-[15px] text-fg-muted">
-      {edu.UNIT} · GPA {edu.GPA}
+      {zh ? edu.UNIT_ZH : edu.UNIT} · {ui.gpa} {edu.GPA}
     </div>
-    {!compact && <div class="mt-1.5 text-[14px] text-fg-subtle">Coursework: {edu.COURSES.join(", ")}</div>}
+    {!compact && <div class="mt-1.5 text-[14px] text-fg-subtle">{ui.coursework}: {edu.COURSES.join(", ")}</div>}
     <div class="mt-2.5 flex h-6 items-center text-fg-subtle/80 transition-colors group-hover:text-fg">
       {edu.LOGO === "cmu" ? <CmuWordmark class="h-[11px] w-auto" /> : <UmichLogo class="h-6 w-auto" />}
     </div>

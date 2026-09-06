@@ -8,6 +8,8 @@ order: 3
 tags: [retrieval, llm]
 repo: https://github.com/HaolingPu/anlp-spring2026-hw1
 context: CMU Advanced NLP
+title_zh: 混合检索增强生成
+summary_zh: 从零搭建的端到端 RAG 系统，BM25 与稠密检索经倒数排名融合后，由本地开源模型完成生成。
 ---
 
 ## Problem

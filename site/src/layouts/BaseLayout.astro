@@ -2,6 +2,7 @@
 import Footer from "@components/Footer.astro";
 import Head from "@components/Head.astro";
 import Header from "@components/Header.astro";
+import type { Lang } from "@site.config";
 import { SITE } from "@site.config";
 
 type Props = {
@@ -10,14 +11,15 @@ type Props = {
   image?: string;
   bodyClass?: string;
   noindex?: boolean;
+  lang?: Lang;
 };
 
-const { title, description, image, bodyClass, noindex } = Astro.props;
+const { title, description, image, bodyClass, noindex, lang = "en" } = Astro.props;
 const fullTitle = title === "Home" ? SITE.NAME : `${title} · ${SITE.NAME}`;
 ---
 
 <!doctype html>
-<html lang="en">
+<html lang={lang === "zh" ? "zh-CN" : "en"}>
   <head>
     <Head title={fullTitle} description={description} image={image} noindex={noindex} />
   </head>
@@ -28,7 +30,7 @@ const fullTitle = title === "Home" ? SITE.NAME : `${title} · ${SITE.NAME}`;
     >
       Skip to content
     </a>
-    <Header />
+    <Header lang={lang} />
     <main id="main" tabindex="-1">
       <slot />
     </main>
