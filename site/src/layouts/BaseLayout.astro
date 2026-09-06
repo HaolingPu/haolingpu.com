@@ -4,6 +4,7 @@ import Head from "@components/Head.astro";
 import Header from "@components/Header.astro";
 import type { Lang } from "@site.config";
 import { SITE } from "@site.config";
+import Analytics from "@vercel/analytics/astro";
 
 type Props = {
   title: string;
@@ -35,5 +36,6 @@ const fullTitle = title === "Home" ? SITE.NAME : `${title} · ${SITE.NAME}`;
       <slot />
     </main>
     <Footer />
+    <Analytics />
   </body>
 </html>
