@@ -1,0 +1,53 @@
+---
+import { type CollectionEntry, render } from "astro:content";
+import Logo from "@components/Logo.astro";
+import Tag from "@components/ui/Tag.astro";
+import ProseLayout from "@layouts/ProseLayout.astro";
+import type { Lang } from "@site.config";
+
+type Props = {
+  project: CollectionEntry<"projects">;
+  prev?: CollectionEntry<"projects">;
+  next?: CollectionEntry<"projects">;
+  lang?: Lang;
+};
+const { project, prev, next, lang = "en" } = Astro.props;
+const zh = lang === "zh";
+const prefix = zh ? "/zh" : "";
+const { Content, headings } = await render(project);
+const d = project.data;
+const t = (p: CollectionEntry<"projects">) =>
+  zh && p.data.title_zh ? p.data.title_zh : p.data.title;
+const neighbor = (p?: CollectionEntry<"projects">) =>
+  p ? { href: `${prefix}/projects/${p.id}`, title: t(p) } : undefined;
+---
+
+<ProseLayout
+  lang={lang}
+  title={t(project)}
+  description={zh && d.summary_zh ? d.summary_zh : d.summary}
+  headings={headings}
+  backHref={`${prefix}/projects`}
+  backLabel={zh ? "返回项目" : "Back to projects"}
+  prev={neighbor(prev)}
+  next={neighbor(next)}
+>
+  <div slot="meta" class="not-prose mb-8 flex flex-wrap items-center gap-2">
+    {d.logo && <Logo name={d.logo} />}
+    {d.context && <span class="mr-2 font-mono text-xs text-fg-subtle">{d.context}</span>}
+    {d.tags.map((tag) => <Tag>{tag}</Tag>)}
+    {d.repo && (
+      <a href={d.repo} target="_blank" rel="noopener noreferrer" class="ml-auto font-mono text-xs text-fg-muted underline decoration-border-strong underline-offset-4 hover:text-fg hover:decoration-accent">
+        {zh ? "源码" : "source"} ↗
+      </a>
+    )}
+    {d.demo && (
+      <a href={d.demo} target="_blank" rel="noopener noreferrer" class="font-mono text-xs text-fg-muted underline decoration-border-strong underline-offset-4 hover:text-fg hover:decoration-accent">
+        demo ↗
+      </a>
+    )}
+    {d.private && <span class="font-mono text-xs text-fg-subtle">{zh ? "代码未公开" : "code private"}</span>}
+    {zh && <span class="basis-full font-mono text-xs text-fg-subtle">正文为英文。</span>}
+  </div>
+  <Content />
+</ProseLayout>

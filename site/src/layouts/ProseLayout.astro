@@ -5,6 +5,7 @@ import Container from "@components/ui/Container.astro";
 import Link from "@components/ui/Link.astro";
 import Prose from "@components/ui/Prose.astro";
 import BaseLayout from "@layouts/BaseLayout.astro";
+import type { Lang } from "@site.config";
 import type { MarkdownHeading } from "astro";
 
 /**
@@ -23,6 +24,7 @@ type Props = {
   prev?: Neighbor;
   next?: Neighbor;
   image?: string;
+  lang?: Lang;
 };
 
 const {
@@ -36,12 +38,13 @@ const {
   prev,
   next,
   image,
+  lang = "en",
 } = Astro.props;
 
 const toc = headings.filter((h) => h.depth === 2 || h.depth === 3);
 ---
 
-<BaseLayout title={title} description={description} image={image}>
+<BaseLayout title={title} description={description} image={image} lang={lang}>
   <Container size="wide">
     <div class="xl:grid xl:grid-cols-[1fr_minmax(0,72ch)_1fr] xl:gap-10">
       <div class="xl:col-start-2">

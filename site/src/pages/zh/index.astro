@@ -47,7 +47,7 @@ const linkedin = SOCIALS.find((s) => s.NAME === "linkedin")?.HREF ?? "#";
               今年夏天我在 <a href="https://about.google">Google</a> 做软件工程实习，搭建了一个能自动生成并持续维护工程团队知识库的智能体系统。在 CMU，我在<a href="https://www.lti.cs.cmu.edu">语言技术研究所</a>做同声传译方向的研究：模型如何在说话人说完之前，就决定该翻译什么。此前我在<a href="https://umich.edu">密歇根大学</a>读计算机科学与数据科学本科。
             </p>
             <p>
-              做过的东西：在 NVIDIA MLSys 2026 竞赛中写了一个<a href="/projects/sparse-attention-blackwell">面向 Blackwell 的稀疏注意力 CUDA 算子</a>，比 PyTorch 参考实现快 22–35 倍；一个<a href="/projects/llm-wiki">能自我维护的 LLM 维基</a>；一个<a href="/projects/hybrid-rag">混合检索系统</a>。也在<a href="https://www.weride.ai">文远知行 WeRide</a> 实习过，把 Kubernetes 平台上的冷启动延迟降低了 88%。
+              做过的东西：在 NVIDIA MLSys 2026 竞赛中写了一个<a href="/zh/projects/sparse-attention-blackwell">面向 Blackwell 的稀疏注意力 CUDA 算子</a>，比 PyTorch 参考实现快 22–35 倍；一个<a href="/zh/projects/llm-wiki">能自我维护的 LLM 维基</a>；一个<a href="/zh/projects/hybrid-rag">混合检索系统</a>。也在<a href="https://www.weride.ai">文远知行 WeRide</a> 实习过，把 Kubernetes 平台上的冷启动延迟降低了 88%。
             </p>
             <p>
               我正在寻找 2027 届的机器学习 / 软件工程全职岗位。最方便的联系方式是邮件：<button type="button" data-copy={SITE.EMAIL} class="link inline-flex cursor-pointer items-baseline gap-1 border-0 bg-transparent p-0 font-[inherit] text-[inherit]" aria-label={`复制邮箱 ${SITE.EMAIL}`}><span class="when-idle">{SITE.EMAIL}</span><span class="when-copied">已复制 ✓</span></button>。也可以在 <a href={github}>GitHub</a> 和 <a href={linkedin}>LinkedIn</a> 找到我。这是我的<a href="/Haoling_Pu_Resume.pdf">简历</a>。
@@ -65,7 +65,7 @@ const linkedin = SOCIALS.find((s) => s.NAME === "linkedin")?.HREF ?? "#";
     </section>
 
     <Section eyebrow={ui.work} class="animate">
-      <a slot="action" href="/work" class="link-quiet">{ui.allRoles}</a>
+      <a slot="action" href="/zh/work" class="link-quiet">{ui.allRoles}</a>
       <ul class="rule-list">{work.slice(0, 3).map((entry) => <WorkRow entry={entry} compact lang="zh" />)}</ul>
     </Section>
 
@@ -78,19 +78,19 @@ const linkedin = SOCIALS.find((s) => s.NAME === "linkedin")?.HREF ?? "#";
     </Section>
 
     <Section eyebrow={ui.projects} class="animate">
-      <a slot="action" href="/projects" class="link-quiet">{ui.allProjects}</a>
+      <a slot="action" href="/zh/projects" class="link-quiet">{ui.allProjects}</a>
       <ul class="rule-list">{projects.map((p) => <ProjectRow project={p} lang="zh" />)}</ul>
     </Section>
 
     <Section eyebrow={ui.research} class="animate">
-      <a slot="action" href="/research" class="link-quiet">{ui.more}</a>
+      <a slot="action" href="/zh/research" class="link-quiet">{ui.more}</a>
       <ul class="rule-list">
         {
           research.map((r) => (
             <li class="py-3">
               <div class="flex flex-wrap items-baseline gap-x-2">
                 {r.data.logo && <Logo name={r.data.logo} class="mr-0.5" />}
-                <a href="/research" class="link font-medium">{r.data.title_zh ?? r.data.title}</a>
+                <a href="/zh/research" class="link font-medium">{r.data.title_zh ?? r.data.title}</a>
                 <span class="text-sm text-fg-subtle">· {r.data.venue_zh ?? r.data.venue}</span>
               </div>
               <p class="mt-0.5 text-[15px] leading-relaxed text-fg-muted">{r.data.summary_zh ?? r.data.summary}</p>

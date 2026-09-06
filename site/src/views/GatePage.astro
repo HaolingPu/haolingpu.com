@@ -1,0 +1,83 @@
+---
+import Container from "@components/ui/Container.astro";
+import BaseLayout from "@layouts/BaseLayout.astro";
+import type { Lang } from "@site.config";
+
+type Props = { lang?: Lang };
+const { lang = "en" } = Astro.props;
+const zh = lang === "zh";
+---
+
+<BaseLayout lang={lang} title="♡" description={zh ? "一个小问题。" : "A small question."} noindex>
+  <Container>
+    <div class="animate mx-auto max-w-[26rem] py-10 text-center sm:py-20">
+      <div class="label">{zh ? "一个小问题" : "a small question"}</div>
+      <h1 class="mt-3 text-[26px] font-semibold tracking-tight">{zh ? "浩领最喜欢什么？" : "What does Haoling like?"}</h1>
+      <p class="mt-2 text-[15px] text-fg-muted">{zh ? "答对了，门就开。" : "Answer correctly and a door opens."}</p>
+
+      <form data-gate class="mt-8" autocomplete="off">
+        <label for="answer" class="sr-only">{zh ? "你的答案" : "Your answer"}</label>
+        <input
+          id="answer"
+          name="answer"
+          type="text"
+          required
+          placeholder={zh ? "你的答案" : "your answer"}
+          class="w-full rounded-md border border-border bg-surface px-4 py-3 text-center text-[17px] outline-none transition-[border-color,box-shadow] focus:border-accent focus:ring-4 focus:ring-accent/15"
+        />
+        <button
+          type="submit"
+          class="mt-3 w-full rounded-md bg-fg px-4 py-3 text-[15px] font-medium text-bg transition-opacity hover:opacity-90"
+        >
+          {zh ? "打开" : "Open"}
+        </button>
+        <p data-msg class="mt-4 min-h-6 text-sm text-fg-subtle" aria-live="polite"></p>
+      </form>
+    </div>
+  </Container>
+</BaseLayout>
+
+<script>
+  import { unlock } from "@lib/vault";
+  const form = document.querySelector<HTMLFormElement>("[data-gate]");
+  const input = form?.querySelector("input");
+  const msg = form?.querySelector<HTMLElement>("[data-msg]");
+  const zh = document.documentElement.lang.startsWith("zh");
+  let tries = 0;
+  let busy = false;
+
+  form?.addEventListener("submit", async (e) => {
+    e.preventDefault();
+    if (!input || !msg || busy) return;
+    busy = true;
+    msg.textContent = zh ? "…" : "…";
+    try {
+      const key = await unlock(input.value); // ~0.3 s of PBKDF2 on purpose
+      if (key) {
+        sessionStorage.setItem("vault", key);
+        window.location.href = "/secret/heart/";
+        return;
+      }
+    } catch {
+      /* fall through */
+    }
+    tries++;
+    input.classList.add("shake");
+    setTimeout(() => input.classList.remove("shake"), 500);
+    msg.textContent = tries < 3 ? (zh ? "不对哦。" : "Not quite.") : (zh ? "提示：是一个名字。" : "Hint: it's a name.");
+    input.select();
+    busy = false;
+  });
+</script>
+
+<style>
+  .shake {
+    animation: shake 0.45s cubic-bezier(0.36, 0.07, 0.19, 0.97);
+  }
+  @keyframes shake {
+    10%, 90% { transform: translateX(-1px); }
+    20%, 80% { transform: translateX(2px); }
+    30%, 50%, 70% { transform: translateX(-4px); }
+    40%, 60% { transform: translateX(4px); }
+  }
+</style>
