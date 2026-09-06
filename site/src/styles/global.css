@@ -261,3 +261,10 @@ main {
 .rule-list {
   @apply divide-y divide-border border-y border-border;
 }
+
+/* Chinese pages: system CJK sans after Geist, slightly looser leading. */
+html[lang="zh-CN"] body {
+  font-family:
+    "Geist Variable", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "Noto Sans SC",
+    ui-sans-serif, system-ui, sans-serif;
+}

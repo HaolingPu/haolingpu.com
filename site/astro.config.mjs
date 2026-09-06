@@ -20,6 +20,11 @@ const devPages = () => ({
 
 export default defineConfig({
   site: "https://haolingpu.com",
+  i18n: {
+    defaultLocale: "en",
+    locales: ["en", "zh"],
+    routing: { prefixDefaultLocale: false },
+  },
   devToolbar: { enabled: false }, // keeps headless screenshots clean
   integrations: [mdx(), sitemap({ filter: (page) => !page.includes("/secret") }), devPages()],
   vite: {

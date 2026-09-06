@@ -6,6 +6,8 @@ featured: true
 order: 2
 tags: [agents, llm]
 repo: https://github.com/HaolingPu/llm-wiki-meridian
+title_zh: LLM 维基
+summary_zh: 一个由智能体持续摄取、查询与校验的 Obsidian 知识库，遵循 Karpathy 的 LLM Wiki 模式，能够自我维护。
 ---
 
 ## Problem

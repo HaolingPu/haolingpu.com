@@ -8,6 +8,8 @@ order: 1
 tags: [cuda, llm]
 context: NVIDIA MLSys 2026 competition
 private: true
+title_zh: Blackwell 上的稀疏注意力
+summary_zh: 面向 DeepSeek-V3 稀疏注意力的 Blackwell 优化 CUDA 算子，比 PyTorch 参考实现快 22–35 倍。
 ---
 
 ## Problem

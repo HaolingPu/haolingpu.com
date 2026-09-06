@@ -1,7 +1,12 @@
 ---
 import Container from "@components/ui/Container.astro";
-import { NAV, SITE } from "@site.config";
+import type { Lang } from "@site.config";
+import { NAV, SITE, UI } from "@site.config";
 
+type Props = { lang?: Lang };
+const { lang = "en" } = Astro.props;
+const ui = UI[lang];
+const label = (n: (typeof NAV)[number]) => (lang === "zh" ? n.LABEL_ZH : n.LABEL);
 const path = Astro.url.pathname;
 const items = NAV.filter((n) => n.ENABLED);
 const isActive = (href: string) => path === href || path.startsWith(`${href}/`);
@@ -11,7 +16,7 @@ const isActive = (href: string) => path === href || path.startsWith(`${href}/`);
   <Container size="wide">
     <div class="flex items-center justify-between gap-6">
       <a
-        href="/"
+        href={lang === "zh" ? "/zh/" : "/"}
         aria-label={`${SITE.NAME} — home`}
         class="flex items-center gap-2.5 text-fg transition-colors hover:text-fg"
       >
@@ -31,10 +36,17 @@ const isActive = (href: string) => path === href || path.startsWith(`${href}/`);
                   : "text-fg-muted hover:text-fg",
               ]}
             >
-              {item.LABEL}
+              {label(item)}
             </a>
           ))
         }
+        <a
+          href={ui.switchHref}
+          aria-label={ui.switchLabel}
+          class="ml-1 rounded-md border border-border px-2 py-1 font-mono text-[11.5px] text-fg-muted transition-colors hover:border-border-strong hover:text-fg"
+        >
+          {ui.switch}
+        </a>
         <button
           type="button"
           data-theme-toggle

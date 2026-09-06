@@ -13,7 +13,7 @@ Status key: **public** = can go on the site as-is · **abstract** = describe at 
 | GitHub | github.com/HaolingPu | public |
 | LinkedIn | linkedin.com/in/haoling-pu | public |
 | Phone | — | private (never on site) |
-| Résumé PDF | `~/Desktop/New Grad Application/Resume_HaolingPu.pdf` (Aug 23 2026) | public, copy to `public/` |
+| Résumé PDF | September 2026 version (`Resume_Haoling_Brian_Pu_ML_Engineer_AI_Engineer_2026-09.pdf`), swapped in 2026-09-05 | public, in `public/` |
 | Photo | ❓ Q6 | needs asset |
 
 ## Work (`src/content/work/`)

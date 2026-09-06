@@ -47,12 +47,12 @@ export const SOCIALS: Socials = [
  * (research/about arrive in Phase E; writing stays hidden until the first post — D14).
  */
 export const NAV: NavItem[] = [
-  { LABEL: "work", HREF: "/work", ENABLED: true },
-  { LABEL: "projects", HREF: "/projects", ENABLED: true },
-  { LABEL: "research", HREF: "/research", ENABLED: true },
-  { LABEL: "writing", HREF: "/writing", ENABLED: false },
-  { LABEL: "about", HREF: "/about", ENABLED: false },
-  { LABEL: "♡", HREF: "/secret", ENABLED: true },
+  { LABEL: "work", LABEL_ZH: "经历", HREF: "/work", ENABLED: true },
+  { LABEL: "projects", LABEL_ZH: "项目", HREF: "/projects", ENABLED: true },
+  { LABEL: "research", LABEL_ZH: "研究", HREF: "/research", ENABLED: true },
+  { LABEL: "writing", LABEL_ZH: "文章", HREF: "/writing", ENABLED: false },
+  { LABEL: "about", LABEL_ZH: "关于", HREF: "/about", ENABLED: false },
+  { LABEL: "♡", LABEL_ZH: "♡", HREF: "/secret", ENABLED: true },
 ];
 
 export const REPO_URL = "https://github.com/HaolingPu/haolingpu.com";
@@ -72,21 +72,35 @@ export const STATS: Stat[] = [
 export const EDUCATION: Education[] = [
   {
     SCHOOL: "Carnegie Mellon University",
+    SCHOOL_ZH: "卡内基梅隆大学",
     LOGO: "cmu",
     DEGREE: "MS in Artificial Intelligence and Innovation",
+    DEGREE_ZH: "人工智能与创新 硕士",
     UNIT: "School of Computer Science",
+    UNIT_ZH: "计算机学院",
     START: "2025",
     END: "May 2027",
     GPA: "4.00 / 4.00",
     LOCATION: "Pittsburgh, PA",
-    COURSES: ["AI Engineering", "Deep Learning", "Multimodal ML", "Advanced NLP", "Generative AI"],
+    COURSES: [
+      "AI Engineering",
+      "Deep Learning",
+      "Multimodal ML",
+      "NLP",
+      "AI Agents",
+      "LLM Systems",
+      "Generative AI",
+    ],
     URL: "https://www.cs.cmu.edu",
   },
   {
     SCHOOL: "University of Michigan",
+    SCHOOL_ZH: "密歇根大学",
     LOGO: "umich",
     DEGREE: "BS in Computer Science & Data Science",
+    DEGREE_ZH: "计算机科学与数据科学 学士",
     UNIT: "College of Engineering",
+    UNIT_ZH: "工学院",
     START: "2021",
     END: "May 2025",
     GPA: "3.95 / 4.00",
@@ -104,9 +118,50 @@ export const EDUCATION: Education[] = [
 
 /** Off the clock. Icons are keys into HobbyIcon.astro. */
 export const HOBBIES: Hobby[] = [
-  { ICON: "basketball", LABEL: "Basketball" },
-  { ICON: "dumbbell", LABEL: "Gym" },
-  { ICON: "mountain", LABEL: "Rock climbing" },
-  { ICON: "music", LABEL: "Music" },
-  { ICON: "eightball", LABEL: "Pool" },
+  { ICON: "basketball", LABEL: "Basketball", LABEL_ZH: "篮球" },
+  { ICON: "dumbbell", LABEL: "Gym", LABEL_ZH: "健身" },
+  { ICON: "mountain", LABEL: "Rock climbing", LABEL_ZH: "攀岩" },
+  { ICON: "music", LABEL: "Music", LABEL_ZH: "音乐" },
+  { ICON: "eightball", LABEL: "Pool", LABEL_ZH: "台球" },
 ];
+
+/** Section labels and small UI strings per language. */
+export const UI = {
+  en: {
+    work: "work",
+    education: "education",
+    projects: "projects",
+    research: "research",
+    writing: "writing",
+    off: "off the clock",
+    allRoles: "all roles",
+    allProjects: "all projects",
+    more: "more",
+    allWriting: "all writing",
+    gpa: "GPA",
+    coursework: "Coursework",
+    present: "Present",
+    switch: "中文",
+    switchHref: "/zh/",
+    switchLabel: "切换到中文",
+  },
+  zh: {
+    work: "经历",
+    education: "教育",
+    projects: "项目",
+    research: "研究",
+    writing: "文章",
+    off: "工作之外",
+    allRoles: "全部经历",
+    allProjects: "全部项目",
+    more: "更多",
+    allWriting: "全部文章",
+    gpa: "GPA",
+    coursework: "课程",
+    present: "至今",
+    switch: "EN",
+    switchHref: "/",
+    switchLabel: "Switch to English",
+  },
+} as const;
+export type Lang = keyof typeof UI;
