@@ -6,6 +6,7 @@ import type { Education, Hobby, Metadata, NavItem, Site, Socials, Stat } from "@
  */
 export const SITE: Site = {
   NAME: "Haoling Pu",
+  NAME_ZH: "蒲浩领",
   DOMAIN: "haolingpu.com",
   EMAIL: "haolingp@andrew.cmu.edu",
   TAGLINE:
