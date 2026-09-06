@@ -1,5 +1,8 @@
 ---
+import { Image } from "astro:assets";
 import { getCollection } from "astro:content";
+import headshot from "@assets/photos/headshot.jpg";
+import campus from "@assets/photos/michigan-union.jpg";
 import AttentionField from "@components/AttentionField.astro";
 import Behaviors from "@components/Behaviors.astro";
 import EducationRow from "@components/EducationRow.astro";
@@ -51,8 +54,12 @@ const linkedin = SOCIALS.find((s) => s.NAME === "linkedin")?.HREF ?? "#";
             </p>
           </div>
         </div>
-        <div class="relative size-40 shrink-0 overflow-hidden rounded-lg border border-border bg-surface sm:size-44" title="照片稍后补上。先看看注意力。">
-          <AttentionField spacing={16} sigma={46} topK={5} />
+        <!-- Photo. The attention field stays as a hover overlay (ROADMAP G9). -->
+        <div class="group relative size-40 shrink-0 overflow-hidden rounded-lg border border-border bg-surface sm:size-44">
+          <Image src={headshot} alt="蒲浩领，密歇根大学毕业典礼" width={352} height={352} class="size-full object-cover" loading="eager" />
+          <div class="absolute inset-0 bg-bg/70 opacity-0 transition-opacity duration-300 group-hover:opacity-100" aria-hidden="true">
+            <AttentionField spacing={16} sigma={46} topK={5} />
+          </div>
         </div>
       </div>
     </section>
@@ -64,6 +71,10 @@ const linkedin = SOCIALS.find((s) => s.NAME === "linkedin")?.HREF ?? "#";
 
     <Section eyebrow={ui.education} class="animate">
       <ul class="rule-list">{EDUCATION.map((edu) => <EducationRow edu={edu} compact lang="zh" />)}</ul>
+      <figure class="mt-5">
+        <Image src={campus} alt="穿着学位服坐在 Michigan Union 标牌上，安娜堡，2025 年 5 月" widths={[640, 960, 1408]} sizes="(min-width: 768px) 704px, 100vw" class="w-full rounded-lg border border-border" />
+        <figcaption class="mt-2 font-mono text-[12px] text-fg-subtle">Michigan Union，安娜堡 · 2025 年 5 月</figcaption>
+      </figure>
     </Section>
 
     <Section eyebrow={ui.projects} class="animate">
