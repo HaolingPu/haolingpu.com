@@ -1,7 +1,7 @@
 ---
 logo: google
 title: Agentic team knowledge system
-summary: An agent that builds and continuously maintains an engineering team's knowledge base, shipped for cross-team use at Google.
+summary: "The agent that knows what the team knows. Shipped for real at Google, for teams beyond my own."
 date: 2026-08-15
 featured: true
 order: 4
@@ -9,7 +9,8 @@ tags: [agents, llm]
 context: Google internship
 private: true
 title_zh: 团队知识智能体
-summary_zh: 一个能构建并持续维护工程团队知识库的智能体，在 Google 已推广至跨团队使用。
+summary_zh: "一个知道团队知道什么的智能体。在 Google 真正上线，也给别的团队用上了。"
+doodle: wiki-agent
 ---
 
 ## Problem

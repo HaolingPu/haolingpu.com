@@ -64,7 +64,7 @@ Template plumbing candidates (skeleton only, per D4):
 
 ---
 
-## 3. Task roadmap (85 tasks, 9 phases)
+## 3. Task roadmap (86 tasks, 9 phases)
 
 Legend: `[ ]` todo · `[x]` done · **DoD** = definition of done. Tasks within a phase are ordered; phases are sequential except where noted.
 
@@ -136,7 +136,7 @@ Legend: `[ ]` todo · `[x]` done · **DoD** = definition of done. Tasks within a
 - [ ] **F5** RSS feed (`/rss.xml`) + `<link rel="alternate">`; validate with an RSS checker. DoD: feed lists both posts.
 - [ ] **F6** Reading-time + "last updated" from git commit date via a small remark plugin. DoD: both show on posts.
 
-### Phase G — Nerd polish & interactions  ·  15 tasks
+### Phase G — Nerd polish & interactions  ·  16 tasks
 - [ ] **G1** `⌘K` command palette (React island, `cmdk` lib): navigate pages, jump to projects/posts, toggle theme, copy email. DoD: opens on `⌘K`/`Ctrl K`, fully keyboard-navigable, closes on Esc.
 - [ ] **G2** Keyboard shortcuts: `g h` home, `g w` work, `g p` projects, `t` theme, `?` shows a shortcuts sheet. DoD: sheet lists all bindings.
 - [ ] **G3** Hero typewriter/cursor effect on the `$ whoami` line — CSS-only, one cycle, off under reduced motion. DoD: no layout shift while typing.
@@ -152,6 +152,7 @@ Legend: `[ ]` todo · `[x]` done · **DoD** = definition of done. Tasks within a
 - [x] **G13** **♡ page** (added 2026-09-05 at the user's request): a "♡" tab at the far right of the nav opens `/secret`, which asks "What does Haoling like?". Answers are checked client-side against SHA-256 hashes (plain answers are not in the repo). A correct answer sets a session flag and opens `/secret/heart`, a full-screen **2D-canvas** 3D particle scene (modeled on the viral 李峋 particle heart): ~7k particles sampled from Taubin's heart surface, rotated and perspective-projected by hand, additive glow sprites, lub-dub beat, star field, drag-to-rotate, and a tap that morphs the particles into the name (her name) (text sampled from a canvas). **Three.js was tried first and removed**: the user's Mac browser had WebGL2 disabled and saw a black page, so the effect must not depend on WebGL. 8 KB of script; **below the heart, a pink scrolling gallery** (added 2026-09-05): four photos in tilted polaroid frames with tape and a heart sticker, each revealed in sequence on scroll with a caption, a signature line, and a heart-burst button; **private content is encrypted**: `scripts/vault.mjs` packs name, captions and photos into `public/secret/vault.bin` (AES-256-GCM) with the content key wrapped under each accepted answer via PBKDF2 (300k iterations); the answers live only in git-ignored `site/secret.local.json`; the gate derives the key in the browser and the heart page decrypts client-side, so neither the repo nor the served HTML contains the name, captions or photos; direct visits without the flag bounce back to the question. Both pages are `noindex` and excluded from the sitemap. DoD: guard, wrong-answer, and success paths verified with Playwright.
 - [x] **G14** **Organization marks** (2026-09-05): a `Logo` tile (Google G, NVIDIA eye, Michigan block M from Wikimedia Commons; colored initials for CMU / WeRide / AVIAGE) beside every work, education, project and research row, driven by a `logo` field in frontmatter.
 - [x] **G15** **Chinese home page** `/zh/` (2026-09-05): translated bio, section labels, roles, highlights, project and research summaries, education, hobbies; EN/中文 switch in the header; CJK font stack. Chinese name 蒲浩领 added 2026-09-05. **All routes now have Chinese twins** (`/zh/work`, `/zh/projects`, `/zh/projects/<slug>`, `/zh/research`, `/zh/secret`) via shared views in `src/views/`; the header keeps the language and the switch maps to the same page in the other language. Project bodies and research details remain English with a note.
+- [x] **G16** **Tone pass** (2026-09-06, user request): roles and projects rewritten as one or two playful lines with no metrics (the résumé and LinkedIn carry the detail); a line-drawn `Doodle` illustration beside each row (`src/components/Doodle.astro`, keyed by a `doodle` field); GitHub / LinkedIn / Résumé / Email as icon chips under the name; résumé PDF refreshed from `assets-raw/Resume_HaolingPu.pdf`.
 
 ### Phase H — SEO, performance, accessibility  ·  8 tasks
 - [ ] **H1** Per-page `<title>`/`description`, canonical URL, `og:*` and `twitter:card` from a single `SEO.astro` component. DoD: every page has unique title + description (checked with a crawl script).

@@ -2,6 +2,22 @@ import { defineCollection, z } from "astro:content";
 import { glob } from "astro/loaders";
 
 const logo = z.enum(["google", "nvidia", "cmu", "umich", "weride", "umsn", "aviage"]).optional();
+const doodle = z
+  .enum([
+    "wiki-agent",
+    "simulst",
+    "warm-pool",
+    "prenatal",
+    "flight-data",
+    "sparse-attn",
+    "self-wiki",
+    "hybrid-rag",
+    "photo-restore",
+    "pet",
+    "future",
+    "kernel",
+  ])
+  .optional();
 
 const md = (dir: string) => glob({ base: `./src/content/${dir}`, pattern: "**/*.{md,mdx}" });
 
@@ -20,6 +36,7 @@ const work = defineCollection({
     tech: z.array(z.string()).default([]),
     url: z.url().optional(),
     logo,
+    doodle,
     abstract: z.boolean().default(false),
   }),
 });
@@ -30,7 +47,7 @@ const projects = defineCollection({
   schema: z.object({
     title: z.string(),
     title_zh: z.string().optional(),
-    summary: z.string().max(160),
+    summary: z.string().max(200),
     summary_zh: z.string().optional(),
     date: z.coerce.date(),
     featured: z.boolean().default(false),
@@ -40,6 +57,7 @@ const projects = defineCollection({
     demo: z.url().optional(),
     context: z.string().optional(), // e.g. "NVIDIA MLSys 2026 competition"
     logo,
+    doodle,
     private: z.boolean().default(false), // code not public
     draft: z.boolean().default(false),
   }),

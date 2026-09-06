@@ -38,19 +38,25 @@ const linkedin = SOCIALS.find((s) => s.NAME === "linkedin")?.HREF ?? "#";
         <div class="max-w-[40rem] flex-1">
           <h1 class="text-[28px] font-semibold tracking-tight sm:text-[32px]">蒲浩领 <span class="ml-1 text-[18px] font-normal text-fg-subtle sm:text-[20px]">Haoling Pu</span></h1>
           <p class="mt-1 text-[15px] text-fg-subtle">机器学习系统工程师 · 卡内基梅隆大学 人工智能与创新 硕士，2027 届 · 匹兹堡</p>
+          <ul class="mt-4 flex flex-wrap items-center gap-2" aria-label="Links">
+            <li><a href={github} target="_blank" rel="noopener noreferrer" class="chip"><svg viewBox="0 0 24 24" class="size-4 fill-current" aria-hidden="true"><path d="M12 .5C5.7.5.5 5.7.5 12c0 5.1 3.3 9.4 7.9 10.9.6.1.8-.3.8-.6v-2.2c-3.2.7-3.9-1.4-3.9-1.4-.5-1.3-1.3-1.7-1.3-1.7-1-.7.1-.7.1-.7 1.2.1 1.8 1.2 1.8 1.2 1 1.8 2.8 1.3 3.4 1 .1-.8.4-1.3.7-1.6-2.6-.3-5.3-1.3-5.3-5.7 0-1.3.5-2.3 1.2-3.1-.1-.3-.5-1.5.1-3.1 0 0 1-.3 3.2 1.2a11 11 0 0 1 5.8 0c2.2-1.5 3.2-1.2 3.2-1.2.6 1.6.2 2.8.1 3.1.8.8 1.2 1.8 1.2 3.1 0 4.4-2.7 5.4-5.3 5.7.4.4.8 1.1.8 2.2v3.2c0 .3.2.7.8.6 4.6-1.5 7.9-5.8 7.9-10.9C23.5 5.7 18.3.5 12 .5z"/></svg>GitHub</a></li>
+            <li><a href={linkedin} target="_blank" rel="noopener noreferrer" class="chip"><svg viewBox="0 0 24 24" class="size-4 fill-current" aria-hidden="true"><path d="M20.4 20.4h-3.5v-5.6c0-1.3 0-3-1.9-3s-2.1 1.4-2.1 2.9v5.7H9.4V9h3.4v1.6c.5-.9 1.6-1.9 3.4-1.9 3.6 0 4.3 2.4 4.3 5.5v6.2zM5.3 7.4a2.1 2.1 0 1 1 0-4.1 2.1 2.1 0 0 1 0 4.1zM7.1 20.4H3.6V9h3.5v11.4zM22.2 0H1.8C.8 0 0 .8 0 1.7v20.6c0 .9.8 1.7 1.8 1.7h20.4c1 0 1.8-.8 1.8-1.7V1.7C24 .8 23.2 0 22.2 0z"/></svg>LinkedIn</a></li>
+            <li><a href="/Haoling_Pu_Resume.pdf" target="_blank" rel="noopener noreferrer" class="chip chip-accent"><svg viewBox="0 0 24 24" class="size-4 fill-none stroke-current stroke-[1.8]" aria-hidden="true"><path d="M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8z"/><path d="M14 3v5h5M9 13h6M9 17h6"/></svg>简历</a></li>
+            <li><button type="button" data-copy={SITE.EMAIL} class="chip" aria-label={`复制邮箱 ${SITE.EMAIL}`}><svg viewBox="0 0 24 24" class="size-4 fill-none stroke-current stroke-[1.8]" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/></svg><span class="when-idle">邮箱</span><span class="when-copied">已复制 ✓</span></button></li>
+          </ul>
 
-          <div class="prose mt-6 text-[16.5px] leading-[1.85]">
+                    <div class="prose mt-6 text-[16.5px] leading-[1.85]">
             <p>
-              我是<a href="https://www.cs.cmu.edu">卡内基梅隆大学计算机学院</a>的硕士生，做机器学习系统。我最感兴趣的是模型与硬件、产品交汇的那一层：算子、推理服务，以及跑在它们之上的智能体。
+              我是<a href="https://www.cs.cmu.edu">卡内基梅隆大学计算机学院</a>的硕士生，做机器学习系统。我最喜欢模型与硬件、产品交汇的那一层：算子、推理服务，以及跑在它们之上的智能体。
             </p>
             <p>
-              今年夏天我在 <a href="https://about.google">Google</a> 做软件工程实习，搭建了一个能自动生成并持续维护工程团队知识库的智能体系统。在 CMU，我在<a href="https://www.lti.cs.cmu.edu">语言技术研究所</a>做同声传译方向的研究：模型如何在说话人说完之前，就决定该翻译什么。此前我在<a href="https://umich.edu">密歇根大学</a>读计算机科学与数据科学本科。
+              今年夏天在 <a href="https://about.google">Google</a>，我教会一个智能体让团队的知识库自己活起来。在 CMU 的<a href="https://www.lti.cs.cmu.edu">语言技术研究所</a>，我做的是在一句话说完之前就开始翻译的研究。再往前，是<a href="https://umich.edu">密歇根大学</a>的计算机科学。
             </p>
             <p>
-              做过的东西：在 NVIDIA MLSys 2026 竞赛中写了一个<a href="/zh/projects/sparse-attention-blackwell">面向 Blackwell 的稀疏注意力 CUDA 算子</a>，比 PyTorch 参考实现快 22–35 倍；一个<a href="/zh/projects/llm-wiki">能自我维护的 LLM 维基</a>；一个<a href="/zh/projects/hybrid-rag">混合检索系统</a>。也在<a href="https://www.weride.ai">文远知行 WeRide</a> 实习过，把 Kubernetes 平台上的冷启动延迟降低了 88%。
+              做过的东西：一个让 NVIDIA 竞赛负载飞起来的<a href="/zh/projects/sparse-attention-blackwell">稀疏注意力算子</a>，一个<a href="/zh/projects/llm-wiki">会自己写自己的维基</a>，还有一个<a href="/zh/projects/hybrid-rag">有两个脑子的检索系统</a>。完整版在简历里，有意思的部分在下面。
             </p>
             <p>
-              我正在寻找 2027 届的机器学习 / 软件工程全职岗位。最方便的联系方式是邮件：<button type="button" data-copy={SITE.EMAIL} class="link inline-flex cursor-pointer items-baseline gap-1 border-0 bg-transparent p-0 font-[inherit] text-[inherit]" aria-label={`复制邮箱 ${SITE.EMAIL}`}><span class="when-idle">{SITE.EMAIL}</span><span class="when-copied">已复制 ✓</span></button>。也可以在 <a href={github}>GitHub</a> 和 <a href={linkedin}>LinkedIn</a> 找到我。这是我的<a href="/Haoling_Pu_Resume.pdf">简历</a>。
+              我正在寻找 2027 届的机器学习 / 软件工程全职岗位。邮件是最方便的联系方式。
             </p>
           </div>
         </div>

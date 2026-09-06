@@ -41,19 +41,25 @@ const linkedin = SOCIALS.find((s) => s.NAME === "linkedin")?.HREF ?? "#";
           <p class="mt-1 text-[15px] text-fg-subtle">
             ML systems engineer · MS in AI &amp; Innovation, Carnegie Mellon '27 · Pittsburgh
           </p>
+          <ul class="mt-4 flex flex-wrap items-center gap-2" aria-label="Links">
+            <li><a href={github} target="_blank" rel="noopener noreferrer" class="chip"><svg viewBox="0 0 24 24" class="size-4 fill-current" aria-hidden="true"><path d="M12 .5C5.7.5.5 5.7.5 12c0 5.1 3.3 9.4 7.9 10.9.6.1.8-.3.8-.6v-2.2c-3.2.7-3.9-1.4-3.9-1.4-.5-1.3-1.3-1.7-1.3-1.7-1-.7.1-.7.1-.7 1.2.1 1.8 1.2 1.8 1.2 1 1.8 2.8 1.3 3.4 1 .1-.8.4-1.3.7-1.6-2.6-.3-5.3-1.3-5.3-5.7 0-1.3.5-2.3 1.2-3.1-.1-.3-.5-1.5.1-3.1 0 0 1-.3 3.2 1.2a11 11 0 0 1 5.8 0c2.2-1.5 3.2-1.2 3.2-1.2.6 1.6.2 2.8.1 3.1.8.8 1.2 1.8 1.2 3.1 0 4.4-2.7 5.4-5.3 5.7.4.4.8 1.1.8 2.2v3.2c0 .3.2.7.8.6 4.6-1.5 7.9-5.8 7.9-10.9C23.5 5.7 18.3.5 12 .5z"/></svg>GitHub</a></li>
+            <li><a href={linkedin} target="_blank" rel="noopener noreferrer" class="chip"><svg viewBox="0 0 24 24" class="size-4 fill-current" aria-hidden="true"><path d="M20.4 20.4h-3.5v-5.6c0-1.3 0-3-1.9-3s-2.1 1.4-2.1 2.9v5.7H9.4V9h3.4v1.6c.5-.9 1.6-1.9 3.4-1.9 3.6 0 4.3 2.4 4.3 5.5v6.2zM5.3 7.4a2.1 2.1 0 1 1 0-4.1 2.1 2.1 0 0 1 0 4.1zM7.1 20.4H3.6V9h3.5v11.4zM22.2 0H1.8C.8 0 0 .8 0 1.7v20.6c0 .9.8 1.7 1.8 1.7h20.4c1 0 1.8-.8 1.8-1.7V1.7C24 .8 23.2 0 22.2 0z"/></svg>LinkedIn</a></li>
+            <li><a href="/Haoling_Pu_Resume.pdf" target="_blank" rel="noopener noreferrer" class="chip chip-accent"><svg viewBox="0 0 24 24" class="size-4 fill-none stroke-current stroke-[1.8]" aria-hidden="true"><path d="M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8z"/><path d="M14 3v5h5M9 13h6M9 17h6"/></svg>Résumé</a></li>
+            <li><button type="button" data-copy={SITE.EMAIL} class="chip" aria-label={`Copy email ${SITE.EMAIL}`}><svg viewBox="0 0 24 24" class="size-4 fill-none stroke-current stroke-[1.8]" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/></svg><span class="when-idle">Email</span><span class="when-copied">Copied ✓</span></button></li>
+          </ul>
 
-          <div class="prose mt-6 text-[16.5px] leading-[1.7]">
+                    <div class="prose mt-6 text-[16.5px] leading-[1.7]">
             <p>
-              I'm a master's student at <a href="https://www.cs.cmu.edu">Carnegie Mellon's School of Computer Science</a> and an ML systems engineer. I like the part of machine learning where the model meets the hardware and the product: kernels, serving, and the agents that sit on top.
+              I'm a master's student at <a href="https://www.cs.cmu.edu">Carnegie Mellon's School of Computer Science</a> and an ML systems engineer. I like the layer where the model meets the hardware and the product: kernels, serving, and the agents that sit on top.
             </p>
             <p>
-              This summer I was a software engineering intern at <a href="https://about.google">Google</a>, where I built an agentic system that generates and continuously maintains an engineering team's knowledge base. At CMU I do research in the <a href="https://www.lti.cs.cmu.edu">Language Technologies Institute</a> on simultaneous speech translation: how a model can commit to a translation before the speaker finishes. Before CMU I studied Computer Science and Data Science at the <a href="https://umich.edu">University of Michigan</a>.
+              This summer at <a href="https://about.google">Google</a> I taught an agent to keep a team's knowledge base alive. At CMU's <a href="https://www.lti.cs.cmu.edu">Language Technologies Institute</a> I work on speech translation that starts before the sentence ends. Before that, computer science at the <a href="https://umich.edu">University of Michigan</a>.
             </p>
             <p>
-              Things I've built: a <a href="/projects/sparse-attention-blackwell">Blackwell-optimized sparse attention kernel</a> that ran 22–35× faster than the PyTorch reference in the NVIDIA MLSys 2026 competition, a <a href="/projects/llm-wiki">self-maintaining LLM wiki</a>, and a <a href="/projects/hybrid-rag">hybrid retrieval system</a>. I've also interned at <a href="https://www.weride.ai">WeRide</a>, cutting cold-start latency on a Kubernetes platform by 88%.
+              Things I've built: a <a href="/projects/sparse-attention-blackwell">sparse attention kernel</a> that made NVIDIA's competition workloads fly, a <a href="/projects/llm-wiki">wiki that writes itself</a>, and a <a href="/projects/hybrid-rag">retrieval system with two brains</a>. The full story is in the résumé; the interesting parts are below.
             </p>
             <p>
-              I'm looking for 2027 new-grad ML and software engineering roles. Email is the best way to reach me: <button type="button" data-copy={SITE.EMAIL} class="link inline-flex cursor-pointer items-baseline gap-1 border-0 bg-transparent p-0 font-[inherit] text-[inherit]" aria-label={`Copy email ${SITE.EMAIL}`}><span class="when-idle">{SITE.EMAIL}</span><span class="when-copied">copied ✓</span></button>. Also on <a href={github}>GitHub</a> and <a href={linkedin}>LinkedIn</a>. Here's my <a href="/Haoling_Pu_Resume.pdf">résumé</a>.
+              I'm looking for 2027 new-grad ML and software engineering roles. Email is the best way to reach me.
             </p>
           </div>
         </div>

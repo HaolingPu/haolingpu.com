@@ -1,7 +1,7 @@
 ---
 logo: nvidia
 title: Sparse attention on Blackwell
-summary: A Blackwell-optimized CUDA kernel for DeepSeek-V3 sparse attention, 22–35× faster than the PyTorch reference.
+summary: "A CUDA kernel that makes DeepSeek-style sparse attention fly on Blackwell. Passed every workload in NVIDIA's competition, dozens of times faster than the reference."
 date: 2026-04-15
 featured: true
 order: 1
@@ -9,7 +9,8 @@ tags: [cuda, llm]
 context: NVIDIA MLSys 2026 competition
 private: true
 title_zh: Blackwell 上的稀疏注意力
-summary_zh: 面向 DeepSeek-V3 稀疏注意力的 Blackwell 优化 CUDA 算子，比 PyTorch 参考实现快 22–35 倍。
+summary_zh: "一个让 DeepSeek 风格稀疏注意力在 Blackwell 上飞起来的 CUDA 算子。通过了 NVIDIA 竞赛的全部负载，比参考实现快几十倍。"
+doodle: sparse-attn
 ---
 
 ## Problem

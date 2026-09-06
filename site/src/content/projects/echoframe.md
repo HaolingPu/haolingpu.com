@@ -1,13 +1,14 @@
 ---
 title: EchoFrame
-summary: An iOS app that restores and colorizes old photos with AI in under thirty seconds, with results synced to a cloud gallery.
+summary: "Hand it a faded old photo, get it back in color half a minute later. Built for my family's albums."
 date: 2025-12-01
 featured: true
 order: 5
 tags: [ios, ml]
 private: true
 title_zh: EchoFrame
-summary_zh: 一款 iOS 应用，用 AI 在三十秒内修复并上色老照片，结果同步到云端相册。
+summary_zh: "递给它一张泛黄的老照片，半分钟后拿回一张彩色的。为了家里的相册做的。"
+doodle: photo-restore
 ---
 
 ## Problem

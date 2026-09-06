@@ -1,7 +1,7 @@
 ---
 logo: cmu
 title: Hybrid retrieval-augmented generation
-summary: An end-to-end RAG system built from scratch, with BM25 and dense retrieval fused by reciprocal rank fusion and local open-source inference.
+summary: "Keyword search and embeddings, fused so each covers the other's blind spots, with a local open-source model doing the talking."
 date: 2026-03-01
 featured: true
 order: 3
@@ -9,7 +9,8 @@ tags: [retrieval, llm]
 repo: https://github.com/HaolingPu/anlp-spring2026-hw1
 context: CMU Advanced NLP
 title_zh: 混合检索增强生成
-summary_zh: 从零搭建的端到端 RAG 系统，BM25 与稠密检索经倒数排名融合后，由本地开源模型完成生成。
+summary_zh: "关键词检索与向量检索互补盲区后融合，再由本地开源模型来回答。"
+doodle: hybrid-rag
 ---
 
 ## Problem

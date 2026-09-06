@@ -1,13 +1,14 @@
 ---
 title: LLM Wiki
-summary: A self-maintaining Obsidian knowledge base that an agent ingests into, queries, and lints, following Karpathy's LLM Wiki pattern.
+summary: "A wiki that writes itself: an agent reads sources, links pages, and cleans up its own contradictions. Karpathy's LLM Wiki idea, made real."
 date: 2026-06-01
 featured: true
 order: 2
 tags: [agents, llm]
 repo: https://github.com/HaolingPu/llm-wiki-meridian
 title_zh: LLM 维基
-summary_zh: 一个由智能体持续摄取、查询与校验的 Obsidian 知识库，遵循 Karpathy 的 LLM Wiki 模式，能够自我维护。
+summary_zh: "一个会自己写自己的维基：智能体读来源、连页面、还会清理自相矛盾的地方。Karpathy 的 LLM Wiki 想法，落地版。"
+doodle: self-wiki
 ---
 
 ## Problem
