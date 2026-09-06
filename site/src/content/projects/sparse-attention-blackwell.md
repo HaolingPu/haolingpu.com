@@ -1,4 +1,5 @@
 ---
+logo: nvidia
 title: Sparse attention on Blackwell
 summary: A Blackwell-optimized CUDA kernel for DeepSeek-V3 sparse attention, 22–35× faster than the PyTorch reference.
 date: 2026-04-15

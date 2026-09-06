@@ -1,4 +1,5 @@
 ---
+logo: google
 company: Google
 role: Software Engineering Intern
 location: Los Angeles, CA

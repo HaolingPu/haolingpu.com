@@ -1,6 +1,8 @@
 import { defineCollection, z } from "astro:content";
 import { glob } from "astro/loaders";
 
+const logo = z.enum(["google", "nvidia", "cmu", "umich", "weride", "umsn", "aviage"]).optional();
+
 const md = (dir: string) => glob({ base: `./src/content/${dir}`, pattern: "**/*.{md,mdx}" });
 
 /** Roles. Body = optional longer note. `abstract: true` marks entries kept deliberately vague (ROADMAP D16). */
@@ -15,6 +17,7 @@ const work = defineCollection({
     highlights: z.array(z.string()).min(1),
     tech: z.array(z.string()).default([]),
     url: z.url().optional(),
+    logo,
     abstract: z.boolean().default(false),
   }),
 });
@@ -32,6 +35,7 @@ const projects = defineCollection({
     repo: z.url().optional(),
     demo: z.url().optional(),
     context: z.string().optional(), // e.g. "NVIDIA MLSys 2026 competition"
+    logo,
     private: z.boolean().default(false), // code not public
     draft: z.boolean().default(false),
   }),
@@ -48,6 +52,7 @@ const research = defineCollection({
     summary: z.string(),
     authors: z.array(z.string()).default([]),
     links: z.array(z.object({ label: z.string(), href: z.url() })).default([]),
+    logo,
     order: z.number().default(100),
   }),
 });

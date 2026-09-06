@@ -1,4 +1,5 @@
 ---
+logo: cmu
 title: Simultaneous MT with anticipated futures
 summary: An earlier take on simultaneous machine translation that uses anticipated future signals to decide when to commit.
 date: 2025-10-23

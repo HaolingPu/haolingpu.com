@@ -1,4 +1,5 @@
 ---
+logo: umsn
 company: UMSN Pregnancy App
 role: Machine Learning Engineer Intern
 location: Ann Arbor, MI

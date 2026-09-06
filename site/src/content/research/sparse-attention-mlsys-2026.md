@@ -1,4 +1,5 @@
 ---
+logo: nvidia
 title: Blackwell-optimized sparse attention kernel
 venue: NVIDIA MLSys 2026 competition
 status: competition
