@@ -1,4 +1,5 @@
 ---
+logo: cmu
 title: Reference-free data synthesis for simultaneous speech translation
 venue: CMU Language Technologies Institute, Li Lab
 status: in progress

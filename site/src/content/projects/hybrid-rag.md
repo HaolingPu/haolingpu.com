@@ -1,4 +1,5 @@
 ---
+logo: cmu
 title: Hybrid retrieval-augmented generation
 summary: An end-to-end RAG system built from scratch, with BM25 and dense retrieval fused by reciprocal rank fusion and local open-source inference.
 date: 2026-03-01

@@ -1,4 +1,5 @@
 ---
+logo: cmu
 company: CMU Language Technologies Institute
 role: Research Assistant, Li Lab
 location: Pittsburgh, PA

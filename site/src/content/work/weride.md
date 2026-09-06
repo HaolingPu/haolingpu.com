@@ -1,4 +1,5 @@
 ---
+logo: weride
 company: WeRide
 role: Backend Development Intern
 location: Shanghai, CN

@@ -1,5 +1,6 @@
 ---
 import { type CollectionEntry, getCollection, render } from "astro:content";
+import Logo from "@components/Logo.astro";
 import Tag from "@components/ui/Tag.astro";
 import ProseLayout from "@layouts/ProseLayout.astro";
 
@@ -36,6 +37,7 @@ const neighbor = (p?: CollectionEntry<"projects">) =>
   next={neighbor(next)}
 >
   <div slot="meta" class="not-prose mb-8 flex flex-wrap items-center gap-2">
+    {d.logo && <Logo name={d.logo} />}
     {d.context && <span class="mr-2 font-mono text-xs text-fg-subtle">{d.context}</span>}
     {d.tags.map((t) => <Tag>{t}</Tag>)}
     {d.repo && (

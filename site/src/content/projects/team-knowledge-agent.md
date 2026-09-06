@@ -1,4 +1,5 @@
 ---
+logo: google
 title: Agentic team knowledge system
 summary: An agent that builds and continuously maintains an engineering team's knowledge base, shipped for cross-team use at Google.
 date: 2026-08-15

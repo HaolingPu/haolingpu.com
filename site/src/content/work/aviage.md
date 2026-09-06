@@ -1,4 +1,5 @@
 ---
+logo: aviage
 company: AVIAGE Systems
 role: Software Development Engineer Intern
 location: Shanghai, CN
