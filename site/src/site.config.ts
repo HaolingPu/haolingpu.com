@@ -52,6 +52,7 @@ export const NAV: NavItem[] = [
   { LABEL: "research", HREF: "/research", ENABLED: true },
   { LABEL: "writing", HREF: "/writing", ENABLED: false },
   { LABEL: "about", HREF: "/about", ENABLED: false },
+  { LABEL: "♡", HREF: "/secret", ENABLED: true },
 ];
 
 export const REPO_URL = "https://github.com/HaolingPu/haolingpu.com";

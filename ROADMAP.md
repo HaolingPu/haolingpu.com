@@ -64,7 +64,7 @@ Template plumbing candidates (skeleton only, per D4):
 
 ---
 
-## 3. Task roadmap (82 tasks, 9 phases)
+## 3. Task roadmap (83 tasks, 9 phases)
 
 Legend: `[ ]` todo · `[x]` done · **DoD** = definition of done. Tasks within a phase are ordered; phases are sequential except where noted.
 
@@ -136,7 +136,7 @@ Legend: `[ ]` todo · `[x]` done · **DoD** = definition of done. Tasks within a
 - [ ] **F5** RSS feed (`/rss.xml`) + `<link rel="alternate">`; validate with an RSS checker. DoD: feed lists both posts.
 - [ ] **F6** Reading-time + "last updated" from git commit date via a small remark plugin. DoD: both show on posts.
 
-### Phase G — Nerd polish & interactions  ·  12 tasks
+### Phase G — Nerd polish & interactions  ·  13 tasks
 - [ ] **G1** `⌘K` command palette (React island, `cmdk` lib): navigate pages, jump to projects/posts, toggle theme, copy email. DoD: opens on `⌘K`/`Ctrl K`, fully keyboard-navigable, closes on Esc.
 - [ ] **G2** Keyboard shortcuts: `g h` home, `g w` work, `g p` projects, `t` theme, `?` shows a shortcuts sheet. DoD: sheet lists all bindings.
 - [ ] **G3** Hero typewriter/cursor effect on the `$ whoami` line — CSS-only, one cycle, off under reduced motion. DoD: no layout shift while typing.
@@ -149,6 +149,7 @@ Legend: `[ ]` todo · `[x]` done · **DoD** = definition of done. Tasks within a
 - [ ] **G10** **ASCII portrait** (needs Q6 photo): headshot rendered as amber mono characters on a canvas; on hover it resolves into the real photo cell by cell; on touch it just shows the photo. DoD: photo has explicit dimensions, no CLS.
 - [x] ~~**G11** **Tilt cards**~~ *(built, then removed in the paper-style pivot)*  for the education (and optionally project) cards: 3D tilt toward the cursor, max 6°, with a soft specular highlight; CSS `perspective` + a 20-line pointer handler, no library. DoD: no tilt on touch or reduced motion.
 - [x] ~~**G12** Typewriter tagline~~ *(built, then removed in the paper-style pivot)*  in the hero (CSS `steps()` + blinking caret, one cycle). DoD: no layout shift while typing; static text under reduced motion.
+- [x] **G13** **♡ page** (added 2026-09-05 at the user's request): a "♡" tab at the far right of the nav opens `/secret`, which asks "What does Haoling like?". Answers are checked client-side against SHA-256 hashes (plain answers are not in the repo). A correct answer sets a session flag and opens `/secret/heart`, a full-screen page where hearts rise around the name 卢梦轩, trail the cursor, and burst on click/tap; direct visits without the flag bounce back to the question. Both pages are `noindex` and excluded from the sitemap. DoD: guard, wrong-answer, and success paths verified with Playwright.
 
 ### Phase H — SEO, performance, accessibility  ·  8 tasks
 - [ ] **H1** Per-page `<title>`/`description`, canonical URL, `og:*` and `twitter:card` from a single `SEO.astro` component. DoD: every page has unique title + description (checked with a crawl script).
