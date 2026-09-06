@@ -21,7 +21,7 @@ const devPages = () => ({
 export default defineConfig({
   site: "https://haolingpu.com",
   devToolbar: { enabled: false }, // keeps headless screenshots clean
-  integrations: [mdx(), sitemap(), devPages()],
+  integrations: [mdx(), sitemap({ filter: (page) => !page.includes("/secret") }), devPages()],
   vite: {
     plugins: [tailwindcss()],
   },

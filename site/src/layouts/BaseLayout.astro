@@ -9,16 +9,17 @@ type Props = {
   description: string;
   image?: string;
   bodyClass?: string;
+  noindex?: boolean;
 };
 
-const { title, description, image, bodyClass } = Astro.props;
+const { title, description, image, bodyClass, noindex } = Astro.props;
 const fullTitle = title === "Home" ? SITE.NAME : `${title} · ${SITE.NAME}`;
 ---
 
 <!doctype html>
 <html lang="en">
   <head>
-    <Head title={fullTitle} description={description} image={image} />
+    <Head title={fullTitle} description={description} image={image} noindex={noindex} />
   </head>
   <body class={bodyClass}>
     <a
