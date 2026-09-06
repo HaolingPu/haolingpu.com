@@ -35,8 +35,8 @@ const linkedin = SOCIALS.find((s) => s.NAME === "linkedin")?.HREF ?? "#";
   <Container>
     <!-- Intro -->
     <section class="animate">
-      <div class="flex flex-col-reverse gap-8 sm:flex-row sm:items-start sm:justify-between">
-        <div class="max-w-[38rem]">
+      <div class="flex flex-col-reverse gap-8 sm:flex-row sm:items-start sm:justify-between sm:gap-12">
+        <div class="max-w-[40rem] flex-1">
           <h1 class="text-[28px] font-semibold tracking-tight sm:text-[32px]">{SITE.NAME}</h1>
           <p class="mt-1 text-[15px] text-fg-subtle">
             ML systems engineer · MS in AI &amp; Innovation, Carnegie Mellon '27 · Pittsburgh
@@ -59,8 +59,8 @@ const linkedin = SOCIALS.find((s) => s.NAME === "linkedin")?.HREF ?? "#";
         </div>
 
         <!-- Photo. The attention field stays as a hover overlay (ROADMAP G9). -->
-        <div class="group relative size-40 shrink-0 overflow-hidden rounded-lg border border-border bg-surface sm:size-44">
-          <Image src={headshot} alt="Haoling Pu at his Michigan graduation" width={352} height={352} class="size-full object-cover" loading="eager" />
+        <div class="group relative size-48 shrink-0 overflow-hidden rounded-xl border border-border bg-surface sm:size-60 md:size-[17rem]">
+          <Image src={headshot} alt="Haoling Pu at his Michigan graduation" width={544} height={544} class="size-full object-cover" loading="eager" />
           <div class="absolute inset-0 bg-bg/70 opacity-0 transition-opacity duration-300 group-hover:opacity-100" aria-hidden="true">
             <AttentionField spacing={16} sigma={46} topK={5} />
           </div>
