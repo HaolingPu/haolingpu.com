@@ -1,5 +1,6 @@
 export type Site = {
   NAME: string;
+  NAME_ZH: string;
   DOMAIN: string;
   EMAIL: string;
   TAGLINE: string;
