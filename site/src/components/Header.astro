@@ -7,16 +7,22 @@ type Props = { lang?: Lang };
 const { lang = "en" } = Astro.props;
 const ui = UI[lang];
 const label = (n: (typeof NAV)[number]) => (lang === "zh" ? n.LABEL_ZH : n.LABEL);
+const prefix = lang === "zh" ? "/zh" : "";
 const path = Astro.url.pathname;
-const items = NAV.filter((n) => n.ENABLED);
-const isActive = (href: string) => path === href || path.startsWith(`${href}/`);
+// path without the language prefix, for active-state checks and the counterpart link
+const bare = path.startsWith("/zh") ? path.slice(3) || "/" : path;
+const items = NAV.filter((n) => n.ENABLED).map((n) => ({ ...n, HREF: prefix + n.HREF }));
+const isActive = (href: string) =>
+  bare === href.replace(/^\/zh/, "") || bare.startsWith(`${href.replace(/^\/zh/, "")}/`);
+const switchHref = lang === "zh" ? bare : `/zh${bare === "/" ? "/" : bare}`;
+const home = lang === "zh" ? "/zh/" : "/";
 ---
 
 <header class="site-header">
   <Container size="wide">
     <div class="flex items-center justify-between gap-6">
       <a
-        href={lang === "zh" ? "/zh/" : "/"}
+        href={home}
         aria-label={`${SITE.NAME} — home`}
         class="flex items-center gap-2.5 text-fg transition-colors hover:text-fg"
       >
@@ -41,7 +47,7 @@ const isActive = (href: string) => path === href || path.startsWith(`${href}/`);
           ))
         }
         <a
-          href={ui.switchHref}
+          href={switchHref}
           aria-label={ui.switchLabel}
           class="ml-1 rounded-md border border-border px-2 py-1 font-mono text-[11.5px] text-fg-muted transition-colors hover:border-border-strong hover:text-fg"
         >

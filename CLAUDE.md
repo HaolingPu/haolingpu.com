@@ -14,6 +14,10 @@ Read `ROADMAP.md` first. Work is done task-by-task from it; tick the checkbox in
 - Content collections: `site/src/content.config.ts` (content-layer API: `glob` loader, `render(entry)`, `entry.id` — never `entry.slug` or `entry.render()`).
 - Styles: `site/src/styles/global.css` (Tailwind v4: `@import "tailwindcss"`, tokens under `@theme`, dark mode via `@custom-variant dark`). There is no `tailwind.config.*`.
 - Path alias `@*` → `site/src/*`.
+- Pages are thin routes over shared views in `src/views/*.astro` that take a `lang` prop; every English route under `src/pages/` has a Chinese twin under `src/pages/zh/`. Add a page = add the view + both routes.
+
+## Private content
+- Anything about the ♡ page's subject (name, captions, photos, accepted answers) lives ONLY in git-ignored `site/secret.local.json` and `assets-raw/`. Rebuild the vault with `cd site && node scripts/vault.mjs` after changing them, then commit `public/secret/vault.*`. Never write the name, the answers or the photos into tracked files or page templates.
 
 ## Before every commit
 ```bash

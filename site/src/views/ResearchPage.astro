@@ -1,0 +1,65 @@
+---
+import { getCollection, render } from "astro:content";
+import Logo from "@components/Logo.astro";
+import Container from "@components/ui/Container.astro";
+import Link from "@components/ui/Link.astro";
+import Prose from "@components/ui/Prose.astro";
+import Tag from "@components/ui/Tag.astro";
+import BaseLayout from "@layouts/BaseLayout.astro";
+import type { Lang } from "@site.config";
+import { RESEARCH } from "@site.config";
+
+type Props = { lang?: Lang };
+const { lang = "en" } = Astro.props;
+const zh = lang === "zh";
+const entries = await Promise.all(
+  (await getCollection("research"))
+    .sort((a, b) => a.data.order - b.data.order)
+    .map(async (e) => ({ ...e, Content: (await render(e)).Content })),
+);
+---
+
+<BaseLayout lang={lang} title={zh ? "研究" : RESEARCH.TITLE} description={zh ? "在 CMU 的同声传译研究，以及 GPU 算子工作。" : RESEARCH.DESCRIPTION}>
+  <Container>
+    <h1 class="animate text-[28px] font-semibold tracking-tight">{zh ? "研究" : "Research"}</h1>
+    <p class="animate mt-2 text-fg-muted">
+      {zh ? "未发表的工作只写到想法层面。细节、数字和代码等发表之后再放。" : "Unpublished work is described at the level of the idea only. Details, numbers, and code follow publication."}
+    </p>
+
+    <div class="animate mt-8 space-y-4">
+      {
+        entries.map((e) => (
+          <article class="rounded-lg border border-border bg-surface p-5 sm:p-6">
+            <div class="flex flex-wrap items-center gap-2">
+              {e.data.logo && <Logo name={e.data.logo} />}
+              <Tag accent>{e.data.status}</Tag>
+              <span class="font-mono text-xs text-fg-subtle">{zh ? (e.data.venue_zh ?? e.data.venue) : e.data.venue}</span>
+              <span class="font-mono text-xs text-fg-subtle">· {e.data.date.getUTCFullYear()}</span>
+            </div>
+            <h2 class="mt-2 text-[18px] font-semibold tracking-tight">{zh ? (e.data.title_zh ?? e.data.title) : e.data.title}</h2>
+            {e.data.authors.length > 0 && <div class="mt-1 text-sm text-fg-subtle">{e.data.authors.join(", ")}</div>}
+            <p class="mt-3 max-w-[64ch] text-[15px] leading-relaxed text-fg-muted">{zh ? (e.data.summary_zh ?? e.data.summary) : e.data.summary}</p>
+            <details class="group mt-4">
+              <summary class="cursor-pointer list-none font-mono text-xs text-fg-muted transition-colors hover:text-fg">
+                <span class="group-open:hidden">{zh ? "展开（英文）↓" : "more ↓"}</span>
+                <span class="hidden group-open:inline">{zh ? "收起 ↑" : "less ↑"}</span>
+              </summary>
+              <Prose class="mt-4 max-w-[64ch] text-sm">
+                <e.Content />
+              </Prose>
+            </details>
+            {e.data.links.length > 0 && (
+              <div class="mt-4 flex flex-wrap gap-4 font-mono text-xs">
+                {e.data.links.map((l) => (
+                  <Link href={l.href} external={!l.href.includes("haolingpu.com")}>
+                    {l.label} ↗
+                  </Link>
+                ))}
+              </div>
+            )}
+          </article>
+        ))
+      }
+    </div>
+  </Container>
+</BaseLayout>

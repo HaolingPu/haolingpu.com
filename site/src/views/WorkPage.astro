@@ -1,0 +1,23 @@
+---
+import { getCollection } from "astro:content";
+import Container from "@components/ui/Container.astro";
+import WorkRow from "@components/WorkRow.astro";
+import BaseLayout from "@layouts/BaseLayout.astro";
+import type { Lang } from "@site.config";
+import { WORK } from "@site.config";
+
+type Props = { lang?: Lang };
+const { lang = "en" } = Astro.props;
+const zh = lang === "zh";
+const work = (await getCollection("work")).sort(
+  (a, b) => b.data.dateStart.valueOf() - a.data.dateStart.valueOf(),
+);
+---
+
+<BaseLayout lang={lang} title={zh ? "经历" : WORK.TITLE} description={zh ? "我工作过的地方，以及做了什么。" : WORK.DESCRIPTION}>
+  <Container>
+    <h1 class="animate text-[28px] font-semibold tracking-tight">{zh ? "经历" : "Work"}</h1>
+    <p class="animate mt-2 text-fg-muted">{zh ? "我工作过的地方，以及做了什么。" : WORK.DESCRIPTION}</p>
+    <ul class="rule-list animate mt-8">{work.map((entry) => <WorkRow entry={entry} lang={lang} />)}</ul>
+  </Container>
+</BaseLayout>

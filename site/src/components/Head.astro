@@ -59,6 +59,9 @@ const { title, description, image = "/og.png", noindex = false } = Astro.props;
 
 <ClientRouter  />
 
+<!-- Vercel Web Analytics (cookie-less). Active once Analytics is enabled on the Vercel project. -->
+<script is:inline defer src="/_vercel/insights/script.js"></script>
+
 <!-- RSS Link -->
 <link rel="alternate" type="application/rss+xml" title={SITE.NAME} href={new URL("rss.xml", Astro.site)} />
 
