@@ -34,8 +34,8 @@ const linkedin = SOCIALS.find((s) => s.NAME === "linkedin")?.HREF ?? "#";
 >
   <Container>
     <section class="animate">
-      <div class="flex flex-col-reverse gap-8 sm:flex-row sm:items-start sm:justify-between">
-        <div class="max-w-[38rem]">
+      <div class="flex flex-col-reverse gap-8 sm:flex-row sm:items-start sm:justify-between sm:gap-12">
+        <div class="max-w-[40rem] flex-1">
           <h1 class="text-[28px] font-semibold tracking-tight sm:text-[32px]">蒲浩领 <span class="ml-1 text-[18px] font-normal text-fg-subtle sm:text-[20px]">Haoling Pu</span></h1>
           <p class="mt-1 text-[15px] text-fg-subtle">机器学习系统工程师 · 卡内基梅隆大学 人工智能与创新 硕士，2027 届 · 匹兹堡</p>
 
@@ -55,8 +55,8 @@ const linkedin = SOCIALS.find((s) => s.NAME === "linkedin")?.HREF ?? "#";
           </div>
         </div>
         <!-- Photo. The attention field stays as a hover overlay (ROADMAP G9). -->
-        <div class="group relative size-40 shrink-0 overflow-hidden rounded-lg border border-border bg-surface sm:size-44">
-          <Image src={headshot} alt="蒲浩领，密歇根大学毕业典礼" width={352} height={352} class="size-full object-cover" loading="eager" />
+        <div class="group relative size-48 shrink-0 overflow-hidden rounded-xl border border-border bg-surface sm:size-60 md:size-[17rem]">
+          <Image src={headshot} alt="蒲浩领，密歇根大学毕业典礼" width={544} height={544} class="size-full object-cover" loading="eager" />
           <div class="absolute inset-0 bg-bg/70 opacity-0 transition-opacity duration-300 group-hover:opacity-100" aria-hidden="true">
             <AttentionField spacing={16} sigma={46} topK={5} />
           </div>
