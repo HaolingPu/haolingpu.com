@@ -1,7 +1,8 @@
 ---
 /**
  * Small organization mark used beside roles, projects and research.
- * Official marks (Google, NVIDIA, Michigan) are inlined from Wikimedia Commons
+ * Official marks (Google, NVIDIA, Michigan inline SVG; WeRide symbol as a PNG from
+ * Wikimedia Commons, public/logos/weride.png) are used
  * for factual-affiliation use; organizations without a public vector mark get
  * a colored initial tile so every row still gets a picture.
  */
@@ -11,7 +12,6 @@ const { name, class: className, size = 22 } = Astro.props;
 
 const initials: Record<string, { text: string; bg: string; fg: string }> = {
   cmu: { text: "CMU", bg: "#ab1727", fg: "#fff" },
-  weride: { text: "W", bg: "#1f2a44", fg: "#fff" },
   aviage: { text: "A", bg: "#0b5fa5", fg: "#fff" },
 };
 const labels: Record<LogoName, string> = {
@@ -65,6 +65,11 @@ const labels: Record<LogoName, string> = {
           </g>
         </g>
       </svg>
+    )
+  }
+  {
+    name === "weride" && (
+      <img src="/logos/weride.png" alt="" width={size - 2} height={size - 2} decoding="async" loading="lazy" />
     )
   }
   {
