@@ -4,7 +4,7 @@ summary: An iOS app that restores and colorizes old photos with AI in under thir
 date: 2025-12-01
 featured: true
 order: 5
-tags: [ios, computer-vision, swift]
+tags: [ios, ml]
 private: true
 ---
 

@@ -3,7 +3,7 @@ title: Simultaneous MT with anticipated futures
 summary: An earlier take on simultaneous machine translation that uses anticipated future signals to decide when to commit.
 date: 2025-10-23
 order: 11
-tags: [nlp, translation, research]
+tags: [nlp, research]
 repo: https://github.com/HaolingPu/Simultaneous-Machine-Translation-TAF
 ---
 

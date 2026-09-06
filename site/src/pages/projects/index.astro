@@ -1,6 +1,6 @@
 ---
 import { getCollection } from "astro:content";
-import ProjectCard from "@components/ProjectCard.astro";
+import ProjectRow from "@components/ProjectRow.astro";
 import Container from "@components/ui/Container.astro";
 import BaseLayout from "@layouts/BaseLayout.astro";
 import { PROJECTS } from "@site.config";
@@ -8,28 +8,25 @@ import { PROJECTS } from "@site.config";
 const projects = (await getCollection("projects"))
   .filter((p) => !p.data.draft)
   .sort((a, b) => a.data.order - b.data.order || b.data.date.valueOf() - a.data.date.valueOf());
-
 const tags = [...new Set(projects.flatMap((p) => p.data.tags))].sort();
+const pill =
+  "rounded-full border border-border px-3 py-1 font-mono text-[12px] text-fg-muted transition-colors hover:border-border-strong hover:text-fg aria-pressed:border-accent aria-pressed:bg-accent-muted aria-pressed:text-accent";
 ---
 
 <BaseLayout title={PROJECTS.TITLE} description={PROJECTS.DESCRIPTION}>
-  <Container size="wide">
-    <div class="animate font-mono text-xs uppercase tracking-[0.12em] text-fg-subtle">projects</div>
-    <h1 class="animate mt-2 text-display">Things I've shipped</h1>
-    <p class="animate mt-3 max-w-[60ch]">{PROJECTS.DESCRIPTION}</p>
-
-    <div class="animate mt-8 flex flex-wrap gap-2" data-filter-bar>
-      <button type="button" data-filter="" aria-pressed="true" class="rounded-md border border-border bg-surface px-3 py-1.5 font-mono text-xs text-fg-muted transition-colors hover:border-border-strong hover:text-fg aria-pressed:border-accent/50 aria-pressed:bg-accent-muted aria-pressed:text-accent">all</button>
-      {tags.map((t) => <button type="button" data-filter={t} aria-pressed="false" class="rounded-md border border-border bg-surface px-3 py-1.5 font-mono text-xs text-fg-muted transition-colors hover:border-border-strong hover:text-fg aria-pressed:border-accent/50 aria-pressed:bg-accent-muted aria-pressed:text-accent">{t}</button>)}
+  <Container>
+    <h1 class="animate text-[28px] font-semibold tracking-tight">Projects</h1>
+    <p class="animate mt-2 text-fg-muted">{PROJECTS.DESCRIPTION}</p>
+    <div class="animate mt-6 flex flex-wrap gap-1.5" data-filter-bar>
+      <button type="button" data-filter="" aria-pressed="true" class={pill}>all</button>
+      {tags.map((t) => <button type="button" data-filter={t} aria-pressed="false" class={pill}>{t}</button>)}
     </div>
-
-    <div class="animate mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-3" data-project-grid>
-      {projects.map((p) => <ProjectCard project={p} />)}
-    </div>
+    <ul class="rule-list animate mt-6" data-project-grid>
+      {projects.map((p) => <li data-tags={p.data.tags.join(" ")} class="contents"><ProjectRow project={p} /></li>)}
+    </ul>
     <p class="mt-6 hidden text-sm text-fg-subtle" data-empty>Nothing tagged that yet.</p>
   </Container>
 </BaseLayout>
-
 
 <script>
   function init() {
@@ -39,16 +36,17 @@ const tags = [...new Set(projects.flatMap((p) => p.data.tags))].sort();
     if (!bar || !grid || bar.dataset.ready) return;
     bar.dataset.ready = "1";
     const pills = bar.querySelectorAll<HTMLButtonElement>("[data-filter]");
-    const cards = grid.querySelectorAll<HTMLElement>("[data-tags]");
+    const rows = grid.querySelectorAll<HTMLElement>("[data-tags]");
     bar.addEventListener("click", (e) => {
       const pill = (e.target as HTMLElement).closest<HTMLButtonElement>("[data-filter]");
       if (!pill) return;
       const tag = pill.dataset.filter ?? "";
       pills.forEach((p) => p.setAttribute("aria-pressed", String(p === pill)));
       let shown = 0;
-      cards.forEach((c) => {
-        const show = !tag || (c.dataset.tags ?? "").split(" ").includes(tag);
-        c.hidden = !show;
+      rows.forEach((r) => {
+        const show = !tag || (r.dataset.tags ?? "").split(" ").includes(tag);
+        r.classList.toggle("hidden", !show);
+        r.classList.toggle("contents", show);
         if (show) shown++;
       });
       if (empty) empty.hidden = shown > 0;

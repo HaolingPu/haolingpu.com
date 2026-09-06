@@ -1,67 +1,11 @@
 ---
 /**
- * Small pointer/keyboard behaviors shared by the home page:
- *  - [data-typewriter]  types its text once (G12); full text under reduced motion
- *  - [data-tilt]        3D tilt toward the cursor, max 6°, with a specular highlight (G11)
- *  - [data-copy]        copies its data-copy value, shows a checkmark (G8)
+ * Small behaviors shared by pages:
+ *  - [data-copy]  copies its data-copy value, shows a checkmark (G8)
  */
 ---
 
 <script>
-  const reduced = () => window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-  const touch = () => window.matchMedia("(hover: none)").matches;
-
-  function typewriter() {
-    document.querySelectorAll<HTMLElement>("[data-typewriter]").forEach((el) => {
-      if (el.dataset.done) return;
-      el.dataset.done = "1";
-      const ghost = el.querySelector<HTMLElement>("[data-ghost]");
-      const out = el.querySelector<HTMLElement>("[data-out]");
-      const text = ghost?.textContent ?? "";
-      if (!ghost || !out) return;
-      if (reduced()) {
-        out.textContent = text;
-        el.classList.add("is-done");
-        return;
-      }
-      let i = 0;
-      const delay = Number(el.dataset.delay ?? 500);
-      const step = () => {
-        i++;
-        out.textContent = text.slice(0, i);
-        if (i < text.length) {
-          const ch = text[i - 1];
-          setTimeout(step, ch === " " ? 55 : ch === "," ? 220 : 26 + Math.random() * 30);
-        } else {
-          el.classList.add("is-done");
-        }
-      };
-      setTimeout(step, delay);
-    });
-  }
-
-  function tilt() {
-    if (touch() || reduced()) return;
-    document.querySelectorAll<HTMLElement>("[data-tilt]").forEach((card) => {
-      if (card.dataset.tiltReady) return;
-      card.dataset.tiltReady = "1";
-      const max = Number(card.dataset.tilt || 6);
-      card.addEventListener("pointermove", (e) => {
-        const r = card.getBoundingClientRect();
-        const px = (e.clientX - r.left) / r.width;
-        const py = (e.clientY - r.top) / r.height;
-        card.style.setProperty("--rx", `${((0.5 - py) * max * 2).toFixed(2)}deg`);
-        card.style.setProperty("--ry", `${((px - 0.5) * max * 2).toFixed(2)}deg`);
-        card.style.setProperty("--mx", `${(px * 100).toFixed(1)}%`);
-        card.style.setProperty("--my", `${(py * 100).toFixed(1)}%`);
-      });
-      card.addEventListener("pointerleave", () => {
-        card.style.setProperty("--rx", "0deg");
-        card.style.setProperty("--ry", "0deg");
-      });
-    });
-  }
-
   function copy() {
     document.querySelectorAll<HTMLElement>("[data-copy]").forEach((btn) => {
       if (btn.dataset.copyReady) return;
@@ -79,8 +23,6 @@
   }
 
   function init() {
-    typewriter();
-    tilt();
     copy();
   }
   init();

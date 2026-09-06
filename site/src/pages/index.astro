@@ -2,142 +2,105 @@
 import { getCollection } from "astro:content";
 import AttentionField from "@components/AttentionField.astro";
 import Behaviors from "@components/Behaviors.astro";
-import EducationCard from "@components/EducationCard.astro";
+import EducationRow from "@components/EducationRow.astro";
 import HobbyIcon from "@components/HobbyIcon.astro";
-import ProjectCard from "@components/ProjectCard.astro";
-import Button from "@components/ui/Button.astro";
+import ProjectRow from "@components/ProjectRow.astro";
 import Container from "@components/ui/Container.astro";
-import Link from "@components/ui/Link.astro";
 import Section from "@components/ui/Section.astro";
-import Tag from "@components/ui/Tag.astro";
 import WorkRow from "@components/WorkRow.astro";
 import BaseLayout from "@layouts/BaseLayout.astro";
-import { EDUCATION, HOBBIES, HOME, SITE, SOCIALS, STATS } from "@site.config";
+import { EDUCATION, HOBBIES, HOME, SITE, SOCIALS } from "@site.config";
 
-const work = (await getCollection("work"))
-  .sort((a, b) => b.data.dateStart.valueOf() - a.data.dateStart.valueOf())
-  .slice(0, SITE.NUM_WORKS_ON_HOMEPAGE);
-
+const work = (await getCollection("work")).sort(
+  (a, b) => b.data.dateStart.valueOf() - a.data.dateStart.valueOf(),
+);
 const projects = (await getCollection("projects"))
   .filter((p) => p.data.featured && !p.data.draft)
   .sort((a, b) => a.data.order - b.data.order);
-
-const research = (await getCollection("research")).sort((a, b) => a.data.order - b.data.order)[0];
-
+const research = (await getCollection("research")).sort((a, b) => a.data.order - b.data.order);
 const writing = (await getCollection("writing"))
   .filter((p) => !p.data.draft)
   .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf())
   .slice(0, SITE.NUM_POSTS_ON_HOMEPAGE);
 
 const github = SOCIALS.find((s) => s.NAME === "github")?.HREF ?? "#";
+const linkedin = SOCIALS.find((s) => s.NAME === "linkedin")?.HREF ?? "#";
 ---
 
-<BaseLayout title="Home" description={HOME.DESCRIPTION} bodyClass="has-hero">
-  <!-- Hero -->
-  <section class="relative -mt-32 overflow-hidden pt-32">
-    <AttentionField />
-    <Container size="wide" class="relative py-10 sm:py-16">
-      <div class="grid items-center gap-10 md:grid-cols-[1fr_auto] md:gap-16">
+<BaseLayout title="Home" description={HOME.DESCRIPTION}>
+  <Container>
+    <!-- Intro -->
+    <section class="animate">
+      <div class="flex flex-col-reverse gap-8 sm:flex-row sm:items-start sm:justify-between">
         <div class="max-w-[38rem]">
-          <div class="animate font-mono text-xs text-fg-subtle">
-            <span class="text-accent">$</span> whoami
-          </div>
-          <h1 class="animate mt-3 text-hero">{SITE.NAME}</h1>
-          <p class="animate mt-5 text-lg text-fg-muted sm:text-xl">
-            <span data-typewriter data-delay="700">
-              <span data-ghost>{SITE.TAGLINE}</span>
-              <span data-out aria-hidden="true"></span>
-            </span>
+          <h1 class="text-[28px] font-semibold tracking-tight sm:text-[32px]">{SITE.NAME}</h1>
+          <p class="mt-1 text-[15px] text-fg-subtle">
+            ML systems engineer · MS in AI &amp; Innovation, Carnegie Mellon '27 · Pittsburgh
           </p>
-          <p class="animate mt-4 font-mono text-[13px] text-fg-subtle">{SITE.NOW}</p>
-          <div class="animate mt-8 flex flex-wrap gap-3">
-            <Button href="/Haoling_Pu_Resume.pdf" variant="primary" external>Résumé</Button>
-            <Button href={github} external>GitHub</Button>
+
+          <div class="prose mt-6 text-[16.5px] leading-[1.7]">
+            <p>
+              I'm a master's student at <a href="https://www.cs.cmu.edu">Carnegie Mellon's School of Computer Science</a> and an ML systems engineer. I like the part of machine learning where the model meets the hardware and the product: kernels, serving, and the agents that sit on top.
+            </p>
+            <p>
+              This summer I was a software engineering intern at <a href="https://about.google">Google</a>, where I built an agentic system that generates and continuously maintains an engineering team's knowledge base. At CMU I do research in the <a href="https://www.lti.cs.cmu.edu">Language Technologies Institute</a> on simultaneous speech translation: how a model can commit to a translation before the speaker finishes. Before CMU I studied Computer Science and Data Science at the <a href="https://umich.edu">University of Michigan</a>.
+            </p>
+            <p>
+              Things I've built: a <a href="/projects/sparse-attention-blackwell">Blackwell-optimized sparse attention kernel</a> that ran 22–35× faster than the PyTorch reference in the NVIDIA MLSys 2026 competition, a <a href="/projects/llm-wiki">self-maintaining LLM wiki</a>, and a <a href="/projects/hybrid-rag">hybrid retrieval system</a>. I've also interned at <a href="https://www.weride.ai">WeRide</a>, cutting cold-start latency on a Kubernetes platform by 88%.
+            </p>
+            <p>
+              I'm looking for 2027 new-grad ML and software engineering roles. Email is the best way to reach me: <button type="button" data-copy={SITE.EMAIL} class="link inline-flex cursor-pointer items-baseline gap-1 border-0 bg-transparent p-0 font-[inherit] text-[inherit]" aria-label={`Copy email ${SITE.EMAIL}`}><span class="when-idle">{SITE.EMAIL}</span><span class="when-copied">copied ✓</span></button>. Also on <a href={github}>GitHub</a> and <a href={linkedin}>LinkedIn</a>. Here's my <a href="/Haoling_Pu_Resume.pdf">résumé</a>.
+            </p>
           </div>
         </div>
 
-        <!-- Photo slot: monogram until a headshot exists (ROADMAP Q6 / G10) -->
-        <div class="animate justify-self-center md:justify-self-end">
-          <div
-            class="tilt relative flex size-44 items-center justify-center rounded-2xl border border-border bg-surface sm:size-52"
-            data-tilt="8"
-          >
-            <div class="tilt-glare" aria-hidden="true"></div>
-            <span class="font-mono text-5xl font-bold tracking-tighter text-fg">hp</span>
-            <span class="absolute right-3 bottom-2 font-mono text-[10px] text-fg-subtle">v1.0</span>
-          </div>
+        <!-- Photo slot. The attention field lives here until a headshot exists (ROADMAP Q6 / G10). -->
+        <div class="relative size-40 shrink-0 overflow-hidden rounded-lg border border-border bg-surface sm:size-44" title="Photo coming. Meanwhile: attention.">
+          <AttentionField spacing={16} sigma={46} topK={5} />
         </div>
       </div>
+    </section>
 
-      <dl class="animate mt-14 grid gap-6 border-t border-border pt-8 sm:grid-cols-3">
+    <Section eyebrow="work" class="animate">
+      <a slot="action" href="/work" class="link-quiet">all roles</a>
+      <ul class="rule-list">{work.slice(0, 3).map((entry) => <WorkRow entry={entry} compact />)}</ul>
+    </Section>
+
+    <Section eyebrow="education" class="animate">
+      <ul class="rule-list">{EDUCATION.map((edu) => <EducationRow edu={edu} compact />)}</ul>
+    </Section>
+
+    <Section eyebrow="projects" class="animate">
+      <a slot="action" href="/projects" class="link-quiet">all projects</a>
+      <ul class="rule-list">{projects.map((p) => <ProjectRow project={p} />)}</ul>
+    </Section>
+
+    <Section eyebrow="research" class="animate">
+      <a slot="action" href="/research" class="link-quiet">more</a>
+      <ul class="rule-list">
         {
-          STATS.map((s) => (
-            <div>
-              <dd class="font-mono text-3xl text-fg">{s.VALUE}</dd>
-              <dt class="mt-1 text-sm text-fg-subtle">{s.LABEL}</dt>
-            </div>
+          research.map((r) => (
+            <li class="py-3">
+              <div class="flex flex-wrap items-baseline gap-x-2">
+                <a href="/research" class="link font-medium">{r.data.title}</a>
+                <span class="text-sm text-fg-subtle">· {r.data.venue} · {r.data.status}</span>
+              </div>
+              <p class="mt-0.5 text-[15px] leading-relaxed text-fg-muted">{r.data.summary}</p>
+            </li>
           ))
         }
-      </dl>
-    </Container>
-  </section>
-
-  <Container size="wide">
-    <!-- Education -->
-    <Section eyebrow="education" title="Where I learned it" class="animate">
-      <div class="grid gap-4 md:grid-cols-2">
-        {EDUCATION.map((edu) => <EducationCard edu={edu} />)}
-      </div>
+      </ul>
     </Section>
 
-    <!-- Work -->
-    <Section eyebrow="work" title="Where I've built" class="animate">
-      <Link slot="action" href="/work">All roles →</Link>
-      <div class="space-y-8">
-        {work.map((entry) => <WorkRow entry={entry} compact />)}
-      </div>
-    </Section>
-
-    <!-- Projects -->
-    <Section eyebrow="projects" title="Things I've shipped" class="animate">
-      <Link slot="action" href="/projects">All projects →</Link>
-      <div class="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-        {projects.map((p) => <ProjectCard project={p} />)}
-      </div>
-    </Section>
-
-    <!-- Research -->
-    {
-      research && (
-        <Section eyebrow="research" title="What I'm working on" class="animate">
-          <Link slot="action" href="/research">Research →</Link>
-          <a
-            href="/research"
-            class="group block rounded-lg border border-border bg-surface p-6 transition-[border-color] duration-200 hover:border-border-strong"
-          >
-            <div class="flex flex-wrap items-center gap-2">
-              <Tag accent>{research.data.status}</Tag>
-              <span class="font-mono text-xs text-fg-subtle">{research.data.venue}</span>
-            </div>
-            <div class="mt-3 text-lg font-medium text-fg">{research.data.title}</div>
-            <p class="mt-2 max-w-[60ch] text-sm">{research.data.summary}</p>
-          </a>
-        </Section>
-      )
-    }
-
-    <!-- Writing (only when there is any) -->
     {
       writing.length > 0 && (
-        <Section eyebrow="writing" title="Recent writing" class="animate">
-          <Link slot="action" href="/writing">All writing →</Link>
-          <ul class="space-y-3">
+        <Section eyebrow="writing" class="animate">
+          <a slot="action" href="/writing" class="link-quiet">all writing</a>
+          <ul class="rule-list">
             {writing.map((post) => (
-              <li>
-                <Link href={`/writing/${post.id}`} underline={false} class="text-fg">
-                  {post.data.title}
-                </Link>
-                <span class="ml-2 font-mono text-xs text-fg-subtle">{post.data.date.toISOString().slice(0, 10)}</span>
+              <li class="flex items-baseline justify-between gap-4 py-3">
+                <a href={`/writing/${post.id}`} class="link">{post.data.title}</a>
+                <span class="font-mono text-[12.5px] text-fg-subtle">{post.data.date.toISOString().slice(0, 10)}</span>
               </li>
             ))}
           </ul>
@@ -145,45 +108,18 @@ const github = SOCIALS.find((s) => s.NAME === "github")?.HREF ?? "#";
       )
     }
 
-    <!-- Off the clock -->
-    <Section eyebrow="off the clock" title="When I'm not shipping" class="animate">
-      <ul class="flex flex-wrap gap-3">
+    <Section eyebrow="off the clock" class="animate">
+      <ul class="flex flex-wrap gap-x-5 gap-y-2 text-[15px] text-fg-muted">
         {
           HOBBIES.map((h) => (
-            <li class="flex items-center gap-2.5 rounded-md border border-border bg-surface px-3.5 py-2 text-sm text-fg-muted transition-colors hover:border-border-strong hover:text-fg">
-              <HobbyIcon name={h.ICON} class="size-4 text-accent" />
+            <li class="flex items-center gap-1.5">
+              <HobbyIcon name={h.ICON} class="size-4 text-fg-subtle" />
               {h.LABEL}
             </li>
           ))
         }
       </ul>
     </Section>
-
-    <!-- Contact -->
-    <Section eyebrow="contact" title="Say hi" class="animate">
-      <p class="max-w-[52ch]">
-        Best reached by email. I read everything, and I'm faster than my GitHub bio suggests.
-      </p>
-      <div class="mt-5 flex flex-wrap items-center gap-3">
-        <button
-          type="button"
-          data-copy={SITE.EMAIL}
-          class="inline-flex h-10 items-center gap-2 rounded-md border border-border bg-surface px-4 font-mono text-sm text-fg transition-colors hover:border-border-strong"
-          aria-label={`Copy email ${SITE.EMAIL}`}
-        >
-          <span class="when-idle inline-flex items-center gap-2">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="size-4 fill-none stroke-current stroke-[1.75]"><rect x="9" y="9" width="11" height="11" rx="2"/><path d="M5 15V5a2 2 0 0 1 2-2h10"/></svg>
-            {SITE.EMAIL}
-          </span>
-          <span class="when-copied inline-flex items-center gap-2 text-accent">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="size-4 fill-none stroke-current stroke-2"><path d="M5 12l5 5L20 7"/></svg>
-            copied
-          </span>
-        </button>
-        {SOCIALS.map((s) => <Button href={s.HREF} external>{s.NAME}</Button>)}
-      </div>
-    </Section>
   </Container>
-
   <Behaviors />
 </BaseLayout>

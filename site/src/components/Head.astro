@@ -26,7 +26,7 @@ const { title, description, image = "/og.png" } = Astro.props;
 <link rel="icon" href="/favicon.ico" sizes="32x32" />
 <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
 <link rel="manifest" href="/site.webmanifest" />
-<meta name="theme-color" content="#141416" />
+<meta name="theme-color" content="#fcfcfb" />
 <meta name="generator" content={Astro.generator} />
 
 <!-- Font preloads -->
@@ -72,20 +72,20 @@ const { title, description, image = "/og.png" } = Astro.props;
 </script>
 
 <script is:inline>
-  /* Theme: dark is the default. A visitor's explicit choice persists in localStorage. */
+  /* Theme: light is the default. A visitor's explicit choice persists in localStorage. */
   function currentTheme() {
     try {
       const stored = localStorage.getItem("theme");
       if (stored === "light" || stored === "dark") return stored;
     } catch (_) {}
-    return "dark";
+    return "light";
   }
 
   function applyTheme(theme) {
     const root = document.documentElement;
     root.classList.toggle("dark", theme === "dark");
     const meta = document.querySelector('meta[name="theme-color"]');
-    if (meta) meta.setAttribute("content", theme === "dark" ? "#141416" : "#fbfaf8");
+    if (meta) meta.setAttribute("content", theme === "dark" ? "#1c1c1f" : "#fcfcfb");
   }
 
   function toggleTheme() {

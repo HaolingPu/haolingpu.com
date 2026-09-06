@@ -8,7 +8,7 @@ const { class: className, accent = false } = Astro.props;
 
 <span
   class={cn(
-    "inline-flex items-center rounded-sm border px-1.5 py-0.5 font-mono text-[11px] leading-4 tracking-wide",
+    "inline-flex items-center rounded-full border px-2 py-0.5 font-mono text-[11px] leading-4",
     accent
       ? "border-accent/40 bg-accent-muted text-accent"
       : "border-border bg-surface text-fg-muted",

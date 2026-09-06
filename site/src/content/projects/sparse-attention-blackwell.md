@@ -4,7 +4,7 @@ summary: A Blackwell-optimized CUDA kernel for DeepSeek-V3 sparse attention, 22â
 date: 2026-04-15
 featured: true
 order: 1
-tags: [cuda, kernels, llm-inference]
+tags: [cuda, llm]
 context: NVIDIA MLSys 2026 competition
 private: true
 ---

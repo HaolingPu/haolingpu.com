@@ -4,7 +4,7 @@ summary: A self-maintaining Obsidian knowledge base that an agent ingests into, 
 date: 2026-06-01
 featured: true
 order: 2
-tags: [agents, knowledge-base, python]
+tags: [agents, llm]
 repo: https://github.com/HaolingPu/llm-wiki-meridian
 ---
 

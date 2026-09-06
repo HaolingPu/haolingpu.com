@@ -4,7 +4,7 @@ summary: An end-to-end RAG system built from scratch, with BM25 and dense retrie
 date: 2026-03-01
 featured: true
 order: 3
-tags: [rag, retrieval, llm, python]
+tags: [retrieval, llm]
 repo: https://github.com/HaolingPu/anlp-spring2026-hw1
 context: CMU Advanced NLP
 ---

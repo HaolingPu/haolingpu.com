@@ -4,7 +4,7 @@ summary: An agent that builds and continuously maintains an engineering team's k
 date: 2026-08-15
 featured: true
 order: 4
-tags: [agents, llm, production]
+tags: [agents, llm]
 context: Google internship
 private: true
 ---

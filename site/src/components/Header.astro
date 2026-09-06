@@ -15,13 +15,7 @@ const isActive = (href: string) => path === href || path.startsWith(`${href}/`);
         aria-label={`${SITE.NAME} — home`}
         class="flex items-center gap-2.5 text-fg transition-colors hover:text-fg"
       >
-        <span
-          class="flex size-7 items-center justify-center rounded-md bg-fg font-mono text-[13px] font-bold leading-none text-bg"
-          aria-hidden="true"
-        >
-          hp
-        </span>
-        <span class="text-sm font-medium">{SITE.NAME}</span>
+        <span class="text-[15px] font-semibold tracking-tight">{SITE.NAME}</span>
       </a>
 
       <nav aria-label="Primary" class="hidden items-center gap-1 sm:flex">
@@ -31,9 +25,9 @@ const isActive = (href: string) => path === href || path.startsWith(`${href}/`);
               href={item.HREF}
               aria-current={isActive(item.HREF) ? "page" : undefined}
               class:list={[
-                "rounded-md px-2.5 py-1.5 font-mono text-[13px] transition-colors duration-200 ease-out-quart",
+                "rounded-md px-2.5 py-1.5 text-[14px] transition-colors duration-200 ease-out-quart",
                 isActive(item.HREF)
-                  ? "text-fg underline decoration-accent decoration-2 underline-offset-[6px]"
+                  ? "text-fg underline decoration-accent decoration-[1.5px] underline-offset-[6px]"
                   : "text-fg-muted hover:text-fg",
               ]}
             >
@@ -87,7 +81,7 @@ const isActive = (href: string) => path === href || path.startsWith(`${href}/`);
             href={item.HREF}
             aria-current={isActive(item.HREF) ? "page" : undefined}
             class:list={[
-              "border-b border-border py-5 font-mono text-2xl transition-colors",
+              "border-b border-border py-5 text-2xl transition-colors",
               isActive(item.HREF) ? "text-accent" : "text-fg",
             ]}
           >

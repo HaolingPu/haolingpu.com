@@ -4,7 +4,8 @@ Read `ROADMAP.md` first. Work is done task-by-task from it; tick the checkbox in
 
 ## Non-negotiables
 - Respect ROADMAP decision **D16 (confidentiality)**: Google internship = abstract only; CMU research = high-level idea only, no method details, no numbers, until published.
-- No stock-template look. No gradient text, no glassmorphism, no particle backgrounds. Dark-first, monochrome + amber accent, Geist Sans + Geist Mono.
+- **Paper style** (ROADMAP D5): light near-white background, near-black text, blue links, one 44rem reading column, ruled lists instead of cards, small-caps mono labels. Restraint over flourish — the user explicitly rejected the dark/neon/monospace "AI-generated" look. Do not reintroduce cards grids, hero stat strips, typewriters, tilt, or gradients.
+- In `.astro` templates keep an inline `<a>` on the same line as the word before it; a line break before a component or tag drops the space.
 - Never leave placeholder text visible on a public page when merging to `main`.
 
 ## Project shape

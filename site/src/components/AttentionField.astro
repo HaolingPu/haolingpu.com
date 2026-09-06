@@ -1,16 +1,22 @@
 ---
 /**
- * Signature effect (ROADMAP G9): a grid of "tokens" behind the hero.
+ * Signature effect (ROADMAP G9): a grid of "tokens" that attend to the pointer.
+ * Used as the photo tile on the home page until a headshot exists.
  * The pointer is the query; nearby tokens light up with a softmax-shaped
  * falloff and thin lines connect the top-k. Idle, a wandering query attends
  * on its own. Static on touch devices and under reduced motion.
  * Vanilla TS, no framework, ~4 KB.
  */
+type Props = { spacing?: number; sigma?: number; topK?: number; class?: string };
+const { spacing = 24, sigma = 110, topK = 7, class: className } = Astro.props;
 ---
 
 <canvas
   data-attention-field
-  class="pointer-events-none absolute inset-0 -z-10 size-full [mask-image:linear-gradient(to_bottom,black_55%,transparent_100%)]"
+  data-spacing={spacing}
+  data-sigma={sigma}
+  data-topk={topK}
+  class:list={["pointer-events-none absolute inset-0 size-full", className]}
   aria-hidden="true"
 ></canvas>
 
@@ -23,9 +29,9 @@
 
     const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
     const touch = window.matchMedia("(hover: none)").matches;
-    const SPACING = 24;
-    const SIGMA = 110;
-    const TOP_K = 7;
+    const SPACING = Number(canvas.dataset.spacing || 24);
+    const SIGMA = Number(canvas.dataset.sigma || 110);
+    const TOP_K = Number(canvas.dataset.topk || 7);
 
     let dots: Dot[] = [];
     let w = 0;
@@ -41,7 +47,7 @@
     const css = getComputedStyle(document.documentElement);
     const accent = () => css.getPropertyValue("--accent").trim() || "oklch(0.8 0.16 75)";
     const fg = () => css.getPropertyValue("--fg").trim() || "#fff";
-    const BASE_ALPHA = 0.14;
+    const BASE_ALPHA = 0.22;
 
     function resize() {
       const rect = canvas.getBoundingClientRect();
@@ -52,8 +58,10 @@
       canvas.height = Math.round(h * dpr);
       ctx!.setTransform(dpr, 0, 0, dpr, 0, 0);
       dots = [];
-      for (let y = 0; y < h; y += SPACING) {
-        for (let x = 0; x < w; x += SPACING) dots.push({ x, y });
+      const ox = ((w - SPACING) % SPACING) / 2 + SPACING / 2;
+      const oy = ((h - SPACING) % SPACING) / 2 + SPACING / 2;
+      for (let y = oy; y < h; y += SPACING) {
+        for (let x = ox; x < w; x += SPACING) dots.push({ x, y });
       }
       if (!running) drawStatic();
     }

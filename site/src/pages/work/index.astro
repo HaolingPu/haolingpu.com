@@ -11,12 +11,9 @@ const work = (await getCollection("work")).sort(
 ---
 
 <BaseLayout title={WORK.TITLE} description={WORK.DESCRIPTION}>
-  <Container size="wide">
-    <div class="animate font-mono text-xs uppercase tracking-[0.12em] text-fg-subtle">work</div>
-    <h1 class="animate mt-2 text-display">Where I've built</h1>
-    <p class="animate mt-3 max-w-[60ch]">{WORK.DESCRIPTION}</p>
-    <div class="animate mt-12 space-y-10 border-t border-border pt-10">
-      {work.map((entry) => <WorkRow entry={entry} />)}
-    </div>
+  <Container>
+    <h1 class="animate text-[28px] font-semibold tracking-tight">Work</h1>
+    <p class="animate mt-2 text-fg-muted">{WORK.DESCRIPTION}</p>
+    <ul class="rule-list animate mt-8">{work.map((entry) => <WorkRow entry={entry} />)}</ul>
   </Container>
 </BaseLayout>

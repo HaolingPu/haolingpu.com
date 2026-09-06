@@ -1,0 +1,17 @@
+---
+import type { CollectionEntry } from "astro:content";
+
+type Props = { project: CollectionEntry<"projects"> };
+const { project } = Astro.props;
+const { title, summary, context, repo, private: isPrivate } = project.data;
+---
+
+<li class="py-3">
+  <div class="flex flex-wrap items-baseline gap-x-2">
+    <a href={`/projects/${project.id}`} class="link font-medium">{title}</a>
+    {context && <span class="text-sm text-fg-subtle">· {context}</span>}
+    {repo && <a href={repo} target="_blank" rel="noopener noreferrer" class="link-quiet text-sm">code ↗</a>}
+    {isPrivate && !repo && <span class="text-sm text-fg-subtle">· code private</span>}
+  </div>
+  <p class="mt-0.5 text-[15px] leading-relaxed text-fg-muted">{summary}</p>
+</li>

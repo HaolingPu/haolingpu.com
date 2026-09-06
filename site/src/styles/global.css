@@ -9,36 +9,36 @@
    Monochrome neutrals with a slight warm cast + ONE accent (amber).
    ------------------------------------------------------------------ */
 :root {
-  --bg: oklch(0.985 0.003 90);
+  --bg: oklch(0.992 0.002 90);
   --surface: oklch(1 0 0);
-  --surface-2: oklch(0.955 0.004 90);
-  --border: oklch(0.9 0.005 90);
-  --border-strong: oklch(0.8 0.006 90);
+  --surface-2: oklch(0.965 0.003 90);
+  --border: oklch(0.915 0.004 90);
+  --border-strong: oklch(0.82 0.005 90);
   --fg: oklch(0.2 0.01 270);
-  --fg-muted: oklch(0.45 0.01 270);
-  --fg-subtle: oklch(0.6 0.01 270);
-  --accent: oklch(0.62 0.16 62); /* amber, darkened for 4.5:1 on light */
+  --fg-muted: oklch(0.4 0.01 270);
+  --fg-subtle: oklch(0.58 0.01 270);
+  --accent: oklch(0.5 0.19 262); /* link blue */
   --accent-fg: oklch(0.99 0 0);
-  --accent-muted: oklch(0.62 0.16 62 / 0.12);
+  --accent-muted: oklch(0.5 0.19 262 / 0.1);
   --grid: oklch(0 0 0 / 0.07);
-  --selection: oklch(0.62 0.16 62 / 0.25);
+  --selection: oklch(0.5 0.19 262 / 0.18);
   --shadow: 0 1px 2px oklch(0 0 0 / 0.06);
 }
 
 .dark {
-  --bg: oklch(0.165 0.004 270);
-  --surface: oklch(0.2 0.005 270);
-  --surface-2: oklch(0.24 0.006 270);
-  --border: oklch(0.285 0.006 270);
-  --border-strong: oklch(0.38 0.007 270);
-  --fg: oklch(0.955 0.004 90);
-  --fg-muted: oklch(0.72 0.008 270);
-  --fg-subtle: oklch(0.55 0.01 270);
-  --accent: oklch(0.8 0.16 75); /* amber */
-  --accent-fg: oklch(0.2 0.06 75);
-  --accent-muted: oklch(0.8 0.16 75 / 0.14);
+  --bg: oklch(0.19 0.005 270);
+  --surface: oklch(0.225 0.005 270);
+  --surface-2: oklch(0.265 0.006 270);
+  --border: oklch(0.31 0.006 270);
+  --border-strong: oklch(0.4 0.007 270);
+  --fg: oklch(0.95 0.004 90);
+  --fg-muted: oklch(0.75 0.008 270);
+  --fg-subtle: oklch(0.58 0.01 270);
+  --accent: oklch(0.76 0.12 262);
+  --accent-fg: oklch(0.2 0.05 262);
+  --accent-muted: oklch(0.76 0.12 262 / 0.14);
   --grid: oklch(1 0 0 / 0.06);
-  --selection: oklch(0.8 0.16 75 / 0.3);
+  --selection: oklch(0.76 0.12 262 / 0.3);
   --shadow: 0 1px 2px oklch(0 0 0 / 0.4);
 }
 
@@ -101,7 +101,7 @@ body {
 }
 
 body {
-  @apply font-sans antialiased bg-bg text-fg-muted;
+  @apply font-sans antialiased bg-bg text-fg;
   @apply flex flex-col;
   font-feature-settings: "ss01", "cv11";
   text-rendering: optimizeLegibility;
@@ -110,23 +110,6 @@ body {
 ::selection {
   background: var(--selection);
   color: var(--fg);
-}
-
-/* Dot grid, strongest at the top, gone by ~70vh. */
-body::before {
-  content: "";
-  position: fixed;
-  inset: 0;
-  z-index: -1;
-  pointer-events: none;
-  background-image: radial-gradient(var(--grid) 1px, transparent 1px);
-  background-size: 24px 24px;
-  mask-image: linear-gradient(to bottom, black 0%, transparent 70vh);
-  -webkit-mask-image: linear-gradient(to bottom, black 0%, transparent 70vh);
-}
-/* The home hero draws its own (interactive) grid on a canvas. */
-body.has-hero::before {
-  display: none;
 }
 
 :focus-visible {
@@ -177,10 +160,10 @@ main {
       so one set of rules serves both themes.
    ------------------------------------------------------------------ */
 .prose {
-  --tw-prose-body: var(--fg-muted);
+  --tw-prose-body: var(--fg);
   --tw-prose-headings: var(--fg);
   --tw-prose-lead: var(--fg-muted);
-  --tw-prose-links: var(--fg);
+  --tw-prose-links: var(--accent);
   --tw-prose-bold: var(--fg);
   --tw-prose-counters: var(--fg-subtle);
   --tw-prose-bullets: var(--border-strong);
@@ -197,11 +180,11 @@ main {
   @apply max-w-none;
 }
 .prose a {
-  @apply underline underline-offset-4 decoration-border-strong;
+  @apply text-accent underline underline-offset-[3px] decoration-accent/30;
   @apply transition-colors duration-200 ease-out-quart;
 }
 .prose a:hover {
-  @apply decoration-accent text-fg;
+  @apply decoration-accent;
 }
 .prose :where(code):not(:where(pre *))::before,
 .prose :where(code):not(:where(pre *))::after {
@@ -244,67 +227,8 @@ main {
 /* biome-ignore-end lint/complexity/noImportantStyles: end */
 
 /* ------------------------------------------------------------------
-   6. Home-page effects (G10–G12)
+   6. Home-page behaviors
    ------------------------------------------------------------------ */
-/* Typewriter: the ghost reserves layout, the typed text paints over it. */
-[data-typewriter] {
-  position: relative;
-  display: inline-block;
-}
-[data-typewriter] [data-ghost] {
-  visibility: hidden;
-}
-[data-typewriter] [data-out] {
-  position: absolute;
-  inset: 0;
-  white-space: pre-wrap;
-}
-[data-typewriter] [data-out]::after {
-  content: "";
-  display: inline-block;
-  width: 0.55em;
-  height: 1em;
-  margin-left: 0.08em;
-  vertical-align: -0.12em;
-  background: var(--accent);
-  animation: caret 1s steps(1) infinite;
-}
-[data-typewriter].is-done [data-out]::after {
-  animation: caret 1s steps(1) 4;
-  animation-fill-mode: forwards;
-}
-@keyframes caret {
-  50% {
-    opacity: 0;
-  }
-}
-
-/* Tilt cards */
-.tilt {
-  transform: perspective(900px) rotateX(var(--rx, 0deg)) rotateY(var(--ry, 0deg));
-  transition:
-    transform 180ms var(--ease-out-quart),
-    border-color 200ms var(--ease-out-quart);
-  transform-style: preserve-3d;
-  will-change: transform;
-}
-.tilt-glare {
-  position: absolute;
-  inset: 0;
-  border-radius: inherit;
-  pointer-events: none;
-  opacity: 0;
-  background: radial-gradient(
-    420px circle at var(--mx, 50%) var(--my, 50%),
-    oklch(1 0 0 / 0.08),
-    transparent 60%
-  );
-  transition: opacity 200ms var(--ease-out-quart);
-}
-.tilt:hover .tilt-glare {
-  opacity: 1;
-}
-
 /* Copy button feedback */
 [data-copy] .when-copied {
   display: none;
@@ -314,4 +238,26 @@ main {
 }
 [data-copy].is-copied .when-idle {
   display: none;
+}
+
+/* ------------------------------------------------------------------
+   7. Links and section labels (paper style)
+   ------------------------------------------------------------------ */
+.link {
+  @apply text-accent underline underline-offset-[3px] decoration-accent/30 transition-colors duration-200 ease-out-quart;
+}
+.link:hover {
+  @apply decoration-accent;
+}
+.link-quiet {
+  @apply text-fg-subtle underline underline-offset-[3px] decoration-border-strong transition-colors duration-200 ease-out-quart;
+}
+.link-quiet:hover {
+  @apply text-fg decoration-fg;
+}
+.label {
+  @apply font-mono text-[11.5px] uppercase tracking-[0.14em] text-fg-subtle;
+}
+.rule-list {
+  @apply divide-y divide-border border-y border-border;
 }

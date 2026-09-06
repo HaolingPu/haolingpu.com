@@ -62,8 +62,8 @@ const toc = headings.filter((h) => h.depth === 2 || h.depth === 3);
               </div>
             )
           }
-          <h1 class="animate text-display">{title}</h1>
-          <p class="animate text-lg text-fg-muted">{description}</p>
+          <h1 class="animate text-[30px] font-semibold tracking-tight">{title}</h1>
+          <p class="animate text-[17px] text-fg-muted">{description}</p>
         </header>
 
         {Astro.slots.has("meta") && (
