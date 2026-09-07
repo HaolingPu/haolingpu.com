@@ -3,7 +3,7 @@
 // Output: public/secret/vault.bin (AES-256-GCM ciphertext of a JSON payload)
 //         public/secret/vault.json (PBKDF2 params + the content key wrapped under each accepted answer)
 // Nothing in the output reveals the answers, the name, the captions, or the photos.
-import { createCipheriv, pbkdf2Sync, randomBytes } from "node:crypto";
+import { createCipheriv, createHash, pbkdf2Sync, randomBytes } from "node:crypto";
 import { mkdirSync, readFileSync, writeFileSync } from "node:fs";
 import { resolve } from "node:path";
 import sharp from "sharp";
@@ -39,5 +39,6 @@ const wraps = cfg.answers.map((a) => {
 });
 // shuffle so wrap order says nothing about answer order
 wraps.sort(() => Math.random() - 0.5);
-writeFileSync("public/secret/vault.json", JSON.stringify({ v: 1, kdf: { salt: salt.toString("base64"), iterations }, wraps, bin: "/secret/vault.bin" }));
+const binHash = createHash("sha256").update(ct).digest("hex").slice(0, 12);
+writeFileSync("public/secret/vault.json", JSON.stringify({ v: 1, kdf: { salt: salt.toString("base64"), iterations }, wraps, bin: `/secret/vault.bin?v=${binHash}` }));
 console.log(`vault: ${(ct.length / 1024).toFixed(0)} KB payload, ${wraps.length} wrapped keys, ${photos.length} photos`);

@@ -45,6 +45,9 @@ const zh = lang === "zh";
   const zh = document.documentElement.lang.startsWith("zh");
   let tries = 0;
   let busy = false;
+  if (new URLSearchParams(location.search).has("retry") && msg) {
+    msg.textContent = zh ? "钥匙换过了，再输一次。" : "The key was changed. Please answer again.";
+  }
 
   form?.addEventListener("submit", async (e) => {
     e.preventDefault();
