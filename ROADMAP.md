@@ -64,6 +64,30 @@ Template plumbing candidates (skeleton only, per D4):
 
 ---
 
+## 2b. What's left (as of 2026-09-06)
+
+The site is live, bilingual, and has all its content. Remaining work, in the order I'd do it:
+
+**Worth doing before you send the link to recruiters**
+1. **H1 SEO per page** — unique title/description per page and proper `og:` tags (right now every page shares the default preview). Half a day.
+2. **H7 Accessibility pass** — contrast on the light theme's subtle text, focus rings, icon labels. Two hours.
+3. **H6 Lighthouse in CI** — keep performance ≥ 95 as things get added. One hour.
+4. **I3 Security headers** on Vercel. Thirty minutes.
+5. **I4 Content QA** — proofread EN + ZH, run a link checker. One hour, needs your eyes on the copy.
+6. **H4 (your part)** — add the site to Google Search Console and submit the sitemap. Ten minutes.
+
+**Nice to have**
+7. **E14 `/about`** — the home page already tells the story; only build this if you want more personal content (the Shanghai → Michigan → CMU arc, a facts table).
+8. **E16 `/now`** — a one-paragraph "this month" page.
+9. **G1 ⌘K palette** and **G2 shortcuts** — the one nerd feature still on the list.
+10. **H3 JSON-LD**, **H2 per-page OG images** — small SEO polish.
+11. **E15 HTML résumé page** — the PDF works; skip unless you want a web version.
+
+**Deferred on purpose**
+- **Phase F writing** — the section stays hidden until you decide to write a post (F3/F4 are ideas, not commitments).
+- **G4 contribution graph, G5 `/terminal`** — fun, not needed.
+- **I5 launch checklist** — do when you consider the site final: put the URL on LinkedIn/GitHub/résumé, tag `v1.0.0`.
+
 ## 3. Task roadmap (86 tasks, 9 phases)
 
 Legend: `[ ]` todo · `[x]` done · **DoD** = definition of done. Tasks within a phase are ordered; phases are sequential except where noted.
@@ -72,7 +96,7 @@ Legend: `[ ]` todo · `[x]` done · **DoD** = definition of done. Tasks within a
 - [x] **A1** Answer Q1–Q9 above; record answers under each question. DoD: no `❓` unanswered. *(Q1–Q4, Q9 answered 2026-09-05; Q5–Q8 still open — assumptions recorded in `content/inventory.md`.)*
 - [x] **A2** Write `content/brief.md`: one-paragraph positioning statement ("ML systems engineer who ships: CUDA kernels → agentic knowledge systems → SimulST research"), 3 audience personas (Apple recruiter, hiring manager, fellow researcher), and 5 adjectives for tone. DoD: file exists, ≤ 300 words.
 - [x] **A3** Inventory content from the résumé into a spreadsheet-style `content/inventory.md`: every job, project, paper, with status (public / needs permission / private) and asset needs (screenshot, GIF, link). DoD: every résumé bullet mapped to a page.
-- [ ] **A4** Collect assets into `assets-raw/`: headshot, project screenshots, the NVIDIA competition result, any figures from the EMNLP draft cleared for public use, logos (CMU, UMich, Google, WeRide, NVIDIA). DoD: folder populated, each file named `<project>-<what>.<ext>`.
+- [x] **A4** *(done as needed: headshot, campus photo, ♡ photos, résumé, university/company marks)* Collect assets into `assets-raw/`: headshot, project screenshots, the NVIDIA competition result, any figures from the EMNLP draft cleared for public use, logos (CMU, UMich, Google, WeRide, NVIDIA). DoD: folder populated, each file named `<project>-<what>.<ext>`.
 - [x] **A5** Register the domain (D3) on Cloudflare Registrar; leave DNS empty for now. DoD: domain shows in Cloudflare dashboard. *(You do this — it needs your card. `haolingpu.com` confirmed available via whois on 2026-09-05. Optional: the site can launch on the free `haolingpu.vercel.app` first and the domain can be attached any time later — I1 is the only task that depends on it.)*
 - [x] **A6** Create the empty GitHub repo `HaolingPu/haolingpu.com` (public, MIT license, no README yet). DoD: repo URL exists.
 
@@ -133,20 +157,20 @@ Legend: `[ ]` todo · `[x]` done · **DoD** = definition of done. Tasks within a
 - [ ] **F2** MDX post template: code blocks with Shiki (dark/light themes), copy button, callout component, figure with caption, footnotes. DoD: a "kitchen sink" draft post renders every element.
 - [ ] **F3** *(backlog idea)* Post 1: *Sparse attention on Blackwell* — problem, kernel design, autotuning, results, lessons. Only when you decide to write it. DoD: 1,200–1,800 words, one diagram.
 - [ ] **F4** *(backlog idea, post-publication only)* Post 2: the SimulST research, written after the paper is public. DoD: 1,200–1,800 words, one figure.
-- [ ] **F5** RSS feed (`/rss.xml`) + `<link rel="alternate">`; validate with an RSS checker. DoD: feed lists both posts.
+- [~] **F5** RSS feed exists (`/rss.xml`, linked in `<head>`, lists projects); re-validate once the first post exists.
 - [ ] **F6** Reading-time + "last updated" from git commit date via a small remark plugin. DoD: both show on posts.
 
 ### Phase G — Nerd polish & interactions  ·  16 tasks
 - [ ] **G1** `⌘K` command palette (React island, `cmdk` lib): navigate pages, jump to projects/posts, toggle theme, copy email. DoD: opens on `⌘K`/`Ctrl K`, fully keyboard-navigable, closes on Esc.
 - [ ] **G2** Keyboard shortcuts: `g h` home, `g w` work, `g p` projects, `t` theme, `?` shows a shortcuts sheet. DoD: sheet lists all bindings.
-- [ ] **G3** Hero typewriter/cursor effect on the `$ whoami` line — CSS-only, one cycle, off under reduced motion. DoD: no layout shift while typing.
+- [x] ~~**G3** Hero typewriter~~ *(dropped in the paper-style pivot)*/cursor effect on the `$ whoami` line — CSS-only, one cycle, off under reduced motion. DoD: no layout shift while typing.
 - [ ] **G4** GitHub contribution graph on `/about` — fetched at build time via GitHub GraphQL (token in Vercel env), rendered as inline SVG, cached per build. DoD: renders without client JS.
 - [ ] **G5** Hidden `/terminal` easter egg: fake shell supporting `help`, `ls`, `cat about.md`, `open github`, `sudo hire-me`. Link only from the 404 page and the `?` sheet. DoD: 6 commands work; unknown command replies wittily.
-- [ ] **G6** Card hover micro-interaction: border brightens toward accent, cover image scales 1.02, arrow icon translates 2px. DoD: 150ms, GPU-only properties (transform/opacity).
-- [ ] **G7** Scroll-linked reveal for home sections (opacity+4px translate, once). DoD: uses `IntersectionObserver`, no library, off under reduced motion.
+- [x] ~~**G6** Card hover micro-interaction~~ *(no cards in the paper style; rows and chips have their own hover)*: border brightens toward accent, cover image scales 1.02, arrow icon translates 2px. DoD: 150ms, GPU-only properties (transform/opacity).
+- [x] **G7** *(the `.animate` stagger reveal exists on every page)* Scroll-linked reveal for home sections (opacity+4px translate, once). DoD: uses `IntersectionObserver`, no library, off under reduced motion.
 - [x] **G8** "Copy email" button with checkmark feedback + `mailto:` fallback. DoD: works on iOS Safari.
 - [x] **G9** **Attention field** (signature effect, decided 2026-09-05): full-bleed `<canvas>` behind the hero, **vanilla TS in an Astro `<script>` (no React — saves ~40 KB)**, no library. A grid of faint dots = tokens; cursor position is the query, dots light up amber with a softmax-shaped falloff and thin lines connect the top-k; idle mode slowly attends to random tokens. Pointer-driven only on ≥ md screens, static on touch devices, off under reduced motion. Budget: ≤ 8 KB JS, 60 fps on an M1 Air, `requestAnimationFrame` paused when off-screen. DoD: Lighthouse performance on `/` stays ≥ 95.
-- [~] **G10** Photo tile: headshot placed via `astro:assets` `<Image>` (explicit dimensions, WebP, no CLS); on hover the attention field fades in over it. The ASCII-portrait variant is dropped for the paper style. Done 2026-09-05.
+- [x] **G10** Photo tile: headshot placed via `astro:assets` `<Image>` (explicit dimensions, WebP, no CLS); on hover the attention field fades in over it. The ASCII-portrait variant is dropped for the paper style. Done 2026-09-05.
 - [x] ~~**G11** **Tilt cards**~~ *(built, then removed in the paper-style pivot)*  for the education (and optionally project) cards: 3D tilt toward the cursor, max 6°, with a soft specular highlight; CSS `perspective` + a 20-line pointer handler, no library. DoD: no tilt on touch or reduced motion.
 - [x] ~~**G12** Typewriter tagline~~ *(built, then removed in the paper-style pivot)*  in the hero (CSS `steps()` + blinking caret, one cycle). DoD: no layout shift while typing; static text under reduced motion.
 - [x] **G13** **♡ page** (added 2026-09-05 at the user's request): a "♡" tab at the far right of the nav opens `/secret`, which asks "What does Haoling like?". Answers are checked client-side against SHA-256 hashes (plain answers are not in the repo). A correct answer sets a session flag and opens `/secret/heart`, a full-screen **2D-canvas** 3D particle scene (modeled on the viral 李峋 particle heart): ~7k particles sampled from Taubin's heart surface, rotated and perspective-projected by hand, additive glow sprites, lub-dub beat, star field, drag-to-rotate, and a tap that morphs the particles into the name (her name) (text sampled from a canvas). **Three.js was tried first and removed**: the user's Mac browser had WebGL2 disabled and saw a black page, so the effect must not depend on WebGL. 8 KB of script; **below the heart, a pink scrolling gallery** (added 2026-09-05): four photos in tilted polaroid frames with tape and a heart sticker, each revealed in sequence on scroll with a caption, a signature line, and a heart-burst button; **private content is encrypted**: `scripts/vault.mjs` packs name, captions and photos into `public/secret/vault.bin` (AES-256-GCM) with the content key wrapped under each accepted answer via PBKDF2 (300k iterations); the answers live only in git-ignored `site/secret.local.json`; the gate derives the key in the browser and the heart page decrypts client-side, so neither the repo nor the served HTML contains the name, captions or photos; direct visits without the flag bounce back to the question. Both pages are `noindex` and excluded from the sitemap. DoD: guard, wrong-answer, and success paths verified with Playwright.
@@ -158,19 +182,19 @@ Legend: `[ ]` todo · `[x]` done · **DoD** = definition of done. Tasks within a
 - [ ] **H1** Per-page `<title>`/`description`, canonical URL, `og:*` and `twitter:card` from a single `SEO.astro` component. DoD: every page has unique title + description (checked with a crawl script).
 - [~] **H2** OG images. *(A static `/og.png` — name, tagline, headshot on paper — exists since 2026-09-05 and is the default for every page. Per-page images via satori remain to do.)* DoD: `/og/<slug>.png` exists for home, each project, each post; verified in an OG preview tool.
 - [ ] **H3** JSON-LD `Person` (name, alumniOf CMU/UMich, sameAs GitHub/LinkedIn) on home; `Article` on posts. DoD: passes Google Rich Results test.
-- [ ] **H4** Sitemap (`@astrojs/sitemap`) + `robots.txt` + submit to Google Search Console. DoD: property verified, sitemap accepted.
-- [ ] **H5** Image pipeline: all raster via `<Image>`/`<Picture>` (AVIF/WebP, explicit width/height), covers ≤ 150 KB. DoD: no `<img>` without dimensions.
+- [~] **H4** Sitemap + `robots.txt` are live; **you** still need to add the site in Google Search Console and submit `sitemap-index.xml`. DoD: property verified, sitemap accepted.
+- [x] **H5** *(all photos go through `astro:assets` `<Image>` with explicit sizes and WebP)* Image pipeline: all raster via `<Image>`/`<Picture>` (AVIF/WebP, explicit width/height), covers ≤ 150 KB. DoD: no `<img>` without dimensions.
 - [ ] **H6** Lighthouse ≥ 95 on all four categories for `/`, `/projects`, one post — run in CI via `lighthouse-ci`. DoD: CI asserts thresholds.
 - [ ] **H7** Accessibility pass: axe DevTools clean, focus rings visible, color contrast ≥ 4.5:1 for body text in both themes, all icons labeled. DoD: zero axe violations on every route.
-- [ ] **H8** Playwright smoke test: every route returns 200, no console errors, palette opens. DoD: runs in CI in < 60 s.
+- [ ] **H8** Playwright smoke test: every route (EN + ZH) returns 200, no console errors, gate rejects a wrong answer. DoD: runs in CI in < 60 s.
 
 ### Phase I — Domain, launch, and afterwards  ·  6 tasks
 - [x] **I1** Point Cloudflare DNS to Vercel, add domain in Vercel, enforce HTTPS. DoD: `https://haolingpu.com` serves the site with a valid cert. *(Done early, 2026-09-05: A `@` → 76.76.21.21, CNAME `www` → Vercel, both DNS-only. Certs issued for both hosts. **Open nit:** Vercel currently makes `www` primary and 308-redirects the apex to it, while `astro.config.mjs` declares `site: https://haolingpu.com`. Flip the primary to the apex in Vercel → Settings → Domains → Edit, so canonical URLs and sitemap match the served host.)*
-- [~] **I2** Vercel Web Analytics: `@vercel/analytics/astro` `<Analytics />` in BaseLayout and the heart page (2026-09-05); Analytics enabled on the Vercel project. Only the Vercel account sees the dashboard (visitors, page views per path, referrers, countries). DoD: first page views appear in the dashboard.
+- [x] **I2** Vercel Web Analytics: `@vercel/analytics/astro` `<Analytics />` in BaseLayout and the heart page (2026-09-05); Analytics enabled on the Vercel project. Only the Vercel account sees the dashboard (visitors, page views per path, referrers, countries). DoD: first page views appear in the dashboard.
 - [ ] **I3** Security/perf headers in `vercel.json`: HSTS, `X-Content-Type-Options`, `Referrer-Policy`, cache headers for `/_astro/*`. DoD: securityheaders.com grade A.
-- [ ] **I4** Final content QA: proofread every page, check every external link (script), confirm résumé PDF is the Aug-2026 version, verify OG previews in LinkedIn Post Inspector and iMessage. DoD: checklist in `content/launch-checklist.md` fully ticked.
+- [ ] **I4** Final content QA: proofread every page in both languages, check every external link (script), confirm the résumé PDF is current, verify OG previews in LinkedIn Post Inspector and iMessage. DoD: checklist in `content/launch-checklist.md` fully ticked.
 - [ ] **I5** Launch: update LinkedIn/GitHub profile URLs, résumé header, and email signature to the domain; tag `v1.0.0` release. DoD: résumé PDF on the site contains the site URL.
-- [ ] **I6** Post-launch backlog (do not block launch): `/uses` page, `/zh` mirror, Plausible self-hosting, third post, project GIF demos, "reading list" page, dark-mode OG variant. DoD: filed as GitHub issues with labels.
+- [ ] **I6** Post-launch backlog (do not block launch): `/uses` page, Chinese project write-ups, Plausible self-hosting, third post, project GIF demos, "reading list" page, dark-mode OG variant. DoD: filed as GitHub issues with labels.
 
 ---
 
