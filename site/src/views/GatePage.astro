@@ -58,7 +58,8 @@ const zh = lang === "zh";
       const key = await unlock(input.value); // ~0.3 s of PBKDF2 on purpose
       if (key) {
         sessionStorage.setItem("vault", key);
-        window.location.href = "/secret/heart/";
+        // a unique URL forces a fresh copy of the heart page instead of any cached one
+        window.location.href = `/secret/heart/?k=${Date.now().toString(36)}`;
         return;
       }
     } catch {
