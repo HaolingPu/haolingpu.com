@@ -30,12 +30,14 @@ export const WRITING: Metadata = {
 
 export const WORK: Metadata = {
   TITLE: "Work",
-  DESCRIPTION: "Where I have worked and what I built there.",
+  DESCRIPTION:
+    "Haoling Pu's roles at Google, CMU's Language Technologies Institute, WeRide and more, told in a line or two each.",
 };
 
 export const PROJECTS: Metadata = {
   TITLE: "Projects",
-  DESCRIPTION: "Things I have built, with code and demos where public.",
+  DESCRIPTION:
+    "Projects by Haoling Pu: a sparse attention CUDA kernel for Blackwell, a self-writing LLM wiki, hybrid retrieval, and more.",
 };
 
 export const SOCIALS: Socials = [
@@ -60,7 +62,8 @@ export const REPO_URL = "https://github.com/HaolingPu/haolingpu.com";
 
 export const RESEARCH: Metadata = {
   TITLE: "Research",
-  DESCRIPTION: "Simultaneous speech translation research at CMU and GPU kernel work.",
+  DESCRIPTION:
+    "Haoling Pu's research: simultaneous speech translation at CMU's Language Technologies Institute, and a Blackwell sparse attention kernel for NVIDIA's MLSys competition.",
 };
 
 /** Hero numbers. Keep to three; each must be defensible from the résumé. */

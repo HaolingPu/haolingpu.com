@@ -19,7 +19,7 @@ const devPages = () => ({
 });
 
 export default defineConfig({
-  site: "https://haolingpu.com",
+  site: "https://www.haolingpu.com",
   i18n: {
     defaultLocale: "en",
     locales: ["en", "zh"],

@@ -13,16 +13,18 @@ type Props = {
   bodyClass?: string;
   noindex?: boolean;
   lang?: Lang;
+  type?: "website" | "article";
 };
 
-const { title, description, image, bodyClass, noindex, lang = "en" } = Astro.props;
-const fullTitle = title === "Home" ? SITE.NAME : `${title} · ${SITE.NAME}`;
+const { title, description, image, bodyClass, noindex, lang = "en", type } = Astro.props;
+const siteName = lang === "zh" ? `${SITE.NAME_ZH} ${SITE.NAME}` : SITE.NAME;
+const fullTitle = title === "Home" ? siteName : `${title} · ${siteName}`;
 ---
 
 <!doctype html>
 <html lang={lang === "zh" ? "zh-CN" : "en"}>
   <head>
-    <Head title={fullTitle} description={description} image={image} noindex={noindex} />
+    <Head title={fullTitle} description={description} image={image} noindex={noindex} type={type} />
   </head>
   <body class={bodyClass}>
     <a

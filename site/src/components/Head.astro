@@ -13,11 +13,17 @@ interface Props {
   description: string;
   image?: string;
   noindex?: boolean;
+  type?: "website" | "article";
 }
 
-const canonicalURL = new URL(Astro.url.pathname, Astro.site);
-
-const { title, description, image = "/og.png", noindex = false } = Astro.props;
+const { title, description, image = "/og.png", noindex = false, type = "website" } = Astro.props;
+const path = Astro.url.pathname;
+const isZh = path === "/zh" || path.startsWith("/zh/");
+const bare = isZh ? path.slice(3) || "/" : path;
+const enURL = new URL(bare, Astro.site);
+const zhURL = new URL(`/zh${bare === "/" ? "/" : bare}`, Astro.site);
+const hasTwin = !bare.startsWith("/writing") && bare !== "/404";
+const canonicalURL = new URL(path, Astro.site);
 ---
 
 <!-- Global Metadata -->
@@ -37,6 +43,13 @@ const { title, description, image = "/og.png", noindex = false } = Astro.props;
 
 <!-- Canonical URL -->
 <link rel="canonical" href={canonicalURL} />
+{hasTwin && !noindex && (
+  <>
+    <link rel="alternate" hreflang="en" href={enURL} />
+    <link rel="alternate" hreflang="zh-CN" href={zhURL} />
+    <link rel="alternate" hreflang="x-default" href={enURL} />
+  </>
+)}
 
 <!-- Primary Meta Tags -->
 <title>{title}</title>
@@ -44,18 +57,23 @@ const { title, description, image = "/og.png", noindex = false } = Astro.props;
 <meta name="description" content={description} />
 
 <!-- Open Graph / Facebook -->
-<meta property="og:type" content="website" />
-<meta property="og:url" content={Astro.url} />
+<meta property="og:type" content={type} />
+<meta property="og:site_name" content={SITE.NAME} />
+<meta property="og:locale" content={isZh ? "zh_CN" : "en_US"} />
+<meta property="og:url" content={canonicalURL} />
 <meta property="og:title" content={title} />
 <meta property="og:description" content={description} />
-<meta property="og:image" content={new URL(image, Astro.url)} />
+<meta property="og:image" content={new URL(image, Astro.site)} />
+<meta property="og:image:width" content="1200" />
+<meta property="og:image:height" content="630" />
+<meta property="og:image:alt" content={`${SITE.NAME} — ${description}`} />
 
 <!-- Twitter -->
 <meta property="twitter:card" content="summary_large_image" />
-<meta property="twitter:url" content={Astro.url} />
+<meta property="twitter:url" content={canonicalURL} />
 <meta property="twitter:title" content={title} />
 <meta property="twitter:description" content={description} />
-<meta property="twitter:image" content={new URL(image, Astro.url)} />
+<meta property="twitter:image" content={new URL(image, Astro.site)} />
 
 <ClientRouter  />
 

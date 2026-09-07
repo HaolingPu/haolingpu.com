@@ -69,7 +69,7 @@ Template plumbing candidates (skeleton only, per D4):
 The site is live, bilingual, and has all its content. Remaining work, in the order I'd do it:
 
 **Worth doing before you send the link to recruiters**
-1. **H1 SEO per page** — unique title/description per page and proper `og:` tags (right now every page shares the default preview). Half a day.
+1. ~~**H1 SEO per page**~~ done 2026-09-06.
 2. **H7 Accessibility pass** — contrast on the light theme's subtle text, focus rings, icon labels. Two hours.
 3. **H6 Lighthouse in CI** — keep performance ≥ 95 as things get added. One hour.
 4. **I3 Security headers** on Vercel. Thirty minutes.
@@ -179,7 +179,7 @@ Legend: `[ ]` todo · `[x]` done · **DoD** = definition of done. Tasks within a
 - [x] **G16** **Tone pass** (2026-09-06, user request): roles and projects rewritten as one or two playful lines with no metrics (the résumé and LinkedIn carry the detail); a line-drawn `Doodle` illustration beside each row (`src/components/Doodle.astro`, keyed by a `doodle` field); GitHub / LinkedIn / Résumé / Email as icon chips under the name; résumé PDF refreshed from `assets-raw/Resume_HaolingPu.pdf`.
 
 ### Phase H — SEO, performance, accessibility  ·  8 tasks
-- [ ] **H1** Per-page `<title>`/`description`, canonical URL, `og:*` and `twitter:card` from a single `SEO.astro` component. DoD: every page has unique title + description (checked with a crawl script).
+- [x] **H1** Per-page `<title>`/`description`, canonical URL (on the served `www` host), `hreflang` EN/ZH twins, `og:locale`/`og:type`/`og:site_name`, image dimensions. Done 2026-09-06; a build-time script confirmed every page has a unique title and description.
 - [~] **H2** OG images. *(A static `/og.png` — name, tagline, headshot on paper — exists since 2026-09-05 and is the default for every page. Per-page images via satori remain to do.)* DoD: `/og/<slug>.png` exists for home, each project, each post; verified in an OG preview tool.
 - [ ] **H3** JSON-LD `Person` (name, alumniOf CMU/UMich, sameAs GitHub/LinkedIn) on home; `Article` on posts. DoD: passes Google Rich Results test.
 - [~] **H4** Sitemap + `robots.txt` are live; **you** still need to add the site in Google Search Console and submit `sitemap-index.xml`. DoD: property verified, sitemap accepted.
