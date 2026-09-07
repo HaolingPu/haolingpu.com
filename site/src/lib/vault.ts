@@ -21,8 +21,17 @@ export type Payload = {
 };
 
 /** Returns the raw content key (base64) if the answer is right, else null. */
+const fresh = (url: string) =>
+  fetch(`${url}${url.includes("?") ? "&" : "?"}t=${Date.now()}`, { cache: "no-store" });
+
+async function sha256Hex(bytes: Uint8Array) {
+  const copy = new Uint8Array(bytes); // own ArrayBuffer, satisfies BufferSource typing
+  const h = await crypto.subtle.digest("SHA-256", copy);
+  return [...new Uint8Array(h)].map((b) => b.toString(16).padStart(2, "0")).join("");
+}
+
 export async function unlock(answer: string): Promise<string | null> {
-  const meta: VaultMeta = await (await fetch("/secret/vault.json", { cache: "no-store" })).json();
+  const meta: VaultMeta = await (await fresh("/secret/vault.json")).json();
   const base = await crypto.subtle.importKey(
     "raw",
     enc.encode(normalize(answer)),
@@ -49,16 +58,23 @@ export async function unlock(answer: string): Promise<string | null> {
 }
 
 /** Decrypts the vault with a content key from unlock(); returns null if the key is wrong. */
+/** Decrypts the vault with a content key from unlock(); returns null if the key is wrong. */
 export async function open(keyB64: string): Promise<Payload | null> {
   try {
-    const bin = new Uint8Array(
-      await (await fetch("/secret/vault.bin", { cache: "force-cache" })).arrayBuffer(),
-    );
+    // vault.json names the current ciphertext by content hash. Both are fetched past every
+    // cache, and a ciphertext whose hash does not match is refetched once (half-propagated deploy).
+    const meta: VaultMeta = await (await fresh("/secret/vault.json")).json();
+    const want = new URL(meta.bin, location.origin).searchParams.get("v");
+    let bin = new Uint8Array(await (await fresh(meta.bin)).arrayBuffer());
+    if (want && !(await sha256Hex(bin.slice(12))).startsWith(want)) {
+      await new Promise((r) => setTimeout(r, 1500));
+      bin = new Uint8Array(await (await fresh(meta.bin)).arrayBuffer());
+    }
     const key = await crypto.subtle.importKey("raw", b64(keyB64), "AES-GCM", false, ["decrypt"]);
     const plain = await crypto.subtle.decrypt(
-      { name: "AES-GCM", iv: bin.slice(0, 12) },
+      { name: "AES-GCM", iv: new Uint8Array(bin.slice(0, 12)) },
       key,
-      bin.slice(12),
+      new Uint8Array(bin.slice(12)),
     );
     return JSON.parse(new TextDecoder().decode(plain));
   } catch {
