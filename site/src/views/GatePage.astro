@@ -39,39 +39,47 @@ const zh = lang === "zh";
 
 <script>
   import { unlock } from "@lib/vault";
-  const form = document.querySelector<HTMLFormElement>("[data-gate]");
-  const input = form?.querySelector("input");
-  const msg = form?.querySelector<HTMLElement>("[data-msg]");
-  const zh = document.documentElement.lang.startsWith("zh");
-  let tries = 0;
-  let busy = false;
-  if (new URLSearchParams(location.search).has("retry") && msg) {
-    msg.textContent = zh ? "钥匙换过了，再输一次。" : "The key was changed. Please answer again.";
-  }
 
-  form?.addEventListener("submit", async (e) => {
-    e.preventDefault();
-    if (!input || !msg || busy) return;
-    busy = true;
-    msg.textContent = zh ? "…" : "…";
-    try {
-      const key = await unlock(input.value); // ~0.3 s of PBKDF2 on purpose
-      if (key) {
-        sessionStorage.setItem("vault", key);
-        // a unique URL forces a fresh copy of the heart page instead of any cached one
-        window.location.href = `/secret/heart/?k=${Date.now().toString(36)}`;
-        return;
-      }
-    } catch {
-      /* fall through */
+  // Runs on every navigation (the site swaps pages client-side), and attaches once per form.
+  function init() {
+    const form = document.querySelector<HTMLFormElement>("[data-gate]");
+    if (!form || form.dataset.ready) return;
+    form.dataset.ready = "1";
+    const input = form.querySelector("input");
+    const msg = form.querySelector<HTMLElement>("[data-msg]");
+    const zh = document.documentElement.lang.startsWith("zh");
+    let tries = 0;
+    let busy = false;
+    if (new URLSearchParams(location.search).has("retry") && msg) {
+      msg.textContent = zh ? "钥匙换过了，再输一次。" : "The key was changed. Please answer again.";
     }
-    tries++;
-    input.classList.add("shake");
-    setTimeout(() => input.classList.remove("shake"), 500);
-    msg.textContent = tries < 3 ? (zh ? "不对哦。" : "Not quite.") : (zh ? "提示：一个昵称。" : "Hint: it's a nickname.");
-    input.select();
-    busy = false;
-  });
+
+    form.addEventListener("submit", async (e) => {
+      e.preventDefault();
+      if (!input || !msg || busy) return;
+      busy = true;
+      msg.textContent = "…";
+      try {
+        const key = await unlock(input.value); // ~0.3 s of PBKDF2 on purpose
+        if (key) {
+          sessionStorage.setItem("vault", key);
+          // a unique URL forces a fresh copy of the heart page instead of any cached one
+          window.location.href = `/secret/heart/?k=${Date.now().toString(36)}`;
+          return;
+        }
+      } catch {
+        /* fall through */
+      }
+      tries++;
+      input.classList.add("shake");
+      setTimeout(() => input.classList.remove("shake"), 500);
+      msg.textContent = tries < 3 ? (zh ? "不对哦。" : "Not quite.") : (zh ? "提示：一个昵称。" : "Hint: it's a nickname.");
+      input.select();
+      busy = false;
+    });
+  }
+  init();
+  document.addEventListener("astro:page-load", init);
 </script>
 
 <style>
