@@ -64,7 +64,7 @@ const zh = lang === "zh";
     tries++;
     input.classList.add("shake");
     setTimeout(() => input.classList.remove("shake"), 500);
-    msg.textContent = tries < 3 ? (zh ? "不对哦。" : "Not quite.") : (zh ? "提示：是一个名字。" : "Hint: it's a name.");
+    msg.textContent = tries < 3 ? (zh ? "不对哦。" : "Not quite.") : (zh ? "提示：一个昵称。" : "Hint: it's a nickname.");
     input.select();
     busy = false;
   });
