@@ -62,7 +62,7 @@ const linkedin = SOCIALS.find((s) => s.NAME === "linkedin")?.HREF ?? "#";
         </div>
         <!-- Photo. The attention field stays as a hover overlay (ROADMAP G9). -->
         <div class="group relative size-48 shrink-0 overflow-hidden rounded-xl border border-border bg-surface sm:size-60 md:size-[17rem]">
-          <Image src={headshot} alt="蒲浩领，密歇根大学毕业典礼" width={544} height={544} class="size-full object-cover" loading="eager" />
+          <Image src={headshot} alt="蒲浩领，密歇根大学毕业典礼" widths={[192, 272, 544]} sizes="(min-width: 768px) 272px, (min-width: 640px) 240px, 192px" class="size-full object-cover" loading="eager" />
           <div class="absolute inset-0 bg-bg/70 opacity-0 transition-opacity duration-300 group-hover:opacity-100" aria-hidden="true">
             <AttentionField spacing={16} sigma={46} topK={5} />
           </div>
@@ -78,7 +78,7 @@ const linkedin = SOCIALS.find((s) => s.NAME === "linkedin")?.HREF ?? "#";
     <Section eyebrow={ui.education} class="animate">
       <ul class="rule-list">{EDUCATION.map((edu) => <EducationRow edu={edu} compact lang="zh" />)}</ul>
       <figure class="mt-5">
-        <Image src={campus} alt="穿着学位服坐在 Michigan Union 标牌上，安娜堡，2025 年 5 月" widths={[640, 960, 1408]} sizes="(min-width: 768px) 704px, 100vw" class="w-full rounded-lg border border-border" />
+        <Image src={campus} alt="穿着学位服坐在 Michigan Union 标牌上，安娜堡，2025 年 5 月" widths={[640, 928, 1400]} sizes="(min-width: 992px) 928px, 100vw" class="w-full rounded-lg border border-border" />
         <figcaption class="mt-2 font-mono text-[12px] text-fg-subtle">Michigan Union，安娜堡 · 2025 年 5 月</figcaption>
       </figure>
     </Section>

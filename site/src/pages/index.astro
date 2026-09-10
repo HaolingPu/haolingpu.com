@@ -66,7 +66,7 @@ const linkedin = SOCIALS.find((s) => s.NAME === "linkedin")?.HREF ?? "#";
 
         <!-- Photo. The attention field stays as a hover overlay (ROADMAP G9). -->
         <div class="group relative size-48 shrink-0 overflow-hidden rounded-xl border border-border bg-surface sm:size-60 md:size-[17rem]">
-          <Image src={headshot} alt="Haoling Pu at his Michigan graduation" width={544} height={544} class="size-full object-cover" loading="eager" />
+          <Image src={headshot} alt="Haoling Pu at his Michigan graduation" widths={[192, 272, 544]} sizes="(min-width: 768px) 272px, (min-width: 640px) 240px, 192px" class="size-full object-cover" loading="eager" />
           <div class="absolute inset-0 bg-bg/70 opacity-0 transition-opacity duration-300 group-hover:opacity-100" aria-hidden="true">
             <AttentionField spacing={16} sigma={46} topK={5} />
           </div>
@@ -82,7 +82,7 @@ const linkedin = SOCIALS.find((s) => s.NAME === "linkedin")?.HREF ?? "#";
     <Section eyebrow="education" class="animate">
       <ul class="rule-list">{EDUCATION.map((edu) => <EducationRow edu={edu} compact />)}</ul>
       <figure class="mt-5">
-        <Image src={campus} alt="Sitting on the Michigan Union sign in cap and gown, Ann Arbor, May 2025" widths={[640, 960, 1408]} sizes="(min-width: 768px) 704px, 100vw" class="w-full rounded-lg border border-border" />
+        <Image src={campus} alt="Sitting on the Michigan Union sign in cap and gown, Ann Arbor, May 2025" widths={[640, 928, 1400]} sizes="(min-width: 992px) 928px, 100vw" class="w-full rounded-lg border border-border" />
         <figcaption class="mt-2 font-mono text-[12px] text-fg-subtle">Michigan Union, Ann Arbor · May 2025</figcaption>
       </figure>
     </Section>
@@ -93,7 +93,7 @@ const linkedin = SOCIALS.find((s) => s.NAME === "linkedin")?.HREF ?? "#";
     </Section>
 
     <Section eyebrow="research" class="animate">
-      <a slot="action" href="/research" class="link-quiet">more</a>
+      <a slot="action" href="/research" class="link-quiet">all research</a>
       <ul class="rule-list">
         {
           research.map((r) => (

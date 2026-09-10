@@ -31,3 +31,20 @@ jobs:
       - run: pnpm install --frozen-lockfile
       - run: pnpm check
       - run: pnpm build
+
+      - name: Accessibility (axe-core)
+        run: |
+          pnpm exec playwright install --with-deps chromium
+          pnpm exec astro preview --port 4321 &
+          npx --yes wait-on http://localhost:4321 -t 60000
+          pnpm a11y http://localhost:4321
+
+      - name: Lighthouse
+        run: pnpm lighthouse
+
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: lighthouse-reports
+          path: site/.lighthouseci
+          retention-days: 7

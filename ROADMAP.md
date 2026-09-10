@@ -70,9 +70,9 @@ The site is live, bilingual, and has all its content. Remaining work, in the ord
 
 **Worth doing before you send the link to recruiters**
 1. ~~**H1 SEO per page**~~ done 2026-09-06.
-2. **H7 Accessibility pass** — contrast on the light theme's subtle text, focus rings, icon labels. Two hours.
-3. **H6 Lighthouse in CI** — keep performance ≥ 95 as things get added. One hour.
-4. **I3 Security headers** on Vercel. Thirty minutes.
+2. ~~**H7 Accessibility pass**~~ done 2026-09-09 (axe clean, contrast fixed, focus rings).
+3. ~~**H6 Lighthouse in CI**~~ done 2026-09-09 (all pages 1.00 perf / 1.00 a11y / 1.00 SEO).
+4. ~~**I3 Security headers**~~ done 2026-09-09.
 5. **I4 Content QA** — proofread EN + ZH, run a link checker. One hour, needs your eyes on the copy.
 6. **H4 (your part)** — add the site to Google Search Console and submit the sitemap. Ten minutes.
 
@@ -184,14 +184,14 @@ Legend: `[ ]` todo · `[x]` done · **DoD** = definition of done. Tasks within a
 - [ ] **H3** JSON-LD `Person` (name, alumniOf CMU/UMich, sameAs GitHub/LinkedIn) on home; `Article` on posts. DoD: passes Google Rich Results test.
 - [~] **H4** Sitemap + `robots.txt` are live; **you** still need to add the site in Google Search Console and submit `sitemap-index.xml`. DoD: property verified, sitemap accepted.
 - [x] **H5** *(all photos go through `astro:assets` `<Image>` with explicit sizes and WebP)* Image pipeline: all raster via `<Image>`/`<Picture>` (AVIF/WebP, explicit width/height), covers ≤ 150 KB. DoD: no `<img>` without dimensions.
-- [ ] **H6** Lighthouse ≥ 95 on all four categories for `/`, `/projects`, one post — run in CI via `lighthouse-ci`. DoD: CI asserts thresholds.
-- [ ] **H7** Accessibility pass: axe DevTools clean, focus rings visible, color contrast ≥ 4.5:1 for body text in both themes, all icons labeled. DoD: zero axe violations on every route.
+- [x] **H6** Lighthouse ≥ 95 on all four categories, asserted in CI via `@lhci/cli` over 6 URLs (EN + ZH, list + detail). Done 2026-09-09: every page scores perf 1.00 / a11y 1.00 / best-practices 0.96 / SEO 1.00. Reports upload as a CI artifact.
+- [x] **H7** Accessibility pass, done 2026-09-09: `pnpm a11y` runs axe-core over 14 routes × 2 themes with zero violations (now in CI); `--fg-subtle` raised to meet 4.5:1 in both themes (was 4.19 light / 3.97 dark); focus rings forced to the accent colour and no longer animated in.
 - [ ] **H8** Playwright smoke test: every route (EN + ZH) returns 200, no console errors, gate rejects a wrong answer. DoD: runs in CI in < 60 s.
 
 ### Phase I — Domain, launch, and afterwards  ·  6 tasks
 - [x] **I1** Point Cloudflare DNS to Vercel, add domain in Vercel, enforce HTTPS. DoD: `https://haolingpu.com` serves the site with a valid cert. *(Done early, 2026-09-05: A `@` → 76.76.21.21, CNAME `www` → Vercel, both DNS-only. Certs issued for both hosts. **Open nit:** Vercel currently makes `www` primary and 308-redirects the apex to it, while `astro.config.mjs` declares `site: https://haolingpu.com`. Flip the primary to the apex in Vercel → Settings → Domains → Edit, so canonical URLs and sitemap match the served host.)*
 - [x] **I2** Vercel Web Analytics: `@vercel/analytics/astro` `<Analytics />` in BaseLayout and the heart page (2026-09-05); Analytics enabled on the Vercel project. Only the Vercel account sees the dashboard (visitors, page views per path, referrers, countries). DoD: first page views appear in the dashboard.
-- [ ] **I3** Security/perf headers in `vercel.json`: HSTS, `X-Content-Type-Options`, `Referrer-Policy`, cache headers for `/_astro/*`. DoD: securityheaders.com grade A.
+- [x] **I3** Security/perf headers in `site/vercel.json` (2026-09-09): HSTS with preload, `X-Content-Type-Options`, `Referrer-Policy`, `X-Frame-Options`, `Permissions-Policy`, COOP, a CSP, immutable caching for `/_astro/*` and `/fonts/*`, and `no-store` + `noindex` for the ♡ vault. DoD: securityheaders.com grade A.
 - [ ] **I4** Final content QA: proofread every page in both languages, check every external link (script), confirm the résumé PDF is current, verify OG previews in LinkedIn Post Inspector and iMessage. DoD: checklist in `content/launch-checklist.md` fully ticked.
 - [ ] **I5** Launch: update LinkedIn/GitHub profile URLs, résumé header, and email signature to the domain; tag `v1.0.0` release. DoD: résumé PDF on the site contains the site URL.
 - [ ] **I6** Post-launch backlog (do not block launch): `/uses` page, Chinese project write-ups, Plausible self-hosting, third post, project GIF demos, "reading list" page, dark-mode OG variant. DoD: filed as GitHub issues with labels.

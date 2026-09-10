@@ -19,3 +19,6 @@ assets-raw/
 # private content: only the encrypted vault is committed
 site/secret.local.json
 site/src/assets/photos/xuan/
+
+# lighthouse reports
+site/.lighthouseci/
