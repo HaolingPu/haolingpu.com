@@ -14,6 +14,7 @@ Read `ROADMAP.md` first. Work is done task-by-task from it; tick the checkbox in
 - Content collections: `site/src/content.config.ts` (content-layer API: `glob` loader, `render(entry)`, `entry.id` — never `entry.slug` or `entry.render()`).
 - Styles: `site/src/styles/global.css` (Tailwind v4: `@import "tailwindcss"`, tokens under `@theme`, dark mode via `@custom-variant dark`). There is no `tailwind.config.*`.
 - Path alias `@*` → `site/src/*`.
+- `vercel.json` (security + cache headers) is duplicated at the repo root and in `site/` — Vercel reads the repo-root copy even though the project's Root Directory is `site`. Keep them identical.
 - Pages are thin routes over shared views in `src/views/*.astro` that take a `lang` prop; every English route under `src/pages/` has a Chinese twin under `src/pages/zh/`. Add a page = add the view + both routes.
 
 ## Private content
