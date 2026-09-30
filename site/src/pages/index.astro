@@ -61,8 +61,8 @@ const linkedin = SOCIALS.find((s) => s.NAME === "linkedin")?.HREF ?? "#";
         </div>
 
         <!-- Photo. The attention field stays as a hover overlay (ROADMAP G9). -->
-        <div class="group relative size-48 shrink-0 overflow-hidden rounded-xl border border-border bg-surface sm:size-60 md:size-[17rem]">
-          <Image src={headshot} alt="Haoling Pu at his Michigan graduation" widths={[192, 272, 544]} sizes="(min-width: 768px) 272px, (min-width: 640px) 240px, 192px" class="size-full object-cover" loading="eager" />
+        <div class="group relative aspect-[2/3] w-44 shrink-0 overflow-hidden rounded-xl border border-border bg-surface sm:w-56 md:w-[17rem]">
+          <Image src={headshot} alt="Haoling Pu at his Michigan graduation" widths={[272, 544]} sizes="(min-width: 768px) 272px, (min-width: 640px) 224px, 176px" class="size-full object-cover" loading="eager" />
           <div class="absolute inset-0 bg-bg/70 opacity-0 transition-opacity duration-300 group-hover:opacity-100" aria-hidden="true">
             <AttentionField spacing={16} sigma={46} topK={5} />
           </div>
