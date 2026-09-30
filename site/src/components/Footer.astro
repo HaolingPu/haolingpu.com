@@ -1,14 +1,7 @@
 ---
 import Container from "@components/ui/Container.astro";
 import Link from "@components/ui/Link.astro";
-import { REPO_URL, SITE, SOCIALS } from "@site.config";
-
-/* Evaluated at build time on Vercel, so this is the deploy date. */
-const built = new Date().toLocaleDateString("en-US", {
-  month: "short",
-  day: "numeric",
-  year: "numeric",
-});
+import { SITE, SOCIALS } from "@site.config";
 ---
 
 <footer class="site-footer animate border-t border-border">
@@ -32,14 +25,6 @@ const built = new Date().toLocaleDateString("en-US", {
             </Link>
           </li>
         </ul>
-      </div>
-      <div class="font-mono text-xs text-fg-subtle sm:text-right">
-        <div>
-          built with <Link href="https://astro.build" external underline={false}>astro</Link>
-          {" · "}
-          <Link href={REPO_URL} external underline={false}>source</Link>
-        </div>
-        <div class="mt-1">last deployed {built}</div>
       </div>
     </div>
   </Container>

@@ -28,7 +28,7 @@ Both must pass. `pnpm lint:fix` auto-formats.
 
 Quality gates (also enforced in CI): `pnpm a11y <url>` runs axe-core over every route in
 both themes and must report zero violations; `pnpm lighthouse` asserts ≥ 0.95 in all four
-Lighthouse categories. Keep `--fg-subtle` at 4.5:1 against both `--bg` and `--surface-2`.
+Lighthouse categories (median of 3 runs — a single run flakes on a loaded machine). Keep `--fg-subtle` at 4.5:1 against both `--bg` and `--surface-2`.
 
 ## Commits
 Conventional Commits, scoped by phase task, e.g. `feat(site): C3 type scale`, `chore(ci): B6 workflow`.

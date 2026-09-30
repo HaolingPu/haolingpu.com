@@ -11,7 +11,7 @@ export const SITE: Site = {
   EMAIL: "haolingp@andrew.cmu.edu",
   TAGLINE:
     "I build ML systems that ship — from CUDA kernels to agents to speech translation research.",
-  NOW: "MS in AI & Innovation @ CMU, graduating May 2027 · open to 2027 new-grad ML / SWE roles",
+  NOW: "MS in AI & Innovation @ CMU · researching simultaneous speech translation at the LTI",
   NUM_POSTS_ON_HOMEPAGE: 2,
   NUM_WORKS_ON_HOMEPAGE: 3,
   NUM_PROJECTS_ON_HOMEPAGE: 4,

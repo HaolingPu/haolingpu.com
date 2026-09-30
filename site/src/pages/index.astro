@@ -2,9 +2,9 @@
 import { Image } from "astro:assets";
 import { getCollection } from "astro:content";
 import headshot from "@assets/photos/headshot.jpg";
-import campus from "@assets/photos/michigan-union.jpg";
 import AttentionField from "@components/AttentionField.astro";
 import Behaviors from "@components/Behaviors.astro";
+import CampusPhotos from "@components/CampusPhotos.astro";
 import EducationRow from "@components/EducationRow.astro";
 import HobbyIcon from "@components/HobbyIcon.astro";
 import Logo from "@components/Logo.astro";
@@ -53,13 +53,13 @@ const linkedin = SOCIALS.find((s) => s.NAME === "linkedin")?.HREF ?? "#";
               I'm a master's student at <a href="https://www.cs.cmu.edu">Carnegie Mellon's School of Computer Science</a> and an ML systems engineer. I like the layer where the model meets the hardware and the product: kernels, serving, and the agents that sit on top.
             </p>
             <p>
-              This summer at <a href="https://about.google">Google</a> I taught an agent to keep a team's knowledge base alive. At CMU's <a href="https://www.lti.cs.cmu.edu">Language Technologies Institute</a> I work on speech translation that starts before the sentence ends. Before that, computer science at the <a href="https://umich.edu">University of Michigan</a>.
+              These days I'm at CMU's <a href="https://www.lti.cs.cmu.edu">Language Technologies Institute</a>, working on speech translation that starts before the sentence ends — teaching a model to commit to words while the speaker is still talking. Last summer at <a href="https://about.google">Google</a> I taught an agent to keep a team's knowledge base alive. Before CMU, computer science at the <a href="https://umich.edu">University of Michigan</a>.
             </p>
             <p>
-              Things I've built: a <a href="/projects/sparse-attention-blackwell">sparse attention kernel</a> that made NVIDIA's competition workloads fly, a <a href="/projects/llm-wiki">wiki that writes itself</a>, and a <a href="/projects/hybrid-rag">retrieval system with two brains</a>. The full story is in the résumé; the interesting parts are below.
+              Things I've built: a <a href="/projects/sparse-attention-blackwell">sparse attention kernel</a> that made long-context inference fly, a <a href="/projects/llm-wiki">wiki that writes itself</a>, and a <a href="/projects/hybrid-rag">retrieval system with two brains</a>.
             </p>
             <p>
-              I'm looking for 2027 new-grad ML and software engineering roles. Email is the best way to reach me.
+              This site is where I keep the parts I find interesting. Email is the best way to reach me.
             </p>
           </div>
         </div>
@@ -81,10 +81,7 @@ const linkedin = SOCIALS.find((s) => s.NAME === "linkedin")?.HREF ?? "#";
 
     <Section eyebrow="education" class="animate">
       <ul class="rule-list">{EDUCATION.map((edu) => <EducationRow edu={edu} compact />)}</ul>
-      <figure class="mt-5">
-        <Image src={campus} alt="Sitting on the Michigan Union sign in cap and gown, Ann Arbor, May 2025" widths={[640, 928, 1400]} sizes="(min-width: 992px) 928px, 100vw" class="w-full rounded-lg border border-border" />
-        <figcaption class="mt-2 font-mono text-[12px] text-fg-subtle">Michigan Union, Ann Arbor · May 2025</figcaption>
-      </figure>
+      <CampusPhotos />
     </Section>
 
     <Section eyebrow="projects" class="animate">

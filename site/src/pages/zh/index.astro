@@ -2,9 +2,9 @@
 import { Image } from "astro:assets";
 import { getCollection } from "astro:content";
 import headshot from "@assets/photos/headshot.jpg";
-import campus from "@assets/photos/michigan-union.jpg";
 import AttentionField from "@components/AttentionField.astro";
 import Behaviors from "@components/Behaviors.astro";
+import CampusPhotos from "@components/CampusPhotos.astro";
 import EducationRow from "@components/EducationRow.astro";
 import HobbyIcon from "@components/HobbyIcon.astro";
 import Logo from "@components/Logo.astro";
@@ -50,13 +50,13 @@ const linkedin = SOCIALS.find((s) => s.NAME === "linkedin")?.HREF ?? "#";
               我是<a href="https://www.cs.cmu.edu">卡内基梅隆大学计算机学院</a>的硕士生，做机器学习系统。我最喜欢模型与硬件、产品交汇的那一层：算子、推理服务，以及跑在它们之上的智能体。
             </p>
             <p>
-              今年夏天在 <a href="https://about.google">Google</a>，我教会一个智能体让团队的知识库自己活起来。在 CMU 的<a href="https://www.lti.cs.cmu.edu">语言技术研究所</a>，我做的是在一句话说完之前就开始翻译的研究。再往前，是<a href="https://umich.edu">密歇根大学</a>的计算机科学。
+              现在我在 CMU 的<a href="https://www.lti.cs.cmu.edu">语言技术研究所</a>做同声传译方向的研究：让模型在说话人还没说完的时候，就决定该翻译什么。去年夏天在 <a href="https://about.google">Google</a>，我教会一个智能体让团队的知识库自己活起来。再往前，是<a href="https://umich.edu">密歇根大学</a>的计算机科学。
             </p>
             <p>
-              做过的东西：一个让 NVIDIA 竞赛负载飞起来的<a href="/zh/projects/sparse-attention-blackwell">稀疏注意力算子</a>，一个<a href="/zh/projects/llm-wiki">会自己写自己的维基</a>，还有一个<a href="/zh/projects/hybrid-rag">有两个脑子的检索系统</a>。完整版在简历里，有意思的部分在下面。
+              做过的东西：一个让长上下文推理飞起来的<a href="/zh/projects/sparse-attention-blackwell">稀疏注意力算子</a>，一个<a href="/zh/projects/llm-wiki">会自己写自己的维基</a>，还有一个<a href="/zh/projects/hybrid-rag">有两个脑子的检索系统</a>。
             </p>
             <p>
-              我正在寻找 2027 届的机器学习 / 软件工程全职岗位。邮件是最方便的联系方式。
+              这个网站放的是我自己觉得有意思的那部分。邮件是最方便的联系方式。
             </p>
           </div>
         </div>
@@ -77,10 +77,7 @@ const linkedin = SOCIALS.find((s) => s.NAME === "linkedin")?.HREF ?? "#";
 
     <Section eyebrow={ui.education} class="animate">
       <ul class="rule-list">{EDUCATION.map((edu) => <EducationRow edu={edu} compact lang="zh" />)}</ul>
-      <figure class="mt-5">
-        <Image src={campus} alt="穿着学位服坐在 Michigan Union 标牌上，安娜堡，2025 年 5 月" widths={[640, 928, 1400]} sizes="(min-width: 992px) 928px, 100vw" class="w-full rounded-lg border border-border" />
-        <figcaption class="mt-2 font-mono text-[12px] text-fg-subtle">Michigan Union，安娜堡 · 2025 年 5 月</figcaption>
-      </figure>
+      <CampusPhotos lang="zh" />
     </Section>
 
     <Section eyebrow={ui.projects} class="animate">
