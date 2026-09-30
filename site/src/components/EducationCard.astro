@@ -1,0 +1,55 @@
+---
+import { Image } from "astro:assets";
+import cmu from "@assets/photos/cmu-carnival.jpg";
+import michigan from "@assets/photos/michigan-union.jpg";
+import Logo from "@components/Logo.astro";
+import type { Lang } from "@site.config";
+import { UI } from "@site.config";
+import type { Education } from "@types";
+
+/** One school: its photo, then degree, school and coursework. Two of these sit side by side. */
+type Props = { edu: Education; lang?: Lang };
+const { edu, lang = "en" } = Astro.props;
+const ui = UI[lang];
+const zh = lang === "zh";
+
+const photos = {
+  cmu: {
+    src: cmu,
+    alt: zh
+      ? "在卡内基梅隆大学春季嘉年华的横幅和苏格兰犬吉祥物旁"
+      : "Standing by the Carnegie Mellon banner and the Scotty mascot at Spring Carnival",
+  },
+  umich: {
+    src: michigan,
+    alt: zh
+      ? "穿着学位服坐在 Michigan Union 标牌上，安娜堡"
+      : "Sitting on the Michigan Union sign in cap and gown, Ann Arbor",
+  },
+};
+const photo = photos[edu.LOGO];
+---
+
+<li>
+  <Image
+    src={photo.src}
+    alt={photo.alt}
+    widths={[460, 920]}
+    sizes="(min-width: 640px) 460px, 100vw"
+    class="aspect-[4/3] w-full rounded-lg border border-border object-cover"
+  />
+  <div class="mt-3 font-mono text-[12.5px] text-fg-subtle">{edu.START} – {edu.END}</div>
+  <div class="mt-1 font-medium text-fg">{zh ? edu.DEGREE_ZH : edu.DEGREE}</div>
+  <div class="mt-1 flex flex-wrap items-baseline gap-x-2">
+    <Logo name={edu.LOGO} class="mr-0.5" />
+    <a href={edu.URL} target="_blank" rel="noopener noreferrer" class="link">
+      {zh ? edu.SCHOOL_ZH : edu.SCHOOL}
+    </a>
+  </div>
+  <div class="mt-1 text-[15px] text-fg-muted">
+    {zh ? edu.UNIT_ZH : edu.UNIT} · {ui.gpa} {edu.GPA}
+  </div>
+  <div class="mt-1.5 text-[14px] leading-relaxed text-fg-subtle">
+    {ui.coursework}: {edu.COURSES.join(" · ")}
+  </div>
+</li>

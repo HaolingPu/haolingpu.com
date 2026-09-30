@@ -4,8 +4,7 @@ import { getCollection } from "astro:content";
 import headshot from "@assets/photos/headshot.jpg";
 import AttentionField from "@components/AttentionField.astro";
 import Behaviors from "@components/Behaviors.astro";
-import CampusPhotos from "@components/CampusPhotos.astro";
-import EducationRow from "@components/EducationRow.astro";
+import EducationCard from "@components/EducationCard.astro";
 import HobbyIcon from "@components/HobbyIcon.astro";
 import Logo from "@components/Logo.astro";
 import ProjectRow from "@components/ProjectRow.astro";
@@ -77,8 +76,7 @@ const linkedin = SOCIALS.find((s) => s.NAME === "linkedin")?.HREF ?? "#";
     </Section>
 
     <Section eyebrow="education" class="animate">
-      <ul class="rule-list">{EDUCATION.map((edu) => <EducationRow edu={edu} compact />)}</ul>
-      <CampusPhotos />
+      <ul class="grid gap-x-6 gap-y-10 sm:grid-cols-2">{EDUCATION.map((edu) => <EducationCard edu={edu} />)}</ul>
     </Section>
 
     <Section eyebrow="projects" class="animate">
