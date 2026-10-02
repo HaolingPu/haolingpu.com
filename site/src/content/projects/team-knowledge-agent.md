@@ -4,7 +4,7 @@ title: Agentic team knowledge system
 summary: "The agent that knows what the team knows. Shipped for real at Google, for teams beyond my own."
 date: 2026-08-15
 featured: true
-order: 5
+order: 6
 tags: [agents, llm]
 context: Google internship
 private: true

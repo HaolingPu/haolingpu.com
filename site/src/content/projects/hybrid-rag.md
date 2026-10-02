@@ -4,7 +4,7 @@ title: Hybrid retrieval-augmented generation
 summary: "Keyword search and embeddings, fused so each covers the other's blind spots, with a local open-source model doing the talking."
 date: 2026-03-01
 featured: true
-order: 4
+order: 5
 tags: [retrieval, llm]
 repo: https://github.com/HaolingPu/anlp-spring2026-hw1
 context: CMU Advanced NLP

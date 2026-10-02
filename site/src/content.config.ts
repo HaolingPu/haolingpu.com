@@ -2,7 +2,7 @@ import { defineCollection, z } from "astro:content";
 import { glob } from "astro/loaders";
 
 const logo = z
-  .enum(["google", "nvidia", "cmu", "umich", "weride", "umsn", "aviage", "sglang"])
+  .enum(["google", "nvidia", "cmu", "umich", "weride", "umsn", "aviage", "sglang", "bny"])
   .optional();
 const doodle = z
   .enum([
@@ -19,6 +19,7 @@ const doodle = z
     "future",
     "kernel",
     "stream-audio",
+    "agent-loop",
   ])
   .optional();
 

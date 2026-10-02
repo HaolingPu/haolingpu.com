@@ -14,7 +14,8 @@ export type LogoName =
   | "weride"
   | "umsn"
   | "aviage"
-  | "sglang";
+  | "sglang"
+  | "bny";
 type Props = { name: LogoName; class?: string; size?: number };
 const { name, class: className, size = 22 } = Astro.props;
 
@@ -22,6 +23,7 @@ const initials: Record<string, { text: string; bg: string; fg: string }> = {
   cmu: { text: "CMU", bg: "#ab1727", fg: "#fff" },
   aviage: { text: "A", bg: "#0b5fa5", fg: "#fff" },
   sglang: { text: "SGL", bg: "#111827", fg: "#fff" },
+  bny: { text: "BNY", bg: "#04243c", fg: "#fff" },
 };
 const labels: Record<LogoName, string> = {
   google: "Google",
@@ -32,6 +34,7 @@ const labels: Record<LogoName, string> = {
   umsn: "University of Michigan School of Nursing",
   aviage: "AVIAGE Systems",
   sglang: "SGLang-Omni",
+  bny: "BNY",
 };
 ---
 
