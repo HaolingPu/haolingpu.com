@@ -6,8 +6,6 @@ import AttentionField from "@components/AttentionField.astro";
 import Behaviors from "@components/Behaviors.astro";
 import EducationCard from "@components/EducationCard.astro";
 import HobbyIcon from "@components/HobbyIcon.astro";
-import Logo from "@components/Logo.astro";
-import ProjectRow from "@components/ProjectRow.astro";
 import Container from "@components/ui/Container.astro";
 import Section from "@components/ui/Section.astro";
 import WorkRow from "@components/WorkRow.astro";
@@ -17,10 +15,6 @@ import { EDUCATION, HOBBIES, HOME, SITE, SOCIALS } from "@site.config";
 const work = (await getCollection("work")).sort(
   (a, b) => b.data.dateStart.valueOf() - a.data.dateStart.valueOf(),
 );
-const projects = (await getCollection("projects"))
-  .filter((p) => p.data.featured && !p.data.draft)
-  .sort((a, b) => a.data.order - b.data.order);
-const research = (await getCollection("research")).sort((a, b) => a.data.order - b.data.order);
 const writing = (await getCollection("writing"))
   .filter((p) => !p.data.draft)
   .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf())
@@ -79,28 +73,7 @@ const linkedin = SOCIALS.find((s) => s.NAME === "linkedin")?.HREF ?? "#";
       <ul class="grid gap-x-6 gap-y-10 sm:grid-cols-2">{EDUCATION.map((edu) => <EducationCard edu={edu} />)}</ul>
     </Section>
 
-    <Section eyebrow="projects" class="animate">
-      <a slot="action" href="/projects" class="link-quiet">all projects</a>
-      <ul class="rule-list">{projects.map((p) => <ProjectRow project={p} />)}</ul>
-    </Section>
 
-    <Section eyebrow="research" class="animate">
-      <a slot="action" href="/research" class="link-quiet">all research</a>
-      <ul class="rule-list">
-        {
-          research.map((r) => (
-            <li class="py-3">
-              <div class="flex flex-wrap items-baseline gap-x-2">
-                {r.data.logo && <Logo name={r.data.logo} class="mr-0.5" />}
-                <a href="/research" class="link font-medium">{r.data.title}</a>
-                <span class="text-sm text-fg-subtle">· {r.data.venue} · {r.data.status}</span>
-              </div>
-              <p class="mt-0.5 text-[15px] leading-relaxed text-fg-muted">{r.data.summary}</p>
-            </li>
-          ))
-        }
-      </ul>
-    </Section>
 
     {
       writing.length > 0 && (

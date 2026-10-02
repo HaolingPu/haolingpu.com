@@ -6,8 +6,6 @@ import AttentionField from "@components/AttentionField.astro";
 import Behaviors from "@components/Behaviors.astro";
 import EducationCard from "@components/EducationCard.astro";
 import HobbyIcon from "@components/HobbyIcon.astro";
-import Logo from "@components/Logo.astro";
-import ProjectRow from "@components/ProjectRow.astro";
 import Container from "@components/ui/Container.astro";
 import Section from "@components/ui/Section.astro";
 import WorkRow from "@components/WorkRow.astro";
@@ -18,10 +16,6 @@ const ui = UI.zh;
 const work = (await getCollection("work")).sort(
   (a, b) => b.data.dateStart.valueOf() - a.data.dateStart.valueOf(),
 );
-const projects = (await getCollection("projects"))
-  .filter((p) => p.data.featured && !p.data.draft)
-  .sort((a, b) => a.data.order - b.data.order);
-const research = (await getCollection("research")).sort((a, b) => a.data.order - b.data.order);
 const github = SOCIALS.find((s) => s.NAME === "github")?.HREF ?? "#";
 const linkedin = SOCIALS.find((s) => s.NAME === "linkedin")?.HREF ?? "#";
 ---
@@ -75,28 +69,7 @@ const linkedin = SOCIALS.find((s) => s.NAME === "linkedin")?.HREF ?? "#";
       <ul class="grid gap-x-6 gap-y-10 sm:grid-cols-2">{EDUCATION.map((edu) => <EducationCard edu={edu} lang="zh" />)}</ul>
     </Section>
 
-    <Section eyebrow={ui.projects} class="animate">
-      <a slot="action" href="/zh/projects" class="link-quiet">{ui.allProjects}</a>
-      <ul class="rule-list">{projects.map((p) => <ProjectRow project={p} lang="zh" />)}</ul>
-    </Section>
 
-    <Section eyebrow={ui.research} class="animate">
-      <a slot="action" href="/zh/research" class="link-quiet">{ui.more}</a>
-      <ul class="rule-list">
-        {
-          research.map((r) => (
-            <li class="py-3">
-              <div class="flex flex-wrap items-baseline gap-x-2">
-                {r.data.logo && <Logo name={r.data.logo} class="mr-0.5" />}
-                <a href="/zh/research" class="link font-medium">{r.data.title_zh ?? r.data.title}</a>
-                <span class="text-sm text-fg-subtle">· {r.data.venue_zh ?? r.data.venue}</span>
-              </div>
-              <p class="mt-0.5 text-[15px] leading-relaxed text-fg-muted">{r.data.summary_zh ?? r.data.summary}</p>
-            </li>
-          ))
-        }
-      </ul>
-    </Section>
 
     <Section eyebrow={ui.off} class="animate">
       <ul class="flex flex-wrap gap-x-5 gap-y-2 text-[15px] text-fg-muted">
