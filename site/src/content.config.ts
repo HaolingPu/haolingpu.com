@@ -20,6 +20,7 @@ const doodle = z
     "kernel",
     "stream-audio",
     "agent-loop",
+    "notes-map",
   ])
   .optional();
 
