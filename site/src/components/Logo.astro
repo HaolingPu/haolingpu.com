@@ -1,7 +1,7 @@
 ---
 /**
  * Small organization mark used beside roles, projects and research.
- * Official marks (Google, NVIDIA, Michigan inline SVG; WeRide symbol as a PNG from
+ * Official marks (Google, NVIDIA, Michigan, the BNY chevron inline SVG; WeRide symbol as a PNG from
  * Wikimedia Commons, public/logos/weride.png) are used
  * for factual-affiliation use; organizations without a public vector mark get
  * a colored initial tile so every row still gets a picture.
@@ -23,7 +23,6 @@ const initials: Record<string, { text: string; bg: string; fg: string }> = {
   cmu: { text: "CMU", bg: "#ab1727", fg: "#fff" },
   aviage: { text: "A", bg: "#0b5fa5", fg: "#fff" },
   sglang: { text: "SGL", bg: "#111827", fg: "#fff" },
-  bny: { text: "BNY", bg: "#04243c", fg: "#fff" },
 };
 const labels: Record<LogoName, string> = {
   google: "Google",
@@ -83,6 +82,16 @@ const labels: Record<LogoName, string> = {
   {
     name === "weride" && (
       <img src="/logos/weride.png" alt="" width={size - 2} height={size - 2} decoding="async" loading="lazy" />
+    )
+  }
+  {
+    name === "bny" && (
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="30.189 378.184 44.36 34.091" width={size - 6} height={(size - 6) * 0.77}>
+        <polygon
+          points="74.549,395.23 49.699,404.677 30.189,412.275 42.717,395.23 30.189,378.184 49.699,385.578"
+          fill="#2b9cae"
+        />
+      </svg>
     )
   }
   {
