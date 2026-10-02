@@ -6,13 +6,22 @@
  * for factual-affiliation use; organizations without a public vector mark get
  * a colored initial tile so every row still gets a picture.
  */
-export type LogoName = "google" | "nvidia" | "cmu" | "umich" | "weride" | "umsn" | "aviage";
+export type LogoName =
+  | "google"
+  | "nvidia"
+  | "cmu"
+  | "umich"
+  | "weride"
+  | "umsn"
+  | "aviage"
+  | "sglang";
 type Props = { name: LogoName; class?: string; size?: number };
 const { name, class: className, size = 22 } = Astro.props;
 
 const initials: Record<string, { text: string; bg: string; fg: string }> = {
   cmu: { text: "CMU", bg: "#ab1727", fg: "#fff" },
   aviage: { text: "A", bg: "#0b5fa5", fg: "#fff" },
+  sglang: { text: "SGL", bg: "#111827", fg: "#fff" },
 };
 const labels: Record<LogoName, string> = {
   google: "Google",
@@ -22,6 +31,7 @@ const labels: Record<LogoName, string> = {
   weride: "WeRide",
   umsn: "University of Michigan School of Nursing",
   aviage: "AVIAGE Systems",
+  sglang: "SGLang-Omni",
 };
 ---
 
