@@ -3,7 +3,7 @@ title: LLM Wiki
 summary: "A wiki that writes itself: an agent reads sources, links pages, and cleans up its own contradictions. Karpathy's LLM Wiki idea, made real."
 date: 2026-06-01
 featured: true
-order: 2
+order: 3
 tags: [agents, llm]
 repo: https://github.com/HaolingPu/llm-wiki-meridian
 title_zh: LLM 维基

@@ -3,7 +3,7 @@ title: EchoFrame
 summary: "Hand it a faded old photo, get it back in color half a minute later. Built for my family's albums."
 date: 2025-12-01
 featured: true
-order: 5
+order: 6
 tags: [ios, ml]
 private: true
 title_zh: EchoFrame
